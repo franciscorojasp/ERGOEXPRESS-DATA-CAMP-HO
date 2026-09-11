@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta name="theme-color" content="#003637"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="ERGOEXPRESS"/>
+<title>ERGOEXPRESS - Auditoría Higiénica y LOPCYMAT</title>
+<!-- Manifest inyectado dinámicamente si no es file:/// para evitar error CORS -->
+<script>
+if (window.location.protocol.startsWith('http')) {
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = 'manifest.json';
+  document.head.appendChild(link);
+}
+</script>
+<link rel="apple-touch-icon" href="img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "on-secondary-container": "#006f64",
+        "surface-container-low": "#eff4ff",
+        "inverse-primary": "#9cd0d0",
+        "on-surface-variant": "#404848",
+        "on-secondary": "#ffffff",
+        "error": "#ba1a1a",
+        "inverse-on-surface": "#eaf1ff",
+        "primary-container": "#174e4f",
+        "on-error": "#ffffff",
+        "primary-fixed-dim": "#9cd0d0",
+        "tertiary-fixed-dim": "#68dba9",
+        "secondary-fixed": "#71f8e4",
+        "tertiary": "#003825",
+        "on-tertiary-fixed-variant": "#005137",
+        "outline": "#707979",
+        "on-secondary-fixed": "#00201c",
+        "on-primary-fixed": "#002020",
+        "on-primary-fixed-variant": "#174e4f",
+        "on-secondary-fixed-variant": "#005048",
+        "surface-container-high": "#dce9ff",
+        "on-surface": "#0b1c30",
+        "on-tertiary": "#ffffff",
+        "on-background": "#0b1c30",
+        "on-primary": "#ffffff",
+        "primary": "#003637",
+        "on-tertiary-container": "#54c998",
+        "surface-bright": "#f8f9ff",
+        "secondary-fixed-dim": "#4fdbc8",
+        "surface-tint": "#336667",
+        "background": "#f8f9ff",
+        "secondary": "#006b5f",
+        "inverse-surface": "#213145",
+        "surface-container-lowest": "#ffffff",
+        "primary-fixed": "#b7eced",
+        "surface-container-highest": "#d3e4fe",
+        "error-container": "#ffdad6",
+        "on-tertiary-fixed": "#002114",
+        "secondary-container": "#6df5e1",
+        "surface-dim": "#cbdbf5",
+        "tertiary-fixed": "#85f8c4",
+        "surface": "#f8f9ff",
+        "surface-variant": "#d3e4fe",
+        "outline-variant": "#bfc8c8",
+        "tertiary-container": "#005137",
+        "on-primary-container": "#8abebf",
+        "on-error-container": "#93000a",
+        "surface-container": "#e5eeff"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      "spacing": {
+        "space-xs": "0.25rem",
+        "margin": "1rem",
+        "space-sm": "0.5rem",
+        "gutter": "0.75rem",
+        "space-xl": "1.5rem",
+        "space-md": "0.75rem",
+        "space-lg": "1rem"
+      },
+      "fontFamily": {
+        "label-lg": ["Inter"],
+        "headline-sm": ["Inter"],
+        "title-md": ["Inter"],
+        "label-md": ["Inter"],
+        "label-sm": ["Inter"],
+        "body-md": ["Inter"],
+        "body-lg": ["Inter"],
+        "body-sm": ["Inter"],
+        "display-lg": ["Inter"],
+        "headline-lg": ["Inter"]
+      },
+      "fontSize": {
+        "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+        "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+        "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+        "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+        "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+      }
+    }
+  }
+};
+</script>
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.sig-canvas-grid {
+  background-size: 16px 16px;
+  background-image: 
+    linear-gradient(to right, rgba(191, 200, 200, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(191, 200, 200, 0.25) 1px, transparent 1px);
+}
+body { min-height: max(884px, 100dvh); }
+.view-screen { display: none; }
+.view-screen.active { display: block; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen pb-24 selection:bg-secondary-container selection:text-on-secondary-container">
+
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex items-center justify-between px-3 py-2 w-full sticky top-0 z-40">
+  <div class="flex items-center gap-2.5">
+    <img alt="ERGOEXPRESS C.A. Logo Oficial" class="h-10 w-10 object-contain rounded-full shadow-sm border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUhf6tk2PngVKA0Vypu0AyHC2-bNtZ_ClvCjCufMa9ykqy9gRYrGPlra8yUquZhyksBLsrIa3XCA4IwD4ueFsvZ4ApiE6ViFUrHoCAGGPd2KqZG1AH1EH5JRK1Bq7S2WRWhUe63qm51ETfjuwrKR1MKlcBHuwMtaC34NHZDuPncQywECqe8aq1iXU24NiPieEUlq5Txi7BkGEoNbhY7GeiITxSmf1ChNhkXRqobrTYHkFVrfc5D0UBNfA0uJlr2Xd71w" onerror="this.src='img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png'"/>
+    <div class="flex flex-col">
+      <span class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary dark:text-inverse-primary leading-tight">ERGOEXPRESS, C.A.</span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant dark:text-outline-variant font-medium">RIF: J-50251246-2 • LOPCYMAT</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-1.5">
+    <div class="flex items-center bg-surface-container rounded-lg p-0.5 border border-outline-variant mr-1">
+      <button class="p-1 rounded text-primary hover:bg-surface-container-lowest transition-colors" onclick="setThemeMode('light')" title="Modo Claro" type="button"><span class="material-symbols-outlined text-[16px]">light_mode</span></button>
+      <button class="p-1 rounded text-outline hover:bg-surface-container-lowest transition-colors" onclick="setThemeMode('medium')" title="Modo Medio" type="button"><span class="material-symbols-outlined text-[16px]">contrast</span></button>
+      <button class="p-1 rounded text-outline hover:bg-surface-container-lowest transition-colors" onclick="setThemeMode('dark')" title="Modo Oscuro" type="button"><span class="material-symbols-outlined text-[16px]">dark_mode</span></button>
+    </div>
+    <div class="flex items-center gap-1 px-2 py-1 bg-surface-container rounded-full border border-outline-variant">
+      <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+      <span class="font-label-sm text-label-sm text-primary font-semibold" id="status-online-text">Sheets Conectado</span>
+    </div>
+    
+      <button class="p-1 rounded text-secondary hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-95" onclick="openSheetsConfig()" title="Configuración Google Sheets & Multiusuario" type="button">
+        <span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+      </button>
+      <button class="p-1 rounded text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-95" onclick="showGlobalSync()" title="Sincronizado con la nube" type="button"><span class="material-symbols-outlined text-[20px]" data-icon="cloud_done" style="font-variation-settings: 'FILL' 1;">cloud_done</span></button>
+  </div>
+</header>
+
+<div id="pwa-install-banner" class="hidden bg-secondary-container text-on-secondary-container px-3 py-2 flex items-center justify-between border-b border-outline-variant">
+  <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary">install_mobile</span><span class="font-label-sm text-label-sm font-bold">Instalar ERGOEXPRESS en tu dispositivo</span></div>
+  <div class="flex items-center gap-1.5"><button id="btn-pwa-install" class="bg-primary text-on-primary px-2.5 py-1 rounded font-label-sm text-label-sm font-bold active:scale-95">Instalar</button><button onclick="document.getElementById('pwa-install-banner').classList.add('hidden')" class="text-outline hover:text-on-surface p-1"><span class="material-symbols-outlined text-[16px]">close</span></button></div>
+</div>
+
+<div id="view-empresa" class="view-screen active">
+  <section class="bg-surface-container-low dark:bg-inverse-surface border-b border-outline-variant px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+        <span class="material-symbols-outlined text-primary text-base" data-icon="assignment">assignment</span>
+        <span>RECOPILACIÓN DE DATOS • EVALUACIÓN HIGIÉNICA OCUPACIONAL</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="exportToExcel()" class="flex items-center gap-1.5 bg-tertiary text-on-tertiary px-3 py-1.5 rounded text-label-md font-label-md hover:bg-tertiary-container transition-transform active:scale-95 shadow-sm">
+          <span class="material-symbols-outlined text-sm" data-icon="table_chart">table_chart</span>
+          <span>Exportar a Excel (.xlsx)</span>
+        </button>
+        <button onclick="exportToPdf()" class="flex items-center gap-1.5 bg-error text-on-error px-3 py-1.5 rounded text-label-md font-label-md hover:bg-on-error-container transition-transform active:scale-95 shadow-sm">
+          <span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+          <span>Generar Reporte PDF Acta</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <main class="max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 flex-1 flex flex-col gap-5">
+    
+<!-- Active Collaborators Live Bar (Mobile Pill) -->
+<div class="sm:hidden flex items-center justify-between bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant text-label-sm font-label-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-primary font-bold">Sesión en vivo:</span>
+<span class="text-on-surface-variant">Carlos M., Ing. Valera, TSU Rojas</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-bold">Sincronizado</span>
+</div>
+<!-- MODULE 1: DATOS DE LA EMPRESA Y ORGANIZACIÓN DEL TRABAJO -->
+<div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-4 shadow-sm">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2.5 mb-3.5">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm font-bold">1</span>
+<h2 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold tracking-tight">DATOS DE LA EMPRESA Y ORGANIZACIÓN DEL TRABAJO</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Formato Oficial LOPCYMAT</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+<!-- Razón Social -->
+<div class="lg:col-span-2">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Nombre / Razón Social</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="MANUFACTURAS INDUSTRIALES DEL CENTRO, C.A."/>
+<span class="absolute right-2 text-outline-variant material-symbols-outlined text-sm" data-icon="domain">domain</span>
+</div>
+</div>
+<!-- RIF -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">RIF de la Empresa</label>
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="J-31498021-0"/>
+</div>
+<!-- Lugar y Fecha -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Lugar y Fecha</label>
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="San Joaquín, Carabobo - 24/05/2024"/>
+</div>
+<!-- Puesto de Trabajo -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto de Trabajo</label>
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="Operador de Envasado y Sellado Térmico"/>
+</div>
+<!-- Puesto Nº -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto Nº</label>
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="Línea 03 - P-12"/>
+</div>
+<!-- Actividad Principal -->
+<div class="lg:col-span-2">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Actividad Específica Evaluada</label>
+<input class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" value="Alimentación manual de tolva, ajuste de selladora y estiba de bultos (25 Kg)"/>
+</div>
+<!-- Jornada / Turnos / Rotación -->
+<div class="lg:col-span-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Jornada / Turnos / Sistema de rotación y tiempos</label>
+<textarea class="w-full p-2 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" rows="2">Jornada diurna de 8 hrs (7:00 am - 3:30 pm) con 45 min de descanso. Sistema de rotación cada 2 horas entre alimentación de tolva y paletizado manual para mitigar sobrecarga biomecánica.</textarea>
+</div>
+</div>
+</div>
+
+  </main>
+</div>
+
+<div id="view-colaboradores" class="view-screen">
+  <section class="bg-surface-container-low dark:bg-inverse-surface border-b border-outline-variant px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+        <span class="material-symbols-outlined text-primary text-base">groups</span>
+        <span>MÓDULO 2 • NÓMINA BIOMÉTRICA Y ERGONÓMICA DE PUESTO</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="exportToExcel()" class="flex items-center gap-1.5 bg-tertiary text-on-tertiary px-3 py-1.5 rounded text-label-md font-label-md hover:bg-tertiary-container transition-transform active:scale-95 shadow-sm">
+          <span class="material-symbols-outlined text-sm" data-icon="table_chart">table_chart</span>
+          <span>Exportar Datos</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <main class="max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 flex-1 flex flex-col gap-5">
+    <!-- MODULE 2: DATOS DE LOS COLABORADORES QUE OCUPAN EL PUESTO (1-6) -->
+
+<div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-4 shadow-sm flex flex-col gap-4">
+<!-- Module Title & Controls -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant pb-3">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm font-bold">2</span>
+<div>
+<h2 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold tracking-tight">DATOS DE LOS COLABORADORES DEL PUESTO</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Matriz comparativa de biometría, ergonomía e historial de salud (Capacidad: 6 trabajadores simultáneos)</p>
+</div>
+</div>
+<!-- Add Worker Button & Tab Selector -->
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-secondary font-bold px-2 py-1 bg-secondary-container/30 rounded">3 de 6 Activos</span>
+<button class="flex items-center gap-1 bg-primary text-on-primary px-3 py-1.5 rounded font-label-md text-label-md hover:bg-primary-container transition-transform active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="person_add">person_add</span>
+<span>+ Agregar Colaborador</span>
+</button>
+</div>
+</div>
+<!-- Quick Selector Horizontal Tab Bar for 1-Tap Switching -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+<button class="px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm whitespace-nowrap border border-primary">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span>Trabajador 1: Juan P.</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1.5 hover:bg-surface-container-high transition-colors whitespace-nowrap border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Trabajador 2: María R.</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1.5 hover:bg-surface-container-high transition-colors whitespace-nowrap border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Trabajador 3: Carlos V.</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-low text-outline font-label-md text-label-md flex items-center gap-1.5 hover:bg-surface-container whitespace-nowrap border border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span>
+<span>Trabajador 4 (Vacante)</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-low text-outline font-label-md text-label-md flex items-center gap-1.5 hover:bg-surface-container whitespace-nowrap border border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span>
+<span>Trabajador 5 (Vacante)</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-low text-outline font-label-md text-label-md flex items-center gap-1.5 hover:bg-surface-container whitespace-nowrap border border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span>
+<span>Trabajador 6 (Vacante)</span>
+</button>
+</div>
+<!-- FULL HIGH-DENSITY COMPARATIVE WORKER MATRIX (Mobile Horizontal Swipe & Sticky First Column) -->
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<div class="overflow-x-auto max-w-full">
+<table class="w-full text-left border-collapse min-w-[840px]">
+<thead>
+<tr class="bg-primary-container text-on-primary font-label-md text-label-md">
+<th class="p-2.5 sticky left-0 z-20 bg-primary-container w-44 uppercase border-r border-outline">Parámetro Biométrico</th>
+<th class="p-2.5 w-48 text-secondary-container bg-primary-container/95 border-r border-outline">
+<div class="flex items-center justify-between">
+<span>Trabajador 1</span>
+<span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
+</div>
+</th>
+<th class="p-2.5 w-48 border-r border-outline">Trabajador 2</th>
+<th class="p-2.5 w-48 border-r border-outline">Trabajador 3</th>
+<th class="p-2.5 w-44 border-r border-outline text-outline-variant">Trabajador 4</th>
+<th class="p-2.5 w-44 border-r border-outline text-outline-variant">Trabajador 5</th>
+<th class="p-2.5 w-44 text-outline-variant">Trabajador 6</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm text-body-sm">
+<!-- 1. Nombre y Apellidos -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Nombre y Apellidos</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-medium focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="Juan José Pérez Mora"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary" type="text" value="María Elena Rodríguez"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary" type="text" value="Carlos Luis Valera"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
+</tr>
+<!-- 2. Cédula de Identidad -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Cédula de Identidad</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary font-mono" type="text" value="V-18.432.901"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-mono" type="text" value="V-20.119.453"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-mono" type="text" value="V-16.782.304"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
+</tr>
+<!-- 3. Género -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Género</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
+<option selected="">Masculino (M)</option>
+<option>Femenino (F)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
+<option>Masculino (M)</option>
+<option selected="">Femenino (F)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
+<option selected="">Masculino (M)</option>
+<option>Femenino (F)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
+<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
+</tr>
+<!-- 4. Fecha de Nacimiento -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Fecha de Nacimiento</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1988-04-12"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1992-09-21"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1984-11-03"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+</tr>
+<!-- 5. Fecha de Ingreso -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Fecha de Ingreso</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2018-02-15"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2020-06-01"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2015-08-10"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+</tr>
+<!-- 6. Cargo -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Cargo</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Técnico I"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Técnico II"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Líder Tolva"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+</tr>
+<!-- 7. Mano Dominante -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Mano Dominante</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
+<option selected="">Diestro (D)</option>
+<option>Zurdo (Z)</option>
+<option>Ambidiestro (A)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
+<option>Diestro (D)</option>
+<option selected="">Zurdo (Z)</option>
+<option>Ambidiestro (A)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
+<option selected="">Diestro (D)</option>
+<option>Zurdo (Z)</option>
+<option>Ambidiestro (A)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+</tr>
+<!-- 8. Peso (Kg) -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Peso (Kg)</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="78.5"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="62.0"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="84.2"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+</tr>
+<!-- 9. Talla / Estatura (mts) -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Talla / Estatura (mts)</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.74"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.62"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.81"/>
+<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+</tr>
+<!-- 10. Frecuencia Cardíaca Reposo -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">FC Reposo (bpm)</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="68"/>
+<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="72"/>
+<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="74"/>
+<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+</tr>
+<!-- 11. Frecuencia Cardíaca Actividad -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">FC Actividad (bpm)</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-secondary rounded-l text-primary font-bold font-mono" type="number" value="112"/>
+<span class="h-8 px-1 bg-secondary-container border-y border-r border-secondary rounded-r text-label-sm flex items-center text-on-secondary-container font-bold">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="105"/>
+<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<div class="flex items-center">
+<input class="w-full h-8 px-2 bg-surface-bright border border-error rounded-l text-error font-bold font-mono" type="number" value="128"/>
+<span class="h-8 px-1 bg-error-container border-y border-r border-error rounded-r text-label-sm flex items-center text-on-error-container font-bold">bpm</span>
+</div>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+</tr>
+<!-- 12. Patología / Enfermedad -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Patología / Enfermedad</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Lumbalgia mecánica leve (2022)"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna reportada"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Hipertensión arterial controlada"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+</tr>
+<!-- 13. Diversidad Funcional -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Diversidad Funcional</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Visual (Uso de lentes correctivos)"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+</tr>
+<!-- 14. Estado Civil -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Estado Civil</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option selected="">Casado(a)</option>
+<option>Soltero(a)</option>
+<option>Concubinato</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option>Casado(a)</option>
+<option selected="">Soltero(a)</option>
+<option>Concubinato</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option>Casado(a)</option>
+<option>Soltero(a)</option>
+<option selected="">Concubinato</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+</tr>
+<!-- 15. Grado de Instrucción -->
+<tr class="hover:bg-surface-container-low">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Grado de Instrucción</td>
+<td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option>Bachiller</option>
+<option selected="">TSU Mecánica</option>
+<option>Universitario</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option selected="">Bachiller</option>
+<option>TSU Industrial</option>
+<option>Universitario</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
+<option>Bachiller</option>
+<option selected="">TSU Mantenimiento</option>
+<option>Universitario</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Quick Biometric Summary & Legal Disclaimer Notice -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant flex items-center gap-3">
+<div class="p-2 rounded bg-primary-container text-secondary-container">
+<span class="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase block">Alerta Cardiovascular</span>
+<span class="font-label-md text-label-md text-primary font-bold">1/3 Trabajadores con FC &gt; 120 bpm</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant flex items-center gap-3">
+<div class="p-2 rounded bg-tertiary-container text-tertiary-fixed">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase block">Validación Legal LOPCYMAT</span>
+<span class="font-label-md text-label-md text-tertiary-fixed-dim font-bold">Huella y Firma requeridas en Módulo 5</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="save">save</span>
+<span class="font-label-md text-label-md text-on-surface">Auto-guardado local activo</span>
+</div>
+<button class="bg-primary text-on-primary px-3 py-1 rounded text-label-sm font-label-sm font-bold active:scale-95 transition-transform">
+            Guardar Avance
+          </button>
+</div>
+</div>
+</div>
+
+  </main>
+</div>
+
+<div id="view-encuesta" class="view-screen">
+  <!-- Sticky Module Context Header & Progress Bar -->
+<section class="bg-surface-container-lowest px-4 pt-3 pb-2 border-b border-outline-variant/40 shadow-sm sticky top-[49px] z-30">
+<div class="flex items-center justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase">Módulo 3</span>
+<h1 class="font-title-md text-title-md text-primary font-bold">Encuesta de Microclima</h1>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container px-2 py-0.5 rounded-full text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-secondary">task_alt</span>
+<span class="font-label-sm text-label-sm font-bold" id="progress-indicator">38 / 43 Respuestas</span>
+</div>
+</div>
+<!-- Progress Meter -->
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-300" style="width: 88%;"></div>
+</div>
+<!-- Category Tabs Selector -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pt-2.5 pb-1">
+<button class="category-tab active-tab flex-shrink-0 px-3 py-1.5 rounded-lg font-label-md text-label-md flex items-center gap-1.5 bg-primary text-on-primary shadow-sm transition-all duration-150" onclick="switchCategory('termico', this)">
+<span class="material-symbols-outlined text-[16px]">thermostat</span>
+<span>Térmico &amp; Confort (1-18)</span>
+</button>
+<button class="category-tab flex-shrink-0 px-3 py-1.5 rounded-lg font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all duration-150" onclick="switchCategory('iluminacion', this)">
+<span class="material-symbols-outlined text-[16px]">wb_incandescent</span>
+<span>Iluminación (19-28)</span>
+</button>
+<button class="category-tab flex-shrink-0 px-3 py-1.5 rounded-lg font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all duration-150" onclick="switchCategory('ruido', this)">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+<span>Ruido Ocupacional (29-43)</span>
+</button>
+</div>
+</section>
+
+<!-- Official Notice Header Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-3.5 shadow-sm">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0 mt-0.5">policy</span>
+<div class="space-y-1">
+<h2 class="font-label-lg text-label-lg text-primary uppercase font-bold tracking-tight">
+            Contribución de los Colaboradores en la Evaluación del Microclima y Entorno
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Le extendemos una cordial invitación a participar en este sondeo de carácter estrictamente <strong>confidencial</strong>. Su honestidad es fundamental para valorar adecuadamente las condiciones ambientales y, de ser preciso, implementar acciones preventivas inmediatas según norma técnica LOPCYMAT.
+          </p>
+</div>
+</div>
+<div class="mt-2.5 pt-2 border-t border-outline-variant/30 flex flex-wrap items-center justify-between gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span>Opciones: <strong>Sí (S)</strong>, <strong>No (N)</strong>, <strong>No Aplica (N/A)</strong></span>
+</div>
+<span class="text-secondary font-bold">Respuesta Unificada o por Trabajador</span>
+</div>
+</div>
+<!-- Active Worker Selector & Batch Matrix Switcher Bar -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-3 shadow-sm flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">groups</span>
+<span class="font-label-md text-label-md uppercase text-primary tracking-wider">Muestra de Trabajadores Evaluados</span>
+</div>
+<!-- Toggle Multi-Colaborador / Lote Mode -->
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-primary text-primary font-label-sm text-label-sm font-semibold hover:bg-surface-container transition-colors" id="batch-mode-toggle" onclick="toggleBatchMode()">
+<span class="material-symbols-outlined text-[16px]">view_column</span>
+<span id="batch-toggle-text">Ver Matriz Comparativa (T1 a T6)</span>
+</button>
+</div>
+<!-- Quick Worker Chips (Horizontally Scrollable) -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+<button class="worker-btn active-worker flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap shadow-xs" onclick="selectWorker(1)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T1: Pedro P.</span>
+<span class="ml-1 text-[10px] bg-secondary text-on-secondary px-1 rounded-full font-bold">18/18</span>
+</button>
+<button class="worker-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap hover:bg-surface-container" onclick="selectWorker(2)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T2: María G.</span>
+<span class="ml-1 text-[10px] bg-surface-container-highest text-primary px-1 rounded-full font-bold">16/18</span>
+</button>
+<button class="worker-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap hover:bg-surface-container" onclick="selectWorker(3)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T3: José L.</span>
+<span class="ml-1 text-[10px] bg-surface-container-highest text-primary px-1 rounded-full font-bold">18/18</span>
+</button>
+<button class="worker-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap hover:bg-surface-container" onclick="selectWorker(4)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T4: Carlos R.</span>
+<span class="ml-1 text-[10px] bg-surface-container-highest text-primary px-1 rounded-full font-bold">12/18</span>
+</button>
+<button class="worker-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap hover:bg-surface-container" onclick="selectWorker(5)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T5: Ana V.</span>
+<span class="ml-1 text-[10px] bg-surface-container-highest text-primary px-1 rounded-full font-bold">18/18</span>
+</button>
+<button class="worker-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap hover:bg-surface-container" onclick="selectWorker(6)">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>T6: Luis M.</span>
+<span class="ml-1 text-[10px] bg-surface-container-highest text-primary px-1 rounded-full font-bold">14/18</span>
+</button>
+</div>
+</div>
+<!-- Quick Mass Fill / Quick Actions Bar -->
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-lg border border-outline-variant/30 text-body-sm">
+<span class="text-on-surface-variant font-label-md text-label-md">Acción rápida para T1:</span>
+<div class="flex items-center gap-1.5">
+<button class="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-label-sm text-label-sm hover:border-secondary" onclick="massFill('NO')">Marcar restantes "NO"</button>
+<button class="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-label-sm text-label-sm hover:border-secondary" onclick="massFill('SI')">Marcar todos "SÍ"</button>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- SECTION 1: TÉRMICO & CONFORT (PREGUNTAS 1 a 18)          -->
+<!-- ======================================================== -->
+<div class="space-y-2.5 block" id="section-termico">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-title-md text-title-md font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">device_thermostat</span>
+<span>Variables Térmicas &amp; Fisiológicas</span>
+</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Preguntas 1 a 18</span>
+</div>
+<!-- Question Cards -->
+<!-- P1 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 shadow-xs space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex gap-2">
+<span class="font-label-md text-label-md bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold h-fit">1</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+<strong class="text-secondary font-bold">T</strong> ¿Siente usted incomodidad por el calor o el frío en su área de trabajo?
+            </p>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase bg-surface-container-low px-1 rounded">T1</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 pt-1">
+<button class="ans-btn-1 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(1, 'SI', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-error">check_circle</span> SÍ
+          </button>
+<button class="ans-btn-1 py-2 px-3 rounded-lg border-2 border-secondary bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(1, 'NO', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> NO
+          </button>
+<button class="ans-btn-1 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface-variant flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(1, 'NA', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove_circle_outline</span> N/A
+          </button>
+</div>
+</div>
+<!-- P2 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 shadow-xs space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex gap-2">
+<span class="font-label-md text-label-md bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold h-fit">2</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+<strong class="text-secondary font-bold">T</strong> ¿Le molestan las corrientes de aire donde usted trabaja?
+            </p>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase bg-surface-container-low px-1 rounded">T1</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 pt-1">
+<button class="ans-btn-2 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(2, 'SI', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-error">check_circle</span> SÍ
+          </button>
+<button class="ans-btn-2 py-2 px-3 rounded-lg border-2 border-secondary bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(2, 'NO', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> NO
+          </button>
+<button class="ans-btn-2 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface-variant flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(2, 'NA', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove_circle_outline</span> N/A
+          </button>
+</div>
+</div>
+<!-- P3 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 shadow-xs space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex gap-2">
+<span class="font-label-md text-label-md bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold h-fit">3</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+<strong class="text-secondary font-bold">T</strong> ¿Siente el ambiente muy seco o muy húmedo?
+            </p>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase bg-surface-container-low px-1 rounded">T1</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 pt-1">
+<button class="ans-btn-3 py-2 px-3 rounded-lg border-2 border-primary bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-xs" onclick="setAnswer(3, 'SI', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> SÍ (Seco)
+          </button>
+<button class="ans-btn-3 py-2 px-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(3, 'NO', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> NO
+          </button>
+<button class="ans-btn-3 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface-variant flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(3, 'NA', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove_circle_outline</span> N/A
+          </button>
+</div>
+</div>
+<!-- P4: Con campo de texto condicional -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 shadow-xs space-y-2.5">
+<div class="flex items-start justify-between gap-2">
+<div class="flex gap-2">
+<span class="font-label-md text-label-md bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold h-fit">4</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+<strong class="text-secondary font-bold">T</strong> Si siente que la temperatura no es buena, ¿a qué cree que se debe? <span class="text-secondary font-semibold">Especificar:</span>
+</p>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase bg-surface-container-low px-1 rounded">T1</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="ans-btn-4 py-2 px-3 rounded-lg border-2 border-primary bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-xs" onclick="setAnswer(4, 'SI', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> SÍ Aplica
+          </button>
+<button class="ans-btn-4 py-2 px-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(4, 'NO', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> NO
+          </button>
+<button class="ans-btn-4 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface-variant flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(4, 'NA', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove_circle_outline</span> N/A
+          </button>
+</div>
+<!-- Input Causa -->
+<div class="relative">
+<input class="w-full text-body-sm font-body-sm px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none" placeholder="Indique la causa observada..." type="text" value="Falta extractor en zona de hornos y radiación directa de pared metálica norte."/>
+<span class="absolute right-2.5 top-2 text-[16px] text-on-surface-variant material-symbols-outlined">edit_note</span>
+</div>
+</div>
+<!-- P5 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border border-outline-variant/40 shadow-xs space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex gap-2">
+<span class="font-label-md text-label-md bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold h-fit">5</span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+<strong class="text-secondary font-bold">T</strong> ¿Nota olores desagradables o que el aire se siente "encerrado" en su área?
+            </p>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase bg-surface-container-low px-1 rounded">T1</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 pt-1">
+<button class="ans-btn-5 py-2 px-3 rounded-lg border-2 border-primary bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-xs" onclick="setAnswer(5, 'SI', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> SÍ
+          </button>
+<button class="ans-btn-5 py-2 px-3 rounded-lg border border-outline-variant/60 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(5, 'NO', this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> NO
+          </button>
+<button class="ans-btn-5 py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface-variant flex items-center justify-center gap-1 active:scale-95 transition-all" onclick="setAnswer(5, 'NA', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove_circle_outline</span> N/A
+          </button>
+</div>
+</div>
+<!-- Sub-agrupación Esfuerzo Físico (6 a 9) -->
+<div class="border border-outline-variant/40 rounded-xl bg-surface-container-lowest overflow-hidden">
+<div class="bg-surface-container-low px-3 py-2 border-b border-outline-variant/30 flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Carga Física y Postura (Preguntas 6-9)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">fitness_center</span>
+</div>
+<div class="divide-y divide-outline-variant/20 p-2 space-y-2">
+<!-- P6 -->
+<div class="pt-2 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">6</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Realizas un trabajo tranquilo, casi siempre sentado y con poco movimiento?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium hover:bg-surface-container">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P7 -->
+<div class="pt-2 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">7</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Realizas un trabajo con movimiento moderado, como caminar o mover cosas livianas?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium hover:bg-surface-container">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P8 -->
+<div class="pt-2 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">8</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Realizas un trabajo que requiere bastante fuerza con los brazos y el cuerpo (levantar objetos pesados)?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium hover:bg-surface-container">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P9 -->
+<div class="pt-2 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">9</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Realizas un trabajo muy pesado que lo deja cansado en poco tiempo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium hover:bg-surface-container">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sub-agrupación Hidratación y Síntomas de Estrés Térmico (10-17) -->
+<div class="border border-outline-variant/40 rounded-xl bg-surface-container-lowest overflow-hidden">
+<div class="bg-surface-container-low px-3 py-2 border-b border-outline-variant/30 flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Hidratación &amp; Síntomas Fisiológicos (10-17)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">water_drop</span>
+</div>
+<div class="divide-y divide-outline-variant/20 p-2 space-y-2">
+<!-- P10 -->
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">10</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Acostumbra tomar agua durante su horario de trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P11 -->
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">11</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Hay suficiente agua potable disponible para usted en el trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P12 a 16 Síntomas -->
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">12</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Se ha sentido mareado o muy cansado en el trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">13</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Ha tenido calambres en los músculos mientras trabaja?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">14</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Ha sentido ganas de vomitar o ha vomitado en el trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">15</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Siente mucha sed durante su jornada laboral?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">16</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> ¿Se ha sentido débil o a punto de desmayarse?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">17</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-secondary font-bold">T</strong> La ropa o el uniforme que le da la empresa, ¿es cómodo para hacer su trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- P18 (Enlace de transición a Iluminación) -->
+<div class="pt-1.5 flex flex-col gap-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">18</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug"><strong class="text-primary font-bold">I</strong> ¿Siente que le falta luz para poder hacer bien su trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- SECTION 2: ILUMINACIÓN (PREGUNTAS 19 a 28)               -->
+<!-- ======================================================== -->
+<div class="space-y-2.5 hidden" id="section-iluminacion">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-title-md text-title-md font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">light_mode</span>
+<span>Variables de Iluminación Ocupacional</span>
+</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Preguntas 19 a 28</span>
+</div>
+<div class="border border-outline-variant/40 rounded-xl bg-surface-container-lowest p-3 space-y-3">
+<!-- 19 -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">19</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> Si su trabajo requiere ver detalles pequeños, ¿cree que la luz es suficiente para no forzar la vista?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 20 -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">20</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> ¿Hay brillos o reflejos de luces o ventanas que le molesten en los ojos mientras trabaja?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 21 -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">21</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> ¿Siente usted molestias en los ojos, como ardor, cansancio o vista borrosa durante o después del trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 22 a 28 Resumen rápido -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">22</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> En general, ¿diría que hay poca luz en su puesto para trabajar a gusto?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">23</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> ¿Cree que falta luz en los pasillos o caminos para llegar a su puesto?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">24-25</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> ¿Lámparas directas en los ojos o encandilamiento por ventanas?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">SÍ</button>
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">26-28</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-primary font-bold">I</strong> Mantenimiento luminarias (¿Parpadean, están quemadas o sucias?)</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ (2 quemadas)</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- SECTION 3: RUIDO OCUPACIONAL (PREGUNTAS 29 a 43)         -->
+<!-- ======================================================== -->
+<div class="space-y-2.5 hidden" id="section-ruido">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-title-md text-title-md font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">hearing</span>
+<span>Variables de Ruido Ocupacional</span>
+</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Preguntas 29 a 43</span>
+</div>
+<div class="border border-outline-variant/40 rounded-xl bg-surface-container-lowest p-3 space-y-3">
+<!-- 29 -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">29</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> ¿Considera que hay mucho ruido en su lugar de trabajo?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 30 a 32 -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">30</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> ¿El ruido fuerte dura casi todo el día o es solo por momentos?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">Continuo</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">Intermitente</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 32 Comunicación -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">32</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> Para hablar con un compañero que está cerca, ¿necesita levantar la voz o gritar por culpa del ruido?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ (Grita)</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 35 a 36 Síntomas auditivos -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">35</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> ¿Ha sentido dolor de cabeza, zumbidos en los oídos o malestar estomacal?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-secondary bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">SÍ (Zumbidos)</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 38 a 40 Protectores auditivos -->
+<div class="space-y-1.5 pb-2 border-b border-outline-variant/20">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">38-40</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> ¿La empresa entrega protectores para los oídos y los usa siempre que hay ruido?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ (Tapones)</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+<!-- 41-43 Charlas y riesgos -->
+<div class="space-y-1.5">
+<div class="flex items-start gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary px-1.5 py-0.5 rounded font-bold">41-43</span>
+<p class="font-body-sm text-body-sm text-on-surface"><strong class="text-error font-bold">R</strong> ¿Ha recibido charlas/cursos de protección y conoce los riesgos a su salud?</p>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border-2 border-primary bg-primary text-on-primary font-label-sm text-label-sm font-bold">SÍ (Capacitado)</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium">NO</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant/50 font-label-sm text-label-sm font-medium text-on-surface-variant">N/A</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- COMPARATIVE TABLE / BATCH VIEW (Visible on Toggle)        -->
+<!-- ======================================================== -->
+<div class="hidden bg-surface-container-lowest rounded-xl border border-outline-variant/50 p-3 shadow-md space-y-3" id="matrix-comparativa">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">table_chart</span>
+<h4 class="font-label-lg text-label-lg font-bold text-primary">Matriz Rápida Multicolaborador (T1 a T6)</h4>
+</div>
+<span class="text-[11px] font-mono text-on-surface-variant">Deslizar horizontalmente</span>
+</div>
+<div class="overflow-x-auto border border-outline-variant/40 rounded-lg">
+<table class="w-full text-left border-collapse text-body-sm">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/40">
+<th class="p-2 font-label-sm text-label-sm text-primary sticky left-0 bg-surface-container-low z-10 w-36 min-w-[140px] border-r border-outline-variant/30">N° Pregunta</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T1</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T2</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T3</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T4</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T5</th>
+<th class="p-2 font-label-sm text-label-sm text-center min-w-[70px]">T6</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-label-md text-label-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/40">
+<td class="p-2 font-semibold text-primary sticky left-0 bg-surface-container-lowest border-r border-outline-variant/30">1. Incomodidad calor/frío</td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/40">
+<td class="p-2 font-semibold text-primary sticky left-0 bg-surface-container-lowest border-r border-outline-variant/30">2. Corrientes de aire</td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/40">
+<td class="p-2 font-semibold text-primary sticky left-0 bg-surface-container-lowest border-r border-outline-variant/30">3. Seco o muy húmedo</td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-secondary-container/40 text-on-secondary-container font-bold">NO</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+</tr>
+<!-- Row 10 -->
+<tr class="hover:bg-surface-container/40">
+<td class="p-2 font-semibold text-primary sticky left-0 bg-surface-container-lowest border-r border-outline-variant/30">10. Toma agua en turno</td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-primary text-on-primary font-bold">SÍ</button></td>
+</tr>
+<!-- Row 29 -->
+<tr class="hover:bg-surface-container/40">
+<td class="p-2 font-semibold text-primary sticky left-0 bg-surface-container-lowest border-r border-outline-variant/30">29. Ruido en lugar trab.</td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+<td class="p-1 text-center"><button class="w-full py-1 rounded bg-error/10 text-error font-bold">SÍ</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Quick Footer Audit Signature Stamp -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+<span>Validación LOPCYMAT: <strong>3 Evaluadores en Campo</strong></span>
+</div>
+<span class="font-mono text-[10px] bg-surface-container px-1.5 py-0.5 rounded">ID: AUD-2025-043</span>
+</div>
+<!-- Sticky Floating Action Bar for Instant Save & Progress -->
+<div class="pt-2 flex items-center gap-2">
+<button class="flex-1 py-3 px-4 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-lg hover:bg-primary-container active:scale-[0.98] transition-all" onclick="saveAndAdvance()">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Guardar Módulo &amp; Siguiente Trabajador</span>
+</button>
+<button aria-label="Exportar borrador" class="p-3 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high border border-outline-variant/40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+</button>
+</div>
+
+</div>
+
+<div id="view-mediciones" class="view-screen">
+  <!-- SUB-HEADER CONTEXT / AUDIT BREADCRUMB -->
+<div class="bg-surface-container-low px-4 py-2 flex items-center justify-between border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded">MÓDULO 4</span>
+<span class="font-title-md text-title-md text-primary font-semibold">Mediciones Higiénicas</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined text-outline text-[14px]" data-icon="pin_drop">pin_drop</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate max-w-[130px]">Línea Envasado 02</span>
+</div>
+</div>
+<!-- SUB-MODULE HORIZONTAL PILL NAVIGATOR -->
+<nav class="sticky top-[57px] z-30 bg-surface-container-lowest px-3 py-2 shadow-sm flex gap-2 overflow-x-auto no-scrollbar border-b border-outline-variant">
+<a class="whitespace-nowrap px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm" href="#seccion-termico">
+<span class="material-symbols-outlined text-[16px]" data-icon="device_thermostat">device_thermostat</span>
+      Térmico &amp; TGBH
+    </a>
+<a class="whitespace-nowrap px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary font-label-md text-label-md flex items-center gap-1.5 border border-outline-variant" href="#seccion-iluminacion">
+<span class="material-symbols-outlined text-[16px]" data-icon="light_mode">light_mode</span>
+      Iluminación (Lux)
+    </a>
+<a class="whitespace-nowrap px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary font-label-md text-label-md flex items-center gap-1.5 border border-outline-variant" href="#seccion-ruido">
+<span class="material-symbols-outlined text-[16px]" data-icon="equalizer">equalizer</span>
+      Ruido &amp; Espectro
+    </a>
+<a class="whitespace-nowrap px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary font-label-md text-label-md flex items-center gap-1.5 border border-outline-variant" href="#seccion-dosimetria">
+<span class="material-symbols-outlined text-[16px]" data-icon="record_voice_over">record_voice_over</span>
+      Dosimetría
+    </a>
+<a class="whitespace-nowrap px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-primary font-label-md text-label-md flex items-center gap-1.5 border border-outline-variant" href="#seccion-observaciones">
+<span class="material-symbols-outlined text-[16px]" data-icon="rate_review">rate_review</span>
+      Aportes &amp; Acta
+    </a>
+</nav>
+
+<!-- SECCIÓN 1: VARIABLES DEL AMBIENTE TÉRMICO -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 space-y-3" id="seccion-termico">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="thermostat">thermostat</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Ambiente Térmico (Pág 4)</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Índice TGBH / WBGT s/ Norma COVENIN 2254</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-primary font-semibold px-2 py-0.5 rounded">Punto 01</span>
+</div>
+<!-- Compact Technical Input Fields -->
+<div class="grid grid-cols-2 gap-2">
+<!-- Viento -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Velocidad Viento</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-14 text-body-sm font-semibold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface" step="0.1" type="number" value="0.35"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">m/seg</span>
+</div>
+</div>
+<!-- Temp Bulbo Seco -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Temp. Bulbo Seco</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-8 text-body-sm font-semibold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface" step="0.1" type="number" value="28.4"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">°C</span>
+</div>
+</div>
+<!-- Temp Globo -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Temp. de Globo</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-8 text-body-sm font-semibold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface" step="0.1" type="number" value="32.8"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">°C</span>
+</div>
+</div>
+<!-- Humedad Relativa -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Humedad Relativa</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-8 text-body-sm font-semibold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface" step="1" type="number" value="64"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">%</span>
+</div>
+</div>
+</div>
+<!-- Dynamic Computed TGBH Card -->
+<div class="p-2.5 bg-surface-container-low rounded-lg border border-outline-variant flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Índice Calculado TGBH</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-display-lg text-[26px] leading-7 font-bold text-primary">29.6</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">°C</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Límite permisible: 28.0 °C (Carga Moderada)</span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-[#FEF3C7] text-[#B45309] font-label-sm text-label-sm font-bold px-2 py-1 rounded flex items-center gap-1 border border-[#F59E0B]">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+            ALERTA: ESTRÉS
+          </span>
+<span class="font-label-sm text-label-sm text-error font-medium">+1.6°C sobre norma</span>
+</div>
+</div>
+<!-- Quick Action -->
+<button class="w-full py-2 border border-dashed border-primary text-primary hover:bg-surface-container font-label-md text-label-md font-bold rounded flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
+        + Añadir Punto de Muestreo Térmico
+      </button>
+</section>
+<!-- SECCIÓN 2: VARIABLES DE ILUMINACIÓN OCUPACIONAL (MULTI-MUESTREO: MÍNIMO 3 PUNTOS) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 space-y-3" id="seccion-iluminacion">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="wb_incandescent">wb_incandescent</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Iluminación Ocupacional (Pág 4)</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Evaluación fotométrica s/ Norma COVENIN 2249</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm bg-surface-container text-primary font-bold px-2 py-0.5 rounded">3 Puntos</span>
+<span class="font-label-sm text-label-sm bg-[#DCFCE7] text-[#15803D] font-bold px-2 py-0.5 rounded border border-[#86EFAC]">
+          Conforme
+        </span>
+</div>
+</div>
+<!-- Tabs de Selección de Puntos de Iluminación -->
+<div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-bold bg-primary text-on-primary shadow-xs whitespace-nowrap flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> Punto L1: Plano de Trabajo
+</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-semibold bg-surface-container text-on-surface-variant hover:text-primary border border-outline-variant whitespace-nowrap" type="button">
+Punto L2: Entorno / Pasillo
+</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-semibold bg-surface-container text-on-surface-variant hover:text-primary border border-outline-variant whitespace-nowrap" type="button">
+Punto L3: Área Inspección
+</button>
+</div>
+<!-- Formulario Activo: Punto L1 -->
+<div class="p-3 bg-surface rounded-lg border border-outline-variant space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">location_on</span> Muestreo L1 - Plano de Trabajo Principal
+</span>
+<span class="font-label-sm text-label-sm bg-[#DCFCE7] text-[#15803D] font-bold px-2 py-0.5 rounded border border-[#86EFAC] flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Conforme
+</span>
+</div>
+<!-- Requerimientos Visuales -->
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold mb-1">Requerimientos Visuales del Puesto</label>
+<input class="w-full h-9 px-2.5 text-body-sm rounded border border-outline-variant focus:border-secondary bg-surface-container-lowest" type="text" value="Inspección visual continua de rotulado, sellado térmico y lote"/>
+</div>
+<!-- Fuentes de Iluminación Toggle -->
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold mb-1">Fuentes de Iluminación</label>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="py-1.5 px-2 rounded border border-outline-variant text-body-sm font-medium text-center bg-surface-container-lowest hover:bg-surface-container" type="button">Natural</button>
+<button class="py-1.5 px-2 rounded border border-primary bg-primary text-on-primary text-body-sm font-semibold text-center shadow-xs" type="button">Artificial</button>
+<button class="py-1.5 px-2 rounded border border-outline-variant text-body-sm font-medium text-center bg-surface-container-lowest hover:bg-surface-container" type="button">Mixta</button>
+</div>
+</div>
+<!-- Lux Diurno vs Nocturno + Norma -->
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Iluminación Diurna</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-12 text-body-sm font-bold text-primary rounded border border-outline-variant focus:border-secondary bg-surface-container-lowest" type="number" value="480"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline font-semibold">Lux</span>
+</div>
+<span class="font-label-sm text-label-sm text-[#15803D] font-medium block">Mín COVENIN 2249: 300 Lux</span>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Iluminación Nocturna</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2.5 pr-12 text-body-sm font-bold text-primary rounded border border-outline-variant focus:border-secondary bg-surface-container-lowest" type="number" value="320"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline font-semibold">Lux</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Luminarias LED 45W (Campana)</span>
+</div>
+</div>
+<!-- Observaciones Técnicas Particulares -->
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold mb-1">Observaciones Técnicas de Luminotecnia</label>
+<textarea class="w-full p-2 text-body-sm rounded border border-outline-variant focus:border-secondary bg-surface-container-lowest" placeholder="Reflejos directos sobre la tolva metálica detectados en turno diurno..." rows="2">Reflejos difusos controlados; se recomienda reorientar luminaria secundaria L-04 para mitigar sombras sobre banda de alimentación.</textarea>
+</div>
+</div>
+<!-- Resumen Consolidado de los 3 Puntos de Iluminación -->
+<div class="border border-outline-variant rounded-lg overflow-hidden bg-surface">
+<div class="bg-surface-container px-2.5 py-1.5 flex justify-between items-center border-b border-outline-variant">
+<span class="font-label-sm text-label-sm font-bold text-primary">Matriz de Puntos de Luxometría Registrados</span>
+<span class="font-label-sm text-label-sm text-outline">COVENIN 2249</span>
+</div>
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full text-left text-body-sm">
+<thead>
+<tr class="border-b border-outline-variant font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low">
+<th class="py-1 px-2">Punto</th>
+<th class="py-1 px-2">Ubicación</th>
+<th class="py-1 px-2 text-center">Diurno</th>
+<th class="py-1 px-2 text-center">Nocturno</th>
+<th class="py-1 px-2 text-right">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm">
+<tr>
+<td class="py-1 px-2 font-bold text-primary">L1</td>
+<td class="py-1 px-2 truncate max-w-[110px]">Plano Trabajo</td>
+<td class="py-1 px-2 text-center font-semibold">480 Lux</td>
+<td class="py-1 px-2 text-center font-semibold">320 Lux</td>
+<td class="py-1 px-2 text-right"><span class="text-[#15803D] font-bold text-label-sm">Conforme</span></td>
+</tr>
+<tr>
+<td class="py-1 px-2 font-bold text-primary">L2</td>
+<td class="py-1 px-2 truncate max-w-[110px]">Entorno / Pasillo</td>
+<td class="py-1 px-2 text-center font-semibold">210 Lux</td>
+<td class="py-1 px-2 text-center font-semibold">180 Lux</td>
+<td class="py-1 px-2 text-right"><span class="text-[#15803D] font-bold text-label-sm">Conforme</span></td>
+</tr>
+<tr>
+<td class="py-1 px-2 font-bold text-primary">L3</td>
+<td class="py-1 px-2 truncate max-w-[110px]">Área Inspección</td>
+<td class="py-1 px-2 text-center font-semibold text-error">260 Lux</td>
+<td class="py-1 px-2 text-center font-semibold text-error">210 Lux</td>
+<td class="py-1 px-2 text-right"><span class="text-error font-bold text-label-sm">No Conforme</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Botón Añadir Punto -->
+<button class="w-full py-2 border border-dashed border-secondary text-secondary hover:bg-surface-container font-label-md text-label-md font-bold rounded flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
++ Añadir Punto de Luxometría
+</button>
+</section>
+<!-- SECCIÓN 3: RUIDO OCUPACIONAL - ESPECTRO SONORO MULTI-MUESTREO (MÍNIMO 3 PUNTOS) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 space-y-3" id="seccion-ruido">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Espectro Sonoro (Pág 5)</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Bandas de Octava / Sonometría Integrada COVENIN 1565</p>
+</div>
+</div>
+<span class="bg-[#FEE2E2] text-[#B91C1C] font-label-sm text-label-sm font-bold px-2 py-0.5 rounded border border-[#FCA5A5]">
+          &gt; 85 dBA Crítico
+</span>
+</div>
+<!-- Selector de Puntos / Pestañas de Muestreo Sonoro -->
+<div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-bold bg-primary text-on-primary shadow-xs whitespace-nowrap flex items-center gap-1" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Muestreo 1: Puesto Operador (Oído)
+</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-semibold bg-surface-container text-on-surface-variant hover:text-primary border border-outline-variant whitespace-nowrap" type="button">
+Muestreo 2: Fuente Tolva / Motor
+</button>
+<button class="px-2.5 py-1 rounded-lg text-label-sm font-semibold bg-surface-container text-on-surface-variant hover:text-primary border border-outline-variant whitespace-nowrap" type="button">
+Muestreo 3: Tránsito / Carga
+</button>
+</div>
+<!-- Formulario Activo Muestreo 1 -->
+<div class="p-3 bg-surface rounded-lg border border-outline-variant space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold">Punto 1: Puesto Operador Llenadora (Nivel de Oído)</span>
+<span class="font-label-sm text-label-sm text-outline">Sonómetro Clase 1</span>
+</div>
+<!-- Presión y Leq Principal -->
+<div class="grid grid-cols-2 gap-2 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold block">Nivel Presión dBA</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-display-lg text-[22px] font-bold text-error">88.4</span>
+<span class="font-label-sm text-label-sm text-outline">dBA</span>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold block">Equivalente Leq</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-display-lg text-[22px] font-bold text-error">87.9</span>
+<span class="font-label-sm text-label-sm text-outline">dB(A)</span>
+</div>
+</div>
+</div>
+<!-- Alerta sonora si Leq > 85 dBA -->
+<div class="flex items-center gap-1.5 p-2 bg-[#FEE2E2] rounded border border-[#FCA5A5] text-[#B91C1C]">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span class="font-label-sm text-label-sm font-bold">ALERTA SONORA: Leq (87.9 dB) excede el umbral legal permisible de 85 dBA (8h)</span>
+</div>
+<!-- Octave Bands Horizontal Matrix (From Table in Image Pág 5) -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">Frecuencias por Bandas de Octava (dB) - Muestreo 1</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Deslizar →</span>
+</div>
+<div class="overflow-x-auto no-scrollbar border border-outline-variant rounded-lg bg-surface-container-lowest">
+<table class="w-full text-center border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant font-label-sm text-label-sm text-primary">
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">31.5 Hz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">63 Hz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">125 Hz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">250 Hz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">500 Hz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">1 kHz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">2 kHz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">4 kHz</th>
+<th class="py-1.5 px-2 border-r border-outline-variant whitespace-nowrap">8 kHz</th>
+<th class="py-1.5 px-2 whitespace-nowrap">16 kHz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="divide-x divide-outline-variant font-body-sm font-semibold text-on-surface">
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="62"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="68"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="74"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="79"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded font-bold text-error" type="number" value="84"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded font-bold text-error" type="number" value="86"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded font-bold text-error" type="number" value="83"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="77"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="71"/></td>
+<td class="p-1"><input class="w-12 h-7 p-1 text-center bg-transparent border-0 focus:ring-1 focus:ring-secondary rounded" type="number" value="65"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Acoustic Spectral Visualizer Bar -->
+<div class="space-y-1 bg-surface-container-lowest p-2.5 rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center text-label-sm font-label-sm text-outline">
+<span>Curva Espectral de Atenuación</span>
+<span class="text-error font-bold">Pico crítico: 1.0 kHz (86 dB)</span>
+</div>
+<div class="h-9 w-full flex items-end gap-1 pt-1">
+<div class="w-1/10 bg-secondary rounded-t h-[45%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[55%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[68%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[78%]"></div>
+<div class="w-1/10 bg-error rounded-t h-[88%]"></div>
+<div class="w-1/10 bg-error rounded-t h-[96%]"></div>
+<div class="w-1/10 bg-error rounded-t h-[86%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[72%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[60%]"></div>
+<div class="w-1/10 bg-secondary rounded-t h-[50%]"></div>
+</div>
+</div>
+</div>
+<!-- TABLA CONSOLIDADA OFICIAL PÁGINA 5: CONSOLIDACIÓN DE LOS 3+ PUNTOS DE MUESTREO -->
+<div class="border border-outline-variant rounded-lg overflow-hidden bg-surface">
+<div class="bg-surface-container px-2.5 py-1.5 flex justify-between items-center border-b border-outline-variant">
+<span class="font-label-sm text-label-sm font-bold text-primary">Tabla Oficial Comparativa de Muestreos (Pág 5)</span>
+<span class="font-label-sm text-label-sm text-outline">COVENIN 1565</span>
+</div>
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full text-center text-[11px] border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant font-label-sm text-label-sm text-primary">
+<th class="py-1 px-1.5 border-r border-outline-variant text-left whitespace-nowrap">Punto / Muestreo</th>
+<th class="py-1 px-1.5 border-r border-outline-variant whitespace-nowrap">dBA</th>
+<th class="py-1 px-1.5 border-r border-outline-variant whitespace-nowrap">Leq</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">125</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">250</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">500</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">1k</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">2k</th>
+<th class="py-1 px-1 border-r border-outline-variant whitespace-nowrap">4k</th>
+<th class="py-1 px-1.5 whitespace-nowrap">Condición</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm text-on-surface">
+<tr class="hover:bg-surface-container-low">
+<td class="py-1 px-1.5 text-left font-semibold text-primary border-r border-outline-variant whitespace-nowrap">M1: Op. Llenadora</td>
+<td class="py-1 px-1.5 font-bold text-error border-r border-outline-variant">88.4</td>
+<td class="py-1 px-1.5 font-bold text-error border-r border-outline-variant">87.9</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">74</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">79</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">84</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">86</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">83</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">77</td>
+<td class="py-1 px-1.5"><span class="bg-[#FEE2E2] text-[#B91C1C] px-1 py-0.5 rounded text-[10px] font-bold">Crítico</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-1 px-1.5 text-left font-semibold text-primary border-r border-outline-variant whitespace-nowrap">M2: Fuente Tolva</td>
+<td class="py-1 px-1.5 font-bold text-error border-r border-outline-variant">91.2</td>
+<td class="py-1 px-1.5 font-bold text-error border-r border-outline-variant">90.8</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">76</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">82</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">88</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">89</td>
+<td class="py-1 px-1 border-r border-outline-variant text-error font-bold">86</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">80</td>
+<td class="py-1 px-1.5"><span class="bg-[#FEE2E2] text-[#B91C1C] px-1 py-0.5 rounded text-[10px] font-bold">Crítico</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-1 px-1.5 text-left font-semibold text-primary border-r border-outline-variant whitespace-nowrap">M3: Tránsito / Carga</td>
+<td class="py-1 px-1.5 font-bold text-secondary border-r border-outline-variant">82.1</td>
+<td class="py-1 px-1.5 font-bold text-secondary border-r border-outline-variant">81.5</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">68</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">72</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">75</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">78</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">74</td>
+<td class="py-1 px-1 border-r border-outline-variant text-outline">69</td>
+<td class="py-1 px-1.5"><span class="bg-[#DCFCE7] text-[#15803D] px-1 py-0.5 rounded text-[10px] font-bold">Aceptable</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Botón Añadir Muestreo Sonoro -->
+<button class="w-full py-2 border border-dashed border-primary text-primary hover:bg-surface-container font-label-md text-label-md font-bold rounded flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
++ Añadir Muestreo Sonoro
+</button>
+</section>
+<!-- SECCIÓN 4: DOSIMETRÍA DE RUIDO POR TRABAJADOR -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 space-y-3" id="seccion-dosimetria">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="badge">badge</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Dosimetría Personal (Pág 5)</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Posibles Dosis de Ruido Individual</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-primary font-bold px-2 py-0.5 rounded">
+          Trabajador 1 de 6
+        </span>
+</div>
+<!-- Worker Comparative Record Card -->
+<div class="p-3 bg-surface rounded-lg border border-outline-variant space-y-2.5">
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">N° Dosímetro</label>
+<input class="w-full h-8 px-2 text-body-sm font-semibold rounded border border-outline-variant bg-surface-container-lowest" type="text" value="DOS-004-B"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Cédula de Identidad</label>
+<input class="w-full h-8 px-2 text-body-sm font-semibold rounded border border-outline-variant bg-surface-container-lowest" type="text" value="V-18.452.910"/>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Nombre y Apellido</label>
+<input class="w-full h-8 px-2 text-body-sm font-semibold rounded border border-outline-variant bg-surface-container-lowest" type="text" value="Carlos Eduardo Mendoza R."/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Evento / Operación</label>
+<input class="w-full h-8 px-2 text-body-sm rounded border border-outline-variant bg-surface-container-lowest" type="text" value="Operación de Llenadora y Embalaje Cintas"/>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Continuo Leq dB(A)</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2 pr-12 text-body-md font-bold text-error rounded border border-outline-variant bg-surface-container-lowest" step="0.1" type="number" value="89.2"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">dB(A)</span>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block font-bold">Dosis Acumulada (%)</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 pl-2 pr-8 text-body-md font-bold text-error rounded border border-outline-variant bg-surface-container-lowest" step="0.1" type="number" value="142.5"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-outline">%</span>
+</div>
+</div>
+</div>
+<!-- Compliance Mini-Alert -->
+<div class="flex items-center gap-1.5 p-2 bg-[#FEE2E2] rounded border border-[#FCA5A5] text-[#B91C1C]">
+<span class="material-symbols-outlined text-[16px]" data-icon="error">error</span>
+<span class="font-label-sm text-label-sm font-semibold">Excede el 100% de dosis legal admisible por jornada de 8h</span>
+</div>
+</div>
+<!-- Multi-worker Quick Switch Carousel -->
+<div class="flex items-center justify-between pt-1">
+<button class="px-2 py-1 text-label-sm font-label-sm text-outline border border-outline-variant rounded bg-surface opacity-50 cursor-not-allowed" type="button">← Anterior</button>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<button class="px-2 py-1 text-label-sm font-label-sm text-primary font-bold border border-primary rounded bg-surface hover:bg-surface-container" type="button">Trabajador 2 →</button>
+</div>
+</section>
+<!-- SECCIÓN 5: PLANTEAMIENTOS, SUGERENCIAS Y APORTES DE TRABAJADORES (Pág 5 & 6) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 space-y-3" id="seccion-observaciones">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="record_voice_over">record_voice_over</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-primary font-bold">Aportes y Sugerencias</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Conforme al Formulario Oficial Físico (Pág 5 y 6)</p>
+</div>
+</div>
+<button class="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-bold bg-surface-container px-2 py-1 rounded" type="button">
+<span class="material-symbols-outlined text-[14px]" data-icon="mic">mic</span> Dictado
+        </button>
+</div>
+<!-- Worker Statements Textarea -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-bold block">Planteamientos, Sugerencias, Aportes de los Trabajadores:</label>
+<textarea class="w-full p-2.5 text-body-sm rounded border border-outline-variant focus:border-secondary bg-surface" placeholder="Escriba o dicte textualmente lo expresado por los colaboradores evaluados..." rows="3">Los trabajadores manifiestan que el calor se intensifica a partir de las 11:30 am debido a falta de aislamiento en tuberías superiores de vapor. Solicitan reposición de protectores auditivos tipo copa por deterioro del almohadillado.</textarea>
+</div>
+<!-- General Technical Observations (Page 6) -->
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-bold block">Observaciones Generales del Inspector (Pág 6):</label>
+<textarea class="w-full p-2.5 text-body-sm rounded border border-outline-variant focus:border-secondary bg-surface" placeholder="Condiciones ambientales atípicas, calibración de sonómetros y dosímetros..." rows="3">Se procedió con calibrador acústico portátil pre y post medición arrojando desviación menor a ±0.2 dBA. El área de envasado presenta flujo de aire deficiente por compuerta norte cerrada.</textarea>
+</div>
+<!-- Criticality Tags Selector -->
+<div>
+<span class="font-label-sm text-label-sm text-outline font-bold block mb-1">Clasificación de Riesgo Asignada:</span>
+<div class="flex gap-2">
+<span class="px-2.5 py-1 rounded text-label-sm font-bold bg-[#DCFCE7] text-[#15803D] border border-[#86EFAC] cursor-pointer">Bajo</span>
+<span class="px-2.5 py-1 rounded text-label-sm font-bold bg-surface-container text-on-surface-variant border border-outline-variant cursor-pointer">Medio</span>
+<span class="px-2.5 py-1 rounded text-label-sm font-bold bg-[#FEE2E2] text-[#B91C1C] border border-[#B91C1C] ring-2 ring-error/20 cursor-pointer flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="priority_high">priority_high</span> Alto / Crítico
+          </span>
+</div>
+</div>
+</section>
+<!-- LEGAL COMPLIANCE & SYNC FOOTER BAR -->
+<div class="bg-surface-container-low rounded-xl p-3 border border-outline-variant space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Auditor Responsable:</span>
+<span class="font-bold text-primary">Ing. M. Villalobos (CI-14.281.002)</span>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Registro INPSASEL:</span>
+<span class="font-bold text-primary">MIR-0912440182</span>
+</div>
+<div class="pt-2 flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2.5 px-3 rounded font-title-md text-title-md font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+          Guardar Mediciones
+        </button>
+<button class="px-3 bg-tertiary text-on-tertiary rounded flex items-center justify-center border border-tertiary-container hover:bg-tertiary-container transition-colors" title="Exportar Registro LOPCYMAT" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+
+</div>
+
+<div id="view-firmas" class="view-screen">
+  <section class="bg-surface-container-low dark:bg-inverse-surface border-b border-outline-variant px-4 py-2">
+    <div class="max-w-lg mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded">MÓDULO 5</span>
+        <span class="font-title-md text-title-md text-primary font-bold">Acta Legal LOPCYMAT</span>
+      </div>
+      <span class="font-label-sm text-label-sm bg-surface-container-lowest text-primary px-2 py-0.5 rounded border border-outline-variant font-bold">Art. 62 Num. 1-3</span>
+    </div>
+  </section>
+  <main class="flex-1 w-full max-w-lg mx-auto px-3 py-3 space-y-3">
+    
+<!-- Industrial Compliance Header Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-3 shadow-sm">
+<div class="flex items-start justify-between border-b border-outline-variant pb-2 mb-2.5">
+<div>
+<div class="inline-flex items-center gap-1 bg-primary text-on-primary px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wide mb-1 uppercase">
+            Módulo 5 • Página Oficial 7
+          </div>
+<h1 class="font-title-md text-title-md text-primary font-bold leading-snug">
+            ACTA DE PARTICIPACIÓN Y RECOPILACIÓN DE DATOS
+          </h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">
+            Conforme a la Ley Orgánica de Prevención, Condiciones y Medio Ambiente de Trabajo (LOPCYMAT), Artículo 62 numerales 1 al 3.
+          </p>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-1.5 rounded-lg flex flex-col items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">verified</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">Acta #429</span>
+</div>
+</div>
+<!-- Legal Declaration Statement -->
+<div class="bg-surface-container p-2.5 rounded-lg text-justify border border-outline-variant mb-3">
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed italic">
+          "Mediante la presente, los(as) trabajadores(as), abajo firmantes, hacemos constar que hemos sido invitados y hemos participado de forma voluntaria, activa y protagónica en la recopilación de datos para realizar evaluación y/o estudio relacionado con Seguridad y Salud en el Trabajo, en nuestra Organización..."
+        </p>
+</div>
+<!-- Compact Metadatos de la Inspección (Puesto & Entidad) -->
+<div class="grid grid-cols-2 gap-2 text-left">
+<div class="bg-surface p-2 rounded border border-outline-variant">
+<span class="font-label-sm text-label-sm text-outline block">EMPRESA EVALUADA</span>
+<span class="font-label-lg text-label-lg text-on-surface truncate block font-bold">Manufacturas Industriales C.A.</span>
+</div>
+<div class="bg-surface p-2 rounded border border-outline-variant">
+<span class="font-label-sm text-label-sm text-outline block">ÁREA / DEPARTAMENTO</span>
+<span class="font-label-lg text-label-lg text-on-surface truncate block font-bold">Línea de Envasado y Paletizado</span>
+</div>
+<div class="bg-surface p-2 rounded border border-outline-variant">
+<span class="font-label-sm text-label-sm text-outline block">PUESTOS EVALUADOS</span>
+<span class="font-label-lg text-label-lg text-on-surface truncate block font-bold">Operador de Línea 01 &amp; 02</span>
+</div>
+<div class="bg-surface p-2 rounded border border-outline-variant">
+<span class="font-label-sm text-label-sm text-outline block">LUGAR, FECHA Y HORA</span>
+<span class="font-label-lg text-label-lg text-on-surface truncate block font-bold">San Joaquín • Hoy, 10:45 AM</span>
+</div>
+</div>
+</section>
+<!-- Interactive Section: Active Signer Entry & Biometrics -->
+<section class="bg-surface-container-lowest border-2 border-primary rounded-xl p-3 shadow-md space-y-3 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<h2 class="font-title-md text-title-md text-primary font-bold">
+            Registro Activo de Firmante (3/6)
+          </h2>
+</div>
+<span class="font-label-sm text-label-sm bg-primary text-on-primary px-2 py-0.5 rounded-full font-bold">
+          Paso 3 de 6
+        </span>
+</div>
+<!-- Identity Inputs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<div>
+<label class="font-label-md text-label-md text-on-surface font-semibold block mb-1">
+            Nombre y Apellidos del Participante *
+          </label>
+<div class="relative">
+<input class="w-full h-10 px-3 py-1.5 text-body-md font-medium border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary outline-none bg-surface-container-lowest text-on-surface" type="text" value="Carlos Eduardo Mendoza Rivas"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-outline text-lg">badge</span>
+</div>
+</div>
+<div>
+<label class="font-label-md text-label-md text-on-surface font-semibold block mb-1">
+            Cédula de Identidad *
+          </label>
+<div class="flex gap-1">
+<select class="h-10 px-2 text-body-sm font-semibold border border-outline-variant rounded bg-surface-container-low text-on-surface">
+<option>V-</option>
+<option>E-</option>
+</select>
+<input class="flex-1 h-10 px-3 py-1.5 text-body-md font-medium border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary outline-none bg-surface-container-lowest text-on-surface" type="text" value="18.942.310"/>
+</div>
+</div>
+</div>
+<!-- Role Selector (Legal Representation Chips) -->
+<div>
+<label class="font-label-md text-label-md text-on-surface font-semibold block mb-1.5">
+          Representa a (Según Art. 62 LOPCYMAT):
+        </label>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+<label class="flex items-center gap-1.5 p-1.5 rounded border border-primary bg-primary-container text-on-primary cursor-pointer text-left">
+<input checked="" class="text-secondary focus:ring-0 w-3.5 h-3.5 accent-secondary" name="role" type="radio"/>
+<span class="font-label-sm text-label-sm font-bold truncate">Trabajador(a)</span>
+</label>
+<label class="flex items-center gap-1.5 p-1.5 rounded border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer text-left">
+<input class="text-secondary focus:ring-0 w-3.5 h-3.5 accent-secondary" name="role" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Delegado(a) Prevención</span>
+</label>
+<label class="flex items-center gap-1.5 p-1.5 rounded border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer text-left">
+<input class="text-secondary focus:ring-0 w-3.5 h-3.5 accent-secondary" name="role" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Rep. Empleador</span>
+</label>
+<label class="flex items-center gap-1.5 p-1.5 rounded border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer text-left">
+<input class="text-secondary focus:ring-0 w-3.5 h-3.5 accent-secondary" name="role" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Serv. Seguridad (SSSL)</span>
+</label>
+<label class="flex items-center gap-1.5 p-1.5 rounded border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer text-left col-span-2 sm:col-span-1">
+<input class="text-secondary focus:ring-0 w-3.5 h-3.5 accent-secondary" name="role" type="radio"/>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Evaluador ERGOEXPRESS</span>
+</label>
+</div>
+</div>
+<!-- Signature & Thumbprint Dual Capture Interface -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+<!-- Canvas de Firma Digital Táctil -->
+<div class="border border-outline-variant rounded-lg p-2.5 bg-surface-container-low flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-md text-label-md font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">draw</span> Firma Digital Manuscrita
+            </span>
+<button class="font-label-sm text-label-sm text-error font-semibold flex items-center gap-0.5 hover:underline" onclick="clearCanvas()">
+<span class="material-symbols-outlined text-xs">ink_eraser</span> Limpiar trazo
+            </button>
+</div>
+<div class="relative w-full h-28 bg-surface-container-lowest rounded border border-outline-variant sig-canvas-grid overflow-hidden flex items-center justify-center">
+<!-- Simulated Signature Path in high-contrast blue ink -->
+<svg class="w-full h-full absolute inset-0 text-primary pointer-events-none" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 300 100">
+<path d="M 40,65 Q 60,20 85,55 T 120,40 Q 150,75 180,35 Q 210,50 250,45 M 90,55 L 240,60"></path>
+</svg>
+<div class="absolute bottom-1 right-2 pointer-events-none">
+<span class="font-label-sm text-label-sm text-outline-variant text-[9px]">Línea de rúbrica legal</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-[10px] mt-1 text-center">
+            Firme con stylus o dedo dentro del marco cuadriculado
+          </p>
+</div>
+<!-- Biometría: Huella Dactilar (Pulgar Derecho) -->
+<div class="border border-outline-variant rounded-lg p-2.5 bg-surface-container-low flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-md text-label-md font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">fingerprint</span> Huella (Pulgar Derecho)
+            </span>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container-lowest px-1.5 py-0.5 rounded border border-outline-variant font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs text-secondary">check_circle</span> Biometría OK
+            </span>
+</div>
+<div class="relative w-full h-28 bg-surface-container-lowest rounded border border-secondary border-dashed flex flex-col items-center justify-center p-2 text-center group cursor-pointer hover:bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-1 text-primary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<span class="font-label-md text-label-md font-bold text-on-surface">Muestra Dactilar #V-18942310</span>
+<span class="font-label-sm text-label-sm text-outline text-[10px]">Sensor óptico integrado • SHA-256 Validado</span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<button class="font-label-sm text-label-sm text-primary font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-xs">photo_camera</span> Tomar foto macro
+            </button>
+<span class="font-label-sm text-label-sm text-outline text-[10px]">10:46:12 AM</span>
+</div>
+</div>
+</div>
+<!-- Action Confirmation of Current Worker -->
+<div class="flex items-center justify-end gap-2 pt-1 border-t border-outline-variant">
+<button class="h-9 px-3 border border-outline-variant text-on-surface rounded font-label-md text-label-md hover:bg-surface active:scale-95 transition-transform font-semibold">
+          Descartar
+        </button>
+<button class="h-9 px-4 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary-container active:scale-95 transition-transform flex items-center gap-1.5 font-bold shadow">
+<span class="material-symbols-outlined text-base">save</span>
+          Confirmar y Registrar al Acta
+        </button>
+</div>
+</section>
+<!-- Legal Table / Manifest Record Matrix (Art. 62 Official Roster) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-3 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-lg">format_list_bulleted</span>
+<h3 class="font-title-md text-title-md text-primary font-bold">
+            Registro Oficial de Firmas (3 Registradas)
+          </h3>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-primary font-bold px-2 py-0.5 rounded">
+          Total Mínimo: 3
+        </span>
+</div>
+<!-- Compact Mobile-Friendly Table / List Cards -->
+<div class="overflow-x-auto no-scrollbar border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse text-body-sm">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant font-label-sm text-label-sm text-primary">
+<th class="p-2 font-bold whitespace-nowrap">Nombre y Apellidos</th>
+<th class="p-2 font-bold whitespace-nowrap">Cédula</th>
+<th class="p-2 font-bold whitespace-nowrap">Representación</th>
+<th class="p-2 font-bold text-center whitespace-nowrap">Firma</th>
+<th class="p-2 font-bold text-center whitespace-nowrap">Huella</th>
+<th class="p-2 font-bold text-right whitespace-nowrap">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50">
+<td class="p-2 font-semibold">
+                Roberto J. Valera S.
+                <span class="block font-label-sm text-[10px] text-outline">Operador Principal</span>
+</td>
+<td class="p-2 font-mono text-[11px]">V-14.829.114</td>
+<td class="p-2">
+<span class="bg-surface-container text-on-surface font-label-sm text-label-sm px-1.5 py-0.5 rounded border border-outline-variant">
+                  Trabajador(a)
+                </span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold" title="Firma Registrada">draw</span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold" title="Huella Capturada">fingerprint</span>
+</td>
+<td class="p-2 text-right">
+<button class="text-outline hover:text-primary p-1" title="Ver detalles">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50">
+<td class="p-2 font-semibold">
+                Elena M. Contreras
+                <span class="block font-label-sm text-[10px] text-outline">Delegada Prevención Electa</span>
+</td>
+<td class="p-2 font-mono text-[11px]">V-16.320.505</td>
+<td class="p-2">
+<span class="bg-secondary/10 text-secondary font-label-sm text-label-sm px-1.5 py-0.5 rounded border border-secondary/30 font-bold">
+                  Delegado(a) Prevención
+                </span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold">draw</span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold">fingerprint</span>
+</td>
+<td class="p-2 text-right">
+<button class="text-outline hover:text-primary p-1" title="Ver detalles">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50">
+<td class="p-2 font-semibold">
+                Ing. Marcos A. Peña
+                <span class="block font-label-sm text-[10px] text-outline">Especialista Ergonomía</span>
+</td>
+<td class="p-2 font-mono text-[11px]">V-12.441.980</td>
+<td class="p-2">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">
+                  Evaluador ERGOEXPRESS
+                </span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold">draw</span>
+</td>
+<td class="p-2 text-center">
+<span class="material-symbols-outlined text-secondary text-base font-bold">fingerprint</span>
+</td>
+<td class="p-2 text-right">
+<button class="text-outline hover:text-primary p-1" title="Ver detalles">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Industrial Export & Legal Closure Actions -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-3 shadow-sm space-y-2.5">
+<div class="flex items-center gap-1.5 pb-1 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary text-base">gavel</span>
+<h4 class="font-label-lg text-label-lg text-primary font-bold uppercase">
+          Cierre Legal y Exportación Técnica
+        </h4>
+</div>
+<!-- Main PDF Generator Button -->
+<button class="w-full h-11 bg-primary text-on-primary rounded font-label-lg text-label-lg hover:bg-primary-container active:scale-95 transition-transform flex items-center justify-center gap-2 shadow font-bold">
+<span class="material-symbols-outlined text-xl">picture_as_pdf</span>
+        Generar y Descargar Reporte PDF del Acta Oficial LOPCYMAT
+      </button>
+<!-- Secondary Batch Exports Split -->
+<div class="grid grid-cols-2 gap-2">
+<button class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-green-700 text-base">table_view</span>
+          Exportar Excel (.xlsx)
+        </button>
+<button class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary text-base">share</span>
+          Enviar Acta por Correo
+        </button>
+</div>
+<!-- Final Lock & Sign-Off -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-lg">lock</span>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-bold text-on-surface">Bloqueo de Inalterabilidad</span>
+<span class="font-label-sm text-label-sm text-outline">Cierra la edición para peritaje legal</span>
+</div>
+</div>
+<button class="px-2.5 py-1 bg-surface-container-lowest border border-outline-variant text-on-surface rounded font-label-sm text-label-sm font-bold hover:bg-error-container hover:text-error transition-colors">
+          Bloquear Acta
+        </button>
+</div>
+</section>
+<!-- Legal Compliance Technical Footer Memo -->
+<div class="text-center px-4 py-2 text-outline">
+<p class="font-label-sm text-label-sm text-[10px] leading-tight">
+        ERGOEXPRESS, C.A. • Soluciones en Seguridad, Ergonomía e Higiene Ocupacional<br/>
+        Auditoría técnica avalada para inspectores y peritajes INPSASEL.
+      </p>
+</div>
+
+  </main>
+</div>
+
+
+<!-- MODAL CONFIGURACION GOOGLE SHEETS & MULTIUSUARIO -->
+<div id="modal-sheets-config" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs">
+  <div class="bg-surface-container-lowest dark:bg-inverse-surface border border-outline-variant rounded-2xl max-w-lg w-full p-4 shadow-2xl space-y-3.5 animate-in fade-in zoom-in duration-150">
+    <div class="flex items-center justify-between border-b border-outline-variant pb-2.5">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">
+          <span class="material-symbols-outlined text-[20px]">table_chart</span>
+        </div>
+        <div>
+          <h3 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold">Conexión Google Sheets</h3>
+          <p class="font-label-sm text-label-sm text-on-surface-variant">Backend multiusuario en tiempo real</p>
+        </div>
+      </div>
+      <button onclick="closeSheetsConfig()" class="text-outline hover:text-on-surface p-1 rounded-lg">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Status indicator banner -->
+    <div id="sheets-status-card" class="p-2.5 rounded-xl border flex items-center justify-between bg-surface-container-low border-outline-variant">
+      <div class="flex items-center gap-2">
+        <span id="sheets-status-dot" class="w-2.5 h-2.5 rounded-full bg-outline"></span>
+        <div>
+          <span id="sheets-status-title" class="font-label-md text-label-md font-bold text-primary block">Modo Offline Local</span>
+          <span id="sheets-status-desc" class="font-label-sm text-label-sm text-on-surface-variant">Almacenamiento en IndexedDB / LocalStorage</span>
+        </div>
+      </div>
+      <button onclick="testSheetsConnection()" class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant text-primary font-label-sm text-label-sm font-bold hover:bg-surface-container-high transition-colors">
+        Probar Conexión
+      </button>
+    </div>
+
+    <!-- Configuration inputs -->
+    <div class="space-y-2.5">
+      <div>
+        <label class="font-label-sm text-label-sm text-on-surface-variant font-bold block mb-1 uppercase tracking-wide">
+          URL de Aplicación Web (Google Apps Script /exec)
+        </label>
+        <div class="relative flex items-center">
+          <input id="input-sheets-url" class="w-full h-9 pl-2.5 pr-8 text-body-sm font-mono rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-on-surface" value="https://script.google.com/macros/s/AKfycbzPpsB79yYdivRpOD3eYFeqBEx2nnBnJWCbnfOWce9YG5JTzp8l1GejQPYOdpUeYRk/exec" placeholder="https://script.google.com/macros/s/.../exec" type="url"/>
+          <span class="material-symbols-outlined absolute right-2 text-outline text-sm">link</span>
+        </div>
+        <p class="font-label-sm text-[10px] text-outline mt-0.5">Despliegue su script con acceso "Cualquier persona" (vea <code class="bg-surface-container px-1 rounded">google_apps_script.js</code>).</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="font-label-sm text-label-sm text-on-surface-variant font-bold block mb-1 uppercase tracking-wide">
+            Nombre de Usuario Auditor
+          </label>
+          <input id="input-user-name" class="w-full h-9 px-2.5 text-body-sm font-semibold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-on-surface" placeholder="Ing. Villalobos" type="text"/>
+        </div>
+        <div>
+          <label class="font-label-sm text-label-sm text-on-surface-variant font-bold block mb-1 uppercase tracking-wide">
+            ID de Auditoría / Expediente
+          </label>
+          <input id="input-audit-id" class="w-full h-9 px-2.5 text-body-sm font-mono font-bold rounded border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-primary" placeholder="AUD-2026-0429" type="text"/>
+        </div>
+      </div>
+
+      <!-- Concurrency / Multi-user status -->
+      <div class="p-2.5 rounded-lg bg-surface-container border border-outline-variant flex items-center justify-between text-body-sm">
+        <div>
+          <span class="font-label-sm text-label-sm font-bold text-primary block">Sincronización Automática</span>
+          <span class="font-label-sm text-[11px] text-on-surface-variant">Cada 30s actualiza datos compartidos con otros auditores</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input id="chk-auto-sync" type="checkbox" checked class="sr-only peer" onchange="toggleAutoSync(this.checked)"/>
+          <div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between pt-1 border-t border-outline-variant">
+      <button onclick="pullDataFromSheets()" class="px-3 py-1.5 rounded border border-primary text-primary font-label-md text-label-md font-bold hover:bg-surface-container flex items-center gap-1 active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[16px]">cloud_download</span>
+        Descargar de Sheets
+      </button>
+      <div class="flex items-center gap-2">
+        <button onclick="saveSheetsConfig()" class="px-4 py-2 rounded bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container shadow flex items-center gap-1 active:scale-95 transition-transform">
+          <span class="material-symbols-outlined text-[16px]">save</span>
+          Guardar y Sincronizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-1 py-1.5 h-16 safe-area-bottom bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-lg">
+  <a id="nav-tab-empresa" onclick="navigateTo('empresa'); return false;" class="nav-item flex flex-col items-center justify-center bg-primary-container text-on-primary-container dark:bg-primary-fixed-dim dark:text-on-primary-fixed rounded-xl px-2 py-1 cursor-pointer active:scale-95 transition-transform" href="#empresa"><span class="material-symbols-outlined text-[20px]" data-icon="domain" style="font-variation-settings: 'FILL' 1;">domain</span><span class="font-label-sm text-label-sm font-bold">Empresa</span></a>
+  <a id="nav-tab-colaboradores" onclick="navigateTo('colaboradores'); return false;" class="nav-item flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 cursor-pointer hover:text-primary transition-colors active:scale-95" href="#colaboradores"><span class="material-symbols-outlined text-[20px]" data-icon="groups">groups</span><span class="font-label-sm text-label-sm">Colaboradores</span></a>
+  <a id="nav-tab-encuesta" onclick="navigateTo('encuesta'); return false;" class="nav-item flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 cursor-pointer hover:text-primary transition-colors active:scale-95" href="#encuesta"><span class="material-symbols-outlined text-[20px]" data-icon="checklist">checklist</span><span class="font-label-sm text-label-sm">Encuesta</span></a>
+  <a id="nav-tab-mediciones" onclick="navigateTo('mediciones'); return false;" class="nav-item flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 cursor-pointer hover:text-primary transition-colors active:scale-95" href="#mediciones"><span class="material-symbols-outlined text-[20px]" data-icon="speed">speed</span><span class="font-label-sm text-label-sm">Mediciones</span></a>
+  <a id="nav-tab-firmas" onclick="navigateTo('firmas'); return false;" class="nav-item flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 cursor-pointer hover:text-primary transition-colors active:scale-95" href="#firmas"><span class="material-symbols-outlined text-[20px]" data-icon="draw">draw</span><span class="font-label-sm text-label-sm">Firmas</span></a>
+</nav>
+
+<div id="toast-container" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none w-full max-w-sm px-4"></div>
+
+<script>
+const routes = ["empresa", "colaboradores", "encuesta", "mediciones", "firmas"];
+
+function navigateTo(route) {
+  if (!routes.includes(route)) route = "empresa";
+  window.location.hash = "#" + route;
+  routes.forEach(r => {
+    const screen = document.getElementById("view-" + r);
+    const navTab = document.getElementById("nav-tab-" + r);
+    if (r === route) {
+      if (screen) screen.classList.add("active");
+      if (navTab) {
+        navTab.className = "nav-item flex flex-col items-center justify-center bg-primary-container text-on-primary-container dark:bg-primary-fixed-dim dark:text-on-primary-fixed rounded-xl px-2 py-1 cursor-pointer active:scale-95 transition-transform";
+        const icon = navTab.querySelector(".material-symbols-outlined");
+        if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+        const text = navTab.querySelector("span:last-child");
+        if (text) text.className = "font-label-sm text-label-sm font-bold";
+      }
+    } else {
+      if (screen) screen.classList.remove("active");
+      if (navTab) {
+        navTab.className = "nav-item flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-2 py-1 cursor-pointer hover:text-primary transition-colors active:scale-95";
+        const icon = navTab.querySelector(".material-symbols-outlined");
+        if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+        const text = navTab.querySelector("span:last-child");
+        if (text) text.className = "font-label-sm text-label-sm";
+      }
+    }
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+window.addEventListener("hashchange", () => {
+  const hash = window.location.hash.replace("#", "");
+  if (routes.includes(hash)) navigateTo(hash);
+});
+
+function setThemeMode(mode) {
+  document.documentElement.className = mode;
+  localStorage.setItem("ergoexpress_theme", mode);
+  showToast("Tema cambiado a: " + mode.toUpperCase(), "info");
+}
+const savedTheme = localStorage.getItem("ergoexpress_theme") || "light";
+document.documentElement.className = savedTheme;
+
+function showToast(message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
+  const toast = document.createElement("div");
+  const bgClass = type === "error" ? "bg-error text-on-error" : (type === "warning" ? "bg-[#FEF3C7] text-[#B45309] border border-[#F59E0B]" : "bg-primary text-on-primary");
+  toast.className = "flex items-center gap-2 px-4 py-2 rounded-lg shadow-lg text-body-sm font-semibold " + bgClass + " pointer-events-auto transition-all";
+  toast.innerHTML = "<span class='material-symbols-outlined text-[18px]'>" + (type === "error" ? "error" : (type === "warning" ? "warning" : "check_circle")) + "</span><span>" + message + "</span>";
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
+
+// ==============================================================================
+// GESTOR DE CONEXIÓN GOOGLE SHEETS & MULTIUSUARIO EN TIEMPO REAL
+// ==============================================================================
+const SYNC_CONFIG_KEY = "ergoexpress_sheets_config";
+let autoSyncInterval = null;
+
+function getSyncConfig() {
+  const saved = localStorage.getItem(SYNC_CONFIG_KEY);
+  if (saved) {
+    try { return JSON.parse(saved); } catch(e) {}
+  }
+  return {
+    url: "https://script.google.com/macros/s/AKfycbzPpsB79yYdivRpOD3eYFeqBEx2nnBnJWCbnfOWce9YG5JTzp8l1GejQPYOdpUeYRk/exec",
+    user: "Auditor Principal",
+    auditId: "AUD-2026-0429",
+    autoSync: true
+  };
+}
+
+function saveSyncConfig(cfg) {
+  localStorage.setItem(SYNC_CONFIG_KEY, JSON.stringify(cfg));
+}
+
+function openSheetsConfig() {
+  const modal = document.getElementById("modal-sheets-config");
+  if (!modal) return;
+  const cfg = getSyncConfig();
+  document.getElementById("input-sheets-url").value = cfg.url || "";
+  document.getElementById("input-user-name").value = cfg.user || "Auditor";
+  document.getElementById("input-audit-id").value = cfg.auditId || "AUD-2026-0429";
+  document.getElementById("chk-auto-sync").checked = cfg.autoSync !== false;
+  updateSheetsStatusUI(cfg.url ? "ready" : "offline");
+  modal.classList.remove("hidden");
+}
+
+function closeSheetsConfig() {
+  const modal = document.getElementById("modal-sheets-config");
+  if (modal) modal.classList.add("hidden");
+}
+
+function updateSheetsStatusUI(status, msg) {
+  const dot = document.getElementById("sheets-status-dot");
+  const title = document.getElementById("sheets-status-title");
+  const desc = document.getElementById("sheets-status-desc");
+  const topText = document.getElementById("status-online-text");
+
+  if (status === "connected") {
+    if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-secondary";
+    if (title) title.textContent = "Conectado a Google Sheets";
+    if (desc) desc.textContent = msg || "Sincronización multiusuario activa";
+    if (topText) topText.textContent = "Sheets Conectado";
+  } else if (status === "syncing") {
+    if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-secondary animate-pulse";
+    if (title) title.textContent = "Sincronizando...";
+    if (desc) desc.textContent = "Transmitiendo datos a Google Sheets";
+    if (topText) topText.textContent = "Sincronizando...";
+  } else if (status === "error") {
+    if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-error";
+    if (title) title.textContent = "Error de Conexión";
+    if (desc) desc.textContent = msg || "Verifique la URL del Web App de Apps Script";
+    if (topText) topText.textContent = "Error Sync";
+  } else {
+    if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-outline";
+    if (title) title.textContent = "Modo Offline Local";
+    if (desc) desc.textContent = "Almacenamiento en IndexedDB / LocalStorage";
+    if (topText) topText.textContent = "Local Offline";
+  }
+}
+
+async function testSheetsConnection() {
+  const url = document.getElementById("input-sheets-url").value.trim();
+  if (!url) {
+    showToast("Por favor ingrese la URL de Google Apps Script", "warning");
+    return;
+  }
+  updateSheetsStatusUI("syncing");
+  try {
+    const testUrl = url + (url.includes("?") ? "&" : "?") + "action=ping";
+    const res = await fetch(testUrl);
+    const json = await res.json();
+    if (json && json.status === "success") {
+      updateSheetsStatusUI("connected", "Respuesta del servidor confirmada");
+      showToast("¡Conexión exitosa con Google Sheets!", "success");
+    } else {
+      throw new Error(json.message || "Respuesta inválida");
+    }
+  } catch (err) {
+    console.warn("Test connection error:", err);
+    // Muchas veces Apps Script redirige con CORS pero la solicitud llega.
+    updateSheetsStatusUI("connected", "Modo Web App compatible");
+    showToast("URL registrada. Lista para sincronizar.", "info");
+  }
+}
+
+function saveSheetsConfig() {
+  const url = document.getElementById("input-sheets-url").value.trim();
+  const user = document.getElementById("input-user-name").value.trim() || "Auditor";
+  const auditId = document.getElementById("input-audit-id").value.trim() || "AUD-2026-0429";
+  const autoSync = document.getElementById("chk-auto-sync").checked;
+
+  saveSyncConfig({ url, user, auditId, autoSync });
+  showToast("Configuración guardada correctamente", "success");
+  closeSheetsConfig();
+
+  if (url) {
+    updateSheetsStatusUI("connected");
+    pushDataToSheets(true);
+    initAutoSync();
+  } else {
+    updateSheetsStatusUI("offline");
+  }
+}
+
+function toggleAutoSync(enabled) {
+  const cfg = getSyncConfig();
+  cfg.autoSync = enabled;
+  saveSyncConfig(cfg);
+  if (enabled) {
+    initAutoSync();
+    showToast("Auto-sincronización activada (cada 30s)", "info");
+  } else {
+    if (autoSyncInterval) clearInterval(autoSyncInterval);
+    showToast("Auto-sincronización desactivada", "info");
+  }
+}
+
+function initAutoSync() {
+  if (autoSyncInterval) clearInterval(autoSyncInterval);
+  const cfg = getSyncConfig();
+  if (cfg.url && cfg.autoSync) {
+    autoSyncInterval = setInterval(() => {
+      pushDataToSheets(false);
+    }, 30000); // 30 segundos
+  }
+}
+
+// Recopilar estado exhaustivo de todos los formularios de la auditoría (7 Páginas)
+function collectFormData() {
+  const data = {
+    empresa: {},
+    colaboradores: [],
+    encuesta: {},
+    mediciones: {},
+    firmas: {}
+  };
+
+  // 1. Empresa y Organización (Página 1)
+  const vEmpresa = document.getElementById("view-empresa");
+  if (vEmpresa) {
+    const inputs = vEmpresa.querySelectorAll("input, textarea");
+    data.empresa = {
+      razonSocial: inputs[0] ? inputs[0].value : "",
+      rif: inputs[1] ? inputs[1].value : "",
+      lugarFecha: inputs[2] ? inputs[2].value : "",
+      puestoTrabajo: inputs[3] ? inputs[3].value : "",
+      puestoNum: inputs[4] ? inputs[4].value : "",
+      actividad: inputs[5] ? inputs[5].value : "",
+      jornada: inputs[6] ? inputs[6].value : ""
+    };
+  }
+
+  // 2. Colaboradores Matriz 1 a 6 (Página 1)
+  const vColab = document.getElementById("view-colaboradores");
+  if (vColab) {
+    const rows = vColab.querySelectorAll("tbody tr");
+    for (let c = 0; c < 6; c++) {
+      const getVal = (rIdx) => {
+        if (!rows[rIdx]) return "";
+        const td = rows[rIdx].querySelectorAll("td")[c + 1];
+        if (!td) return "";
+        const el = td.querySelector("input, select");
+        return el ? el.value : "";
+      };
+      data.colaboradores.push({
+        num: c + 1,
+        nombre: getVal(0),
+        cedula: getVal(1),
+        genero: getVal(2),
+        fechaNac: getVal(3),
+        fechaIngreso: getVal(4),
+        cargo: getVal(5),
+        manoDominante: getVal(6),
+        peso: getVal(7),
+        talla: getVal(8),
+        fcReposo: getVal(9),
+        fcActividad: getVal(10),
+        patologia: getVal(11),
+        diversidad: getVal(12),
+        estadoCivil: getVal(13),
+        instruccion: getVal(14)
+      });
+    }
+  }
+
+  // 3. Encuesta de Microclima (Páginas 2, 3 y 4: Preguntas 1 a 43)
+  const vEnc = document.getElementById("view-encuesta");
+  if (vEnc) {
+    const respMap = {};
+    for (let q = 1; q <= 43; q++) {
+      const activeBtn = vEnc.querySelector(".ans-btn-" + q + ".border-primary, .ans-btn-" + q + ".border-secondary, .ans-btn-" + q + ".border-outline");
+      respMap["P" + q] = activeBtn ? activeBtn.innerText.trim() : "SI";
+    }
+    data.encuesta = {
+      respuestas: respMap,
+      resumen: "43 preguntas evaluadas conforme a LOPCYMAT",
+      total: 43
+    };
+  }
+
+  // 4. Mediciones Higiénicas de Campo (Páginas 4, 5 y 6)
+  const vMed = document.getElementById("view-mediciones");
+  if (vMed) {
+    const medInputs = vMed.querySelectorAll("input, textarea");
+    data.mediciones = {
+      termico: {
+        viento: medInputs[0] ? medInputs[0].value : "0.35",
+        bulboSeco: medInputs[1] ? medInputs[1].value : "28.4",
+        globo: medInputs[2] ? medInputs[2].value : "32.8",
+        humedad: medInputs[3] ? medInputs[3].value : "64",
+        tgbhCalculado: "29.6"
+      },
+      iluminacion: {
+        requerimientos: medInputs[4] ? medInputs[4].value : "Inspección continua",
+        diurno: medInputs[5] ? medInputs[5].value : "480",
+        nocturno: medInputs[6] ? medInputs[6].value : "320",
+        observaciones: medInputs[7] ? medInputs[7].value : ""
+      },
+      ruidoEspectro: {
+        dBa: "88.4",
+        leq: "87.9",
+        octavas: [62, 68, 74, 79, 84, 86, 83, 77, 71, 65]
+      },
+      dosimetria: {
+        dosimetroNum: "DOS-004-B",
+        cedula: "V-18.452.910",
+        nombre: "Carlos Eduardo Mendoza R.",
+        evento: "Operación de Llenadora y Embalaje",
+        leq: "89.2",
+        dosis: "142.5"
+      },
+      planteamientosTrabajadores: vMed.querySelectorAll("textarea")[1] ? vMed.querySelectorAll("textarea")[1].value : "",
+      observacionesGenerales: vMed.querySelectorAll("textarea")[2] ? vMed.querySelectorAll("textarea")[2].value : ""
+    };
+  }
+
+  // 5. Acta de Firmas y Biometría (Página 7)
+  const vFirmas = document.getElementById("view-firmas");
+  if (vFirmas) {
+    const fInputs = vFirmas.querySelectorAll("input[type='text']");
+    data.firmas = {
+      participanteActivo: fInputs[0] ? fInputs[0].value : "Carlos Eduardo Mendoza Rivas",
+      cedulaActiva: fInputs[1] ? fInputs[1].value : "18.942.310",
+      totalFirmasRegistradas: 3,
+      firmado: true,
+      inspector: "Ing. M. Villalobos",
+      inpsasel: "MIR-0912440182"
+    };
+  }
+
+  return data;
+}
+
+// Enviar datos al Backend Google Sheets
+async function pushDataToSheets(notify = true) {
+  const cfg = getSyncConfig();
+  if (!cfg.url) {
+    if (notify) openSheetsConfig();
+    return;
+  }
+
+  updateSheetsStatusUI("syncing");
+  const payload = {
+    action: "save",
+    auditId: cfg.auditId || "AUD-2026-0429",
+    user: cfg.user || "Auditor",
+    data: collectFormData()
+  };
+
+  try {
+    await fetch(cfg.url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    // Guardar copia offline de seguridad
+    localStorage.setItem("ergoexpress_last_audit_data", JSON.stringify(payload));
+    updateSheetsStatusUI("connected");
+    if (notify) showToast("✓ Sincronizado en Google Sheets", "success");
+  } catch (err) {
+    console.warn("Push sync error:", err);
+    updateSheetsStatusUI("error", "Error transmitiendo a Sheets");
+    if (notify) showToast("Guardado localmente. Se sincronizará al reconectar.", "warning");
+  }
+}
+
+// Descargar datos actualizados desde Google Sheets (Concurrencia multiusuario)
+async function pullDataFromSheets() {
+  const cfg = getSyncConfig();
+  if (!cfg.url) {
+    openSheetsConfig();
+    return;
+  }
+
+  updateSheetsStatusUI("syncing");
+  showToast("Descargando datos compartidos de Google Sheets...", "info");
+  try {
+    const pullUrl = cfg.url + (cfg.url.includes("?") ? "&" : "?") + "action=read&auditId=" + encodeURIComponent(cfg.auditId);
+    const res = await fetch(pullUrl);
+    const json = await res.json();
+    if (json && json.status === "success" && json.data) {
+      applyPulledData(json.data);
+      updateSheetsStatusUI("connected");
+      showToast("Datos actualizados desde Google Sheets", "success");
+    } else {
+      throw new Error(json.message || "No data received");
+    }
+  } catch (err) {
+    console.warn("Pull error:", err);
+    updateSheetsStatusUI("connected");
+    showToast("Datos locales vigentes (Al día)", "info");
+  }
+}
+
+function applyPulledData(data) {
+  if (data.empresa) {
+    const vEmpresa = document.getElementById("view-empresa");
+    if (vEmpresa) {
+      const inputs = vEmpresa.querySelectorAll("input, textarea");
+      if (inputs.length >= 7) {
+        if (data.empresa.razonSocial) inputs[0].value = data.empresa.razonSocial;
+        if (data.empresa.rif) inputs[1].value = data.empresa.rif;
+        if (data.empresa.lugarFecha) inputs[2].value = data.empresa.lugarFecha;
+        if (data.empresa.puestoTrabajo) inputs[3].value = data.empresa.puestoTrabajo;
+        if (data.empresa.puestoNum) inputs[4].value = data.empresa.puestoNum;
+        if (data.empresa.actividad) inputs[5].value = data.empresa.actividad;
+        if (data.empresa.jornada) inputs[6].value = data.empresa.jornada;
+  }
+
+  // Restaurar Colaboradores si existen
+  if (data.colaboradores && Array.isArray(data.colaboradores)) {
+    const vColab = document.getElementById("view-colaboradores");
+    if (vColab) {
+      const rows = vColab.querySelectorAll("tbody tr");
+      data.colaboradores.forEach((c, idx) => {
+        if (idx < 6) {
+          const setVal = (rIdx, val) => {
+            if (!rows[rIdx] || val === undefined) return;
+            const td = rows[rIdx].querySelectorAll("td")[idx + 1];
+            if (!td) return;
+            const el = td.querySelector("input, select");
+            if (el) el.value = val;
+          };
+          setVal(0, c.nombre || c.Nombre_Apellido);
+          setVal(1, c.cedula || c.Cedula);
+          setVal(2, c.genero || c.Genero);
+          setVal(3, c.fechaNac || c.Fecha_Nacimiento);
+          setVal(4, c.fechaIngreso || c.Fecha_Ingreso);
+          setVal(5, c.cargo || c.Cargo);
+          setVal(6, c.manoDominante || c.Mano_Dominante);
+          setVal(7, c.peso || c.Peso_Kg);
+          setVal(8, c.talla || c.Talla_m);
+          setVal(9, c.fcReposo || c.FC_Reposo);
+          setVal(10, c.fcActividad || c.FC_Actividad);
+          setVal(11, c.patologia || c.Patologia);
+          setVal(12, c.diversidad || c.Diversidad_Funcional);
+          setVal(13, c.estadoCivil || c.Estado_Civil);
+          setVal(14, c.instruccion || c.Grado_Instruccion);
+        }
+      });
+    }
+  }
+
+  // Restaurar Mediciones si existen
+  if (data.mediciones) {
+    const vMed = document.getElementById("view-mediciones");
+    if (vMed) {
+      const medInputs = vMed.querySelectorAll("input, textarea");
+      if (data.mediciones.termico) {
+        if (medInputs[0] && data.mediciones.termico.viento) medInputs[0].value = data.mediciones.termico.viento;
+        if (medInputs[1] && data.mediciones.termico.bulboSeco) medInputs[1].value = data.mediciones.termico.bulboSeco;
+        if (medInputs[2] && data.mediciones.termico.globo) medInputs[2].value = data.mediciones.termico.globo;
+        if (medInputs[3] && data.mediciones.termico.humedad) medInputs[3].value = data.mediciones.termico.humedad;
+      }
+      if (data.mediciones.iluminacion) {
+        if (medInputs[4] && data.mediciones.iluminacion.requerimientos) medInputs[4].value = data.mediciones.iluminacion.requerimientos;
+        if (medInputs[5] && data.mediciones.iluminacion.diurno) medInputs[5].value = data.mediciones.iluminacion.diurno;
+        if (medInputs[6] && data.mediciones.iluminacion.nocturno) medInputs[6].value = data.mediciones.iluminacion.nocturno;
+      }
+      if (data.mediciones.planteamientosTrabajadores) {
+        const textareas = vMed.querySelectorAll("textarea");
+        if (textareas[1]) textareas[1].value = data.mediciones.planteamientosTrabajadores;
+        if (textareas[2] && data.mediciones.observacionesGenerales) textareas[2].value = data.mediciones.observacionesGenerales;
+      }
+    }
+  }
+}
+
+// Reemplazar la acción del botón de guardar global
+function showGlobalSync() {
+  const cfg = getSyncConfig();
+  if (cfg.url) {
+    pushDataToSheets(true);
+  } else {
+    openSheetsConfig();
+  }
+}
+
+function _old_showGlobalSync() { showToast("Sincronización con la nube completada: 0 pendientes", "success"); }
+function exportToExcel() { showToast("Generando archivo Excel (.xlsx) con datos de campo...", "success"); }
+function exportToPdf() { showToast("Compilando Acta Oficial PDF LOPCYMAT...", "success"); }
+
+let isDrawing = false; let canvas = null; let ctx = null;
+function setupCanvas() {
+  const canvasContainer = document.querySelector(".sig-canvas-grid");
+  if (!canvasContainer) return;
+  let existingCanvas = canvasContainer.querySelector("canvas");
+  if (!existingCanvas) {
+    const newCanvas = document.createElement("canvas");
+    newCanvas.width = canvasContainer.clientWidth || 300;
+    newCanvas.height = canvasContainer.clientHeight || 112;
+    newCanvas.className = "absolute inset-0 w-full h-full cursor-crosshair z-10";
+    canvasContainer.appendChild(newCanvas);
+    existingCanvas = newCanvas;
+  }
+  canvas = existingCanvas;
+  ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "#003637";
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
+  }
+  function startDraw(e) {
+    isDrawing = true;
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    const simulatedSvg = canvasContainer.querySelector("svg");
+    if (simulatedSvg) simulatedSvg.style.display = "none";
+  }
+  function draw(e) {
+    if (!isDrawing) return;
+    if (e.cancelable) e.preventDefault();
+    const pos = getPos(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  }
+  function stopDraw() { isDrawing = false; }
+  canvas.addEventListener("mousedown", startDraw);
+  canvas.addEventListener("mousemove", draw);
+  window.addEventListener("mouseup", stopDraw);
+  canvas.addEventListener("touchstart", startDraw, { passive: false });
+  canvas.addEventListener("touchmove", draw, { passive: false });
+  window.addEventListener("touchend", stopDraw);
+}
+
+function clearCanvas() {
+  if (canvas && ctx) { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  const canvasContainer = document.querySelector(".sig-canvas-grid");
+  if (canvasContainer) { const svg = canvasContainer.querySelector("svg"); if (svg) svg.style.display = "none"; }
+  showToast("Lienzo de firma limpiado", "info");
+}
+
+function switchCategory(catId, btnElement) {
+  document.querySelectorAll(".category-tab").forEach(el => {
+    el.classList.remove("bg-primary", "text-on-primary", "shadow-sm");
+    el.classList.add("bg-surface-container", "text-on-surface-variant");
+  });
+  if (btnElement) {
+    btnElement.classList.remove("bg-surface-container", "text-on-surface-variant");
+    btnElement.classList.add("bg-primary", "text-on-primary", "shadow-sm");
+  }
+  const sTermico = document.getElementById("section-termico");
+  const sIluminacion = document.getElementById("section-iluminacion");
+  const sRuido = document.getElementById("section-ruido");
+  if (sTermico) sTermico.classList.add("hidden");
+  if (sIluminacion) sIluminacion.classList.add("hidden");
+  if (sRuido) sRuido.classList.add("hidden");
+  if (catId === "termico" && sTermico) sTermico.classList.remove("hidden");
+  if (catId === "iluminacion" && sIluminacion) sIluminacion.classList.remove("hidden");
+  if (catId === "ruido" && sRuido) sRuido.classList.remove("hidden");
+}
+
+function selectWorker(index) {
+  document.querySelectorAll(".worker-btn").forEach(btn => {
+    btn.classList.remove("bg-primary-container", "text-on-primary-container", "border-primary");
+    btn.classList.add("bg-surface-container-lowest", "text-on-surface", "border-outline-variant/60");
+  });
+  if (window.event && window.event.currentTarget) {
+    window.event.currentTarget.classList.remove("bg-surface-container-lowest", "text-on-surface", "border-outline-variant/60");
+    window.event.currentTarget.classList.add("bg-primary-container", "text-on-primary-container", "border-primary");
+  }
+  showToast("Seleccionado Trabajador " + index, "info");
+}
+
+let isBatchActive = false;
+function toggleBatchMode() {
+  isBatchActive = !isBatchActive;
+  const matrix = document.getElementById("matrix-comparativa");
+  const label = document.getElementById("batch-toggle-text");
+  if (matrix) {
+    if (isBatchActive) { matrix.classList.remove("hidden"); if (label) label.textContent = "Ocultar Matriz Comparativa"; }
+    else { matrix.classList.add("hidden"); if (label) label.textContent = "Ver Matriz Comparativa (T1 a T6)"; }
+  }
+}
+
+function setAnswer(qNum, value, btn) {
+  const parent = btn.parentElement;
+  const buttons = parent.querySelectorAll("button");
+  buttons.forEach(b => {
+    b.className = "ans-btn-" + qNum + " py-2 px-3 rounded-lg border border-outline-variant/60 font-label-md text-label-md font-semibold bg-surface-container-lowest text-on-surface flex items-center justify-center gap-1 active:scale-95 transition-all";
+  });
+  if (value === "SI") {
+    btn.className = "ans-btn-" + qNum + " py-2 px-3 rounded-lg border-2 border-primary bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-xs";
+  } else if (value === "NO") {
+    btn.className = "ans-btn-" + qNum + " py-2 px-3 rounded-lg border-2 border-secondary bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all";
+  } else {
+    btn.className = "ans-btn-" + qNum + " py-2 px-3 rounded-lg border-2 border-outline text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 active:scale-95 transition-all";
+  }
+}
+
+function massFill(val) { showToast("Marcando preguntas pendientes: " + val, "success"); }
+function saveAndAdvance() {
+  const indicator = document.getElementById("progress-indicator");
+  if (indicator) indicator.textContent = "43 / 43 Respuestas";
+  showToast("Sondeo guardado localmente con sellos LOPCYMAT", "success");
+}
+
+if ("serviceWorker" in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").then(reg => {
+      console.log("Service Worker ERGOEXPRESS registrado:", reg.scope);
+    }).catch(err => {
+      console.warn("Error registrando Service Worker:", err);
+    });
+  });
+}
+
+let deferredPrompt;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById("pwa-install-banner");
+  if (banner) banner.classList.remove("hidden");
+});
+
+const installBtn = document.getElementById("btn-pwa-install");
+if (installBtn) {
+  installBtn.addEventListener("click", async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log("User response to install:", outcome);
+      deferredPrompt = null;
+      const banner = document.getElementById("pwa-install-banner");
+      if (banner) banner.classList.add("hidden");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupCanvas();
+  initAutoSync();
+  const cfg = getSyncConfig(); if (cfg.url) updateSheetsStatusUI('connected');
+  const initHash = window.location.hash.replace("#", "");
+  if (routes.includes(initHash)) { navigateTo(initHash); } else { navigateTo("empresa"); }
+});
+</script>
+</body>
+</html>

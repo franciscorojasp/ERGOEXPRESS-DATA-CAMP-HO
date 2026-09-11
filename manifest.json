@@ -1,0 +1,21 @@
+{
+  "name": "ERGOEXPRESS - Auditoría Higiénica y LOPCYMAT",
+  "short_name": "ERGOEXPRESS",
+  "description": "Sistema de Captura de Datos Ocupacionales, Higiénicos y Legales LOPCYMAT en Campo",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f9ff",
+  "theme_color": "#003637",
+  "icons": [
+    {
+      "src": "img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
