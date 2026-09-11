@@ -4,9 +4,10 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <meta name="theme-color" content="#003637"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="ERGOEXPRESS"/>
+<link rel="icon" type="image/png" href="img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png"/>
 <title>ERGOEXPRESS - Auditoría Higiénica y LOPCYMAT</title>
 <!-- Manifest inyectado dinámicamente si no es file:/// para evitar error CORS -->
 <script>
@@ -2775,6 +2776,8 @@ function applyPulledData(data) {
         if (data.empresa.puestoNum) inputs[4].value = data.empresa.puestoNum;
         if (data.empresa.actividad) inputs[5].value = data.empresa.actividad;
         if (data.empresa.jornada) inputs[6].value = data.empresa.jornada;
+      }
+    }
   }
 
   // Restaurar Colaboradores si existen
