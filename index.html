@@ -240,6 +240,34 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
   body { padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)) !important; }
   #modal-firma-ampliada .h-44 { height: 7.5rem; }
 }
+
+/* ==========================================================================
+   ESTILOS MODO MÓVIL ERGONÓMICO DE CAMPO (ANDROID / SMARTPHONES)
+   ========================================================================== */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.mobile-mode-switcher {
+  border-radius: 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  #view-empresa .flex.items-center.gap-2:has(button[onclick="exportToExcel()"]) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  #view-empresa button[onclick="exportToExcel()"],
+  #view-empresa button[onclick="exportToPdf()"] {
+    justify-content: center;
+    font-size: 11px !important;
+    padding: 0.4rem 0.25rem !important;
+  }
+}
+
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen pb-24 selection:bg-secondary-container selection:text-on-secondary-container">
@@ -7509,6 +7537,9 @@ function initAllSignatureCanvases() {
   // Pre-cargar rúbricas auténticas y huellas registradas en participantes 1, 2 y 3
   preloadDefaultSampleSignatures();
   updateActaGlobalStatus();
+  if (window.MobileFieldMode && window.MobileFieldMode.updateFirmasMobileCards) {
+    window.MobileFieldMode.updateFirmasMobileCards();
+  }
 }
 
 function initSingleSignatureCanvas(r) {
@@ -7936,6 +7967,9 @@ function resetActaDefaults() {
 function onActaRowInput(r) {
   updateActaRowStatus(r);
   updateActaGlobalStatus();
+  if (window.MobileFieldMode && window.MobileFieldMode.updateFirmasMobileCards) {
+    window.MobileFieldMode.updateFirmasMobileCards();
+  }
 }
 
 // Actualizar etiqueta de estado de una fila
@@ -9363,6 +9397,1007 @@ document.addEventListener("DOMContentLoaded", () => {
   const initHash = window.location.hash.replace("#", "");
   if (routes.includes(initHash)) { navigateTo(initHash); } else { navigateTo("empresa"); }
 });
+</script>
+
+<script>
+/**
+ * MODO MÓVIL ERGONÓMICO PARA TÉCNICOS EN CAMPO - ERGOEXPRESS
+ * Elimina 100% del scroll horizontal y reduce 80% del scroll vertical en teléfonos Android.
+ */
+
+window.MobileFieldMode = (function() {
+  let isMobileActive = window.innerWidth <= 768;
+  let activeColabIdx = 1;
+  let activeSurveyWorkerIdx = 1;
+  let activeSurveyCat = 'cat-termico';
+  let activeThermalPt = 1;
+  let activeLightingPt = 1;
+  let activeNoisePt = 1;
+  let activeDosiWorker = 1;
+  let activeAporteWorker = 1;
+
+  function init() {
+    setupToggleButtons();
+    renderColabMobileCard();
+    renderSurveyMobileView();
+    renderAportesMobileView();
+    renderMedicionesMobileView();
+    renderFirmasMobileView();
+    applyViewMode(isMobileActive);
+  }
+
+  function setupToggleButtons() {
+    const screens = [
+      { id: 'view-colaboradores', name: 'colab' },
+      { id: 'view-encuesta', name: 'survey' },
+      { id: 'view-mediciones', name: 'med' },
+      { id: 'view-firmas', name: 'firmas' }
+    ];
+
+    screens.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (!el || el.querySelector('.mobile-mode-switcher')) return;
+
+      const switcher = document.createElement('div');
+      switcher.className = 'mobile-mode-switcher w-full max-w-7xl mx-auto px-3 py-2 flex items-center justify-between gap-2 bg-secondary-container/20 border-b border-outline-variant/60';
+      switcher.innerHTML = `
+        <div class="flex items-center gap-1.5 text-secondary font-label-md text-xs font-bold">
+          <span class="material-symbols-outlined text-[18px]">phone_android</span>
+          <span>MODO ERGONÓMICO</span>
+        </div>
+        <div class="inline-flex rounded-lg p-0.5 bg-surface-container border border-outline-variant text-xs font-bold">
+          <button type="button" class="btn-toggle-mode-mobile px-3 py-1 rounded-md transition-all ${isMobileActive ? 'bg-primary text-on-primary shadow-xs' : 'text-on-surface hover:bg-surface-container-high'}" data-mode="mobile">
+            <span class="material-symbols-outlined text-[14px] align-middle mr-0.5">phone_iphone</span> Móvil
+          </button>
+          <button type="button" class="btn-toggle-mode-table px-3 py-1 rounded-md transition-all ${!isMobileActive ? 'bg-primary text-on-primary shadow-xs' : 'text-on-surface hover:bg-surface-container-high'}" data-mode="table">
+            <span class="material-symbols-outlined text-[14px] align-middle mr-0.5">table_chart</span> Tabla
+          </button>
+        </div>
+      `;
+
+      el.insertBefore(switcher, el.children[1] || el.firstChild);
+
+      switcher.querySelector('.btn-toggle-mode-mobile').addEventListener('click', () => {
+        isMobileActive = true;
+        applyViewMode(true);
+      });
+      switcher.querySelector('.btn-toggle-mode-table').addEventListener('click', () => {
+        isMobileActive = false;
+        applyViewMode(false);
+      });
+    });
+  }
+
+  function applyViewMode(mobile) {
+    document.querySelectorAll('.mobile-mode-switcher').forEach(sw => {
+      const bMob = sw.querySelector('.btn-toggle-mode-mobile');
+      const bTab = sw.querySelector('.btn-toggle-mode-table');
+      if (bMob && bTab) {
+        if (mobile) {
+          bMob.className = 'btn-toggle-mode-mobile px-3 py-1 rounded-md transition-all bg-primary text-on-primary shadow-xs';
+          bTab.className = 'btn-toggle-mode-table px-3 py-1 rounded-md transition-all text-on-surface hover:bg-surface-container-high';
+        } else {
+          bMob.className = 'btn-toggle-mode-mobile px-3 py-1 rounded-md transition-all text-on-surface hover:bg-surface-container-high';
+          bTab.className = 'btn-toggle-mode-table px-3 py-1 rounded-md transition-all bg-primary text-on-primary shadow-xs';
+        }
+      }
+    });
+
+    // 1. Colaboradores
+    const colabTable = document.querySelector('#view-colaboradores table');
+    if (colabTable) {
+      const colabWrap = colabTable.closest('.border.border-outline-variant') || colabTable.closest('.overflow-x-auto');
+      if (colabWrap) colabWrap.style.display = mobile ? 'none' : '';
+    }
+    const colabDesktopPills = document.querySelectorAll('#view-colaboradores .flex.items-center.gap-1\\.5.overflow-x-auto');
+    colabDesktopPills.forEach(p => p.style.display = mobile ? 'none' : '');
+
+    const colabMobWrap = document.getElementById('colab-mobile-container');
+    if (colabMobWrap) {
+      colabMobWrap.style.display = mobile ? 'block' : 'none';
+      if (mobile) syncColabFromTable();
+    }
+
+    // 2. Encuesta
+    const surveyTable = document.getElementById('tabla-matriz-encuesta');
+    if (surveyTable) {
+      const surveyWrap = surveyTable.closest('.border.border-outline-variant') || surveyTable.closest('.overflow-x-auto');
+      if (surveyWrap) surveyWrap.style.display = mobile ? 'none' : '';
+    }
+    const surveyDesktopPills = document.querySelectorAll('#view-encuesta .flex.items-center.gap-1\\.5.overflow-x-auto');
+    surveyDesktopPills.forEach(p => p.style.display = mobile ? 'none' : '');
+
+    const surveyDesktopBar = document.getElementById('cat-pill-todas')?.closest('.bg-surface-container-low');
+    if (surveyDesktopBar) surveyDesktopBar.style.display = mobile ? 'none' : '';
+
+    const surveyMobWrap = document.getElementById('survey-mobile-container');
+    if (surveyMobWrap) {
+      surveyMobWrap.style.display = mobile ? 'block' : 'none';
+      if (mobile) syncSurveyMobile();
+    }
+
+    // Aportes en encuesta
+    const aportesDeskGrid = document.querySelector('#seccion-aportes-trabajadores .grid.grid-cols-1.md\\:grid-cols-2');
+    const aportesMob = document.getElementById('aportes-mobile-container');
+    if (aportesDeskGrid && aportesMob) {
+      aportesDeskGrid.style.display = mobile ? 'none' : '';
+      aportesMob.style.display = mobile ? 'block' : 'none';
+      if (mobile) updateAportesMobileCard();
+    }
+
+    // 3. Mediciones
+    ['tabla-ambiente-termico', 'tabla-ambiente-iluminacion', 'tabla-ambiente-ruido', 'tabla-ambiente-dosimetria'].forEach(id => {
+      const t = document.getElementById(id);
+      if (t) {
+        const wrap = t.closest('.border.border-outline-variant') || t.closest('.overflow-x-auto');
+        if (wrap) wrap.style.display = mobile ? 'none' : '';
+      }
+    });
+    document.querySelectorAll('.med-mobile-wrap').forEach(w => w.style.display = mobile ? 'block' : 'none');
+    if (mobile) syncMedicionesMobile();
+
+    // 4. Firmas
+    const firmasTable = document.getElementById('tabla-acta-participacion');
+    if (firmasTable) {
+      const wrap = firmasTable.closest('.border.border-outline-variant') || firmasTable.closest('.overflow-x-auto');
+      if (wrap) wrap.style.display = mobile ? 'none' : '';
+    }
+    const firmasMobWrap = document.getElementById('firmas-mobile-container');
+    if (firmasMobWrap) {
+      firmasMobWrap.style.display = mobile ? 'block' : 'none';
+      if (mobile) updateFirmasMobileCards();
+    }
+
+    // Plegar datos iniciales de firmas en móvil
+    const actaIntroSection = document.querySelector('#view-firmas main > section:first-of-type');
+    if (actaIntroSection && mobile && !actaIntroSection.dataset.compacted) {
+      actaIntroSection.dataset.compacted = "true";
+      const oldHtml = actaIntroSection.innerHTML;
+      actaIntroSection.innerHTML = `
+        <details class="cursor-pointer">
+          <summary class="font-bold text-xs text-primary flex items-center justify-between py-1">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px]">gavel</span>
+              <span>Ver Base Legal & Datos Generales del Acta (Art. 62 LOPCYMAT)</span>
+            </div>
+            <span class="text-[10px] text-outline font-semibold">Toca para ver</span>
+          </summary>
+          <div class="mt-3 pt-3 border-t border-outline-variant">
+            ${oldHtml}
+          </div>
+        </details>
+      `;
+    }
+  }
+
+  // ==========================================
+  // 1. COLABORADORES MÓVIL
+  // ==========================================
+  function renderColabMobileCard() {
+    const colabView = document.getElementById('view-colaboradores');
+    if (!colabView || document.getElementById('colab-mobile-container')) return;
+
+    const table = colabView.querySelector('table');
+    if (!table) return;
+    const tableWrap = table.closest('.border.border-outline-variant') || table.closest('.overflow-x-auto');
+    if (!tableWrap) return;
+
+    const container = document.createElement('div');
+    container.id = 'colab-mobile-container';
+    container.className = 'w-full max-w-full px-0 py-2 space-y-3';
+    container.innerHTML = `
+      <!-- Selector de Colaboradores (Pills scrollable) -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="colab-mobile-pills">
+        ${[1, 2, 3, 4, 5, 6].map(i => `
+          <button type="button" class="colab-pill-btn px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all ${i === 1 ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-worker="${i}">
+            👤 Colab. ${i}
+          </button>
+        `).join('')}
+      </div>
+
+      <!-- Ficha de Datos del Colaborador -->
+      <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-3 shadow-xs space-y-3 w-full" id="colab-card-fields"></div>
+
+      <!-- Botones de Navegación entre Colaboradores -->
+      <div class="flex items-center justify-between pt-1">
+        <button type="button" id="btn-colab-prev" class="px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-xs font-bold text-on-surface flex items-center gap-1 active:scale-95">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span> Anterior
+        </button>
+        <span class="text-xs font-bold text-secondary" id="colab-mobile-indicator">Colaborador 1 de 6</span>
+        <button type="button" id="btn-colab-next" class="px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-bold flex items-center gap-1 active:scale-95 shadow-xs">
+          Siguiente <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </div>
+    `;
+
+    tableWrap.parentNode.insertBefore(container, tableWrap.nextSibling);
+
+    container.querySelectorAll('.colab-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeColabIdx = parseInt(btn.dataset.worker);
+        updateColabMobileCard();
+      });
+    });
+
+    document.getElementById('btn-colab-prev').addEventListener('click', () => {
+      if (activeColabIdx > 1) {
+        activeColabIdx--;
+        updateColabMobileCard();
+      }
+    });
+
+    document.getElementById('btn-colab-next').addEventListener('click', () => {
+      if (activeColabIdx < 6) {
+        activeColabIdx++;
+        updateColabMobileCard();
+      }
+    });
+
+    updateColabMobileCard();
+  }
+
+  function updateColabMobileCard() {
+    const table = document.querySelector('#view-colaboradores table');
+    if (!table) return;
+
+    document.querySelectorAll('#colab-mobile-pills .colab-pill-btn').forEach(b => {
+      const w = parseInt(b.dataset.worker);
+      const isAct = w === activeColabIdx;
+      b.className = `colab-pill-btn px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+    });
+
+    const ind = document.getElementById('colab-mobile-indicator');
+    if (ind) ind.textContent = `Colaborador ${activeColabIdx} de 6`;
+
+    const card = document.getElementById('colab-card-fields');
+    if (!card) return;
+
+    const rows = Array.from(table.rows);
+    let html = '';
+
+    rows.forEach((r, rowIdx) => {
+      if (rowIdx === 0) return;
+      const label = r.cells[0].innerText.trim();
+      const cell = r.cells[activeColabIdx];
+      if (!cell) return;
+      const input = cell.querySelector('input, select');
+      if (!input) return;
+
+      const isSelect = input.tagName.toLowerCase() === 'select';
+      const val = input.value;
+      const type = input.getAttribute('type') || 'text';
+
+      html += `
+        <div class="colab-field-group">
+          <label class="block font-label-sm text-[11px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">${label}</label>
+          ${isSelect ? `
+            <select class="w-full h-10 px-3 bg-surface border border-outline-variant rounded-lg text-xs font-semibold text-on-surface focus:border-primary" data-row="${rowIdx}">
+              ${Array.from(input.options).map(opt => `<option value="${opt.value}" ${opt.value === val ? 'selected' : ''}>${opt.text}</option>`).join('')}
+            </select>
+          ` : `
+            <input type="${type}" value="${val}" class="w-full h-10 px-3 bg-surface border border-outline-variant rounded-lg text-xs font-medium text-on-surface focus:border-primary" data-row="${rowIdx}">
+          `}
+        </div>
+      `;
+    });
+
+    card.innerHTML = html;
+
+    card.querySelectorAll('input, select').forEach(ctrl => {
+      ctrl.addEventListener('input', () => {
+        const rowIdx = parseInt(ctrl.dataset.row);
+        const cell = table.rows[rowIdx].cells[activeColabIdx];
+        if (cell) {
+          const orig = cell.querySelector('input, select');
+          if (orig) {
+            orig.value = ctrl.value;
+            orig.dispatchEvent(new Event('input', { bubbles: true }));
+            orig.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        }
+      });
+    });
+  }
+
+  function syncColabFromTable() {
+    updateColabMobileCard();
+  }
+
+  // ==========================================
+  // 2. ENCUESTA MÓVIL
+  // ==========================================
+  function renderSurveyMobileView() {
+    const surveyView = document.getElementById('view-encuesta');
+    if (!surveyView || document.getElementById('survey-mobile-container')) return;
+
+    const table = document.getElementById('tabla-matriz-encuesta');
+    if (!table) return;
+    const tableWrap = table.closest('.border.border-outline-variant') || table.closest('.overflow-x-auto');
+    if (!tableWrap) return;
+
+    const container = document.createElement('div');
+    container.id = 'survey-mobile-container';
+    container.className = 'w-full max-w-full px-0 py-2 space-y-3';
+    container.innerHTML = `
+      <!-- Selector de Trabajador -->
+      <div class="bg-surface-container-low dark:bg-inverse-surface p-2.5 rounded-xl border border-outline-variant flex items-center justify-between gap-2 shadow-xs">
+        <button type="button" id="btn-survey-prev-worker" class="p-2 rounded-lg bg-surface border border-outline-variant text-on-surface hover:bg-surface-container active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+        </button>
+        <div class="flex-1 text-center min-w-0">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-secondary block truncate">Evaluando Colaborador</span>
+          <select id="survey-worker-selector" class="w-full h-8 px-2 bg-surface font-bold text-xs text-primary rounded border border-outline-variant truncate">
+            <option value="1">👤 Trabajador 1 (Juan P.)</option>
+            <option value="2">👤 Trabajador 2 (María E.)</option>
+            <option value="3">👤 Trabajador 3 (Carlos V.)</option>
+            <option value="4">👤 Trabajador 4</option>
+            <option value="5">👤 Trabajador 5</option>
+            <option value="6">👤 Trabajador 6</option>
+          </select>
+        </div>
+        <button type="button" id="btn-survey-next-worker" class="p-2 rounded-lg bg-surface border border-outline-variant text-on-surface hover:bg-surface-container active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+        </button>
+      </div>
+
+      <!-- Selector de Categoría (Pestañas compactas) -->
+      <div class="grid grid-cols-3 gap-1.5" id="survey-cat-pills">
+        <button type="button" class="survey-cat-tab-btn py-2 px-1 rounded-lg text-xs font-bold text-center border transition-all bg-primary text-on-primary border-primary shadow-xs" data-cat="cat-termico">
+          <span class="material-symbols-outlined text-[16px] block mx-auto">thermostat</span> Térmico (1-17)
+        </button>
+        <button type="button" class="survey-cat-tab-btn py-2 px-1 rounded-lg text-xs font-bold text-center border transition-all bg-surface-container text-on-surface border-outline-variant" data-cat="cat-iluminacion">
+          <span class="material-symbols-outlined text-[16px] block mx-auto">light_mode</span> Iluminación (18-28)
+        </button>
+        <button type="button" class="survey-cat-tab-btn py-2 px-1 rounded-lg text-xs font-bold text-center border transition-all bg-surface-container text-on-surface border-outline-variant" data-cat="cat-ruido">
+          <span class="material-symbols-outlined text-[16px] block mx-auto">volume_up</span> Ruido (29-43)
+        </button>
+      </div>
+
+      <!-- Acción rápida -->
+      <div class="flex items-center justify-between text-xs px-1">
+        <span class="text-on-surface-variant font-medium text-[11px]" id="survey-mobile-count-txt">Mostrando preguntas</span>
+        <button type="button" id="btn-survey-quick-no" class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-bold text-[11px] hover:bg-secondary-container-high active:scale-95 flex items-center gap-1 shadow-2xs">
+          <span class="material-symbols-outlined text-[13px]">done_all</span> Marcar Restantes "NO"
+        </button>
+      </div>
+
+      <!-- Lista de Preguntas Móvil -->
+      <div class="space-y-2" id="survey-mobile-questions-list"></div>
+    `;
+
+    tableWrap.parentNode.insertBefore(container, tableWrap.nextSibling);
+
+    const sel = document.getElementById('survey-worker-selector');
+    sel.addEventListener('change', () => {
+      activeSurveyWorkerIdx = parseInt(sel.value);
+      renderSurveyQuestionsForActiveCat();
+    });
+
+    document.getElementById('btn-survey-prev-worker').addEventListener('click', () => {
+      if (activeSurveyWorkerIdx > 1) {
+        activeSurveyWorkerIdx--;
+        sel.value = activeSurveyWorkerIdx;
+        renderSurveyQuestionsForActiveCat();
+      }
+    });
+
+    document.getElementById('btn-survey-next-worker').addEventListener('click', () => {
+      if (activeSurveyWorkerIdx < 6) {
+        activeSurveyWorkerIdx++;
+        sel.value = activeSurveyWorkerIdx;
+        renderSurveyQuestionsForActiveCat();
+      }
+    });
+
+    container.querySelectorAll('.survey-cat-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeSurveyCat = btn.dataset.cat;
+        container.querySelectorAll('.survey-cat-tab-btn').forEach(b => {
+          const isAct = b.dataset.cat === activeSurveyCat;
+          b.className = `survey-cat-tab-btn py-2 px-1 rounded-lg text-xs font-bold text-center border transition-all ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+        });
+        renderSurveyQuestionsForActiveCat();
+      });
+    });
+
+    document.getElementById('btn-survey-quick-no').addEventListener('click', () => {
+      const rows = document.querySelectorAll(`#matriz-encuesta-tbody tr.survey-matrix-row.${activeSurveyCat}`);
+      rows.forEach(r => {
+        const qNum = r.id.replace('survey-row-', '');
+        const grp = document.getElementById(`grp-q${qNum}-w${activeSurveyWorkerIdx}`);
+        if (grp) {
+          const btnSi = grp.querySelector('.btn-opt-si');
+          const btnNa = grp.querySelector('.btn-opt-na');
+          const isAnswered = (btnSi && btnSi.classList.contains('bg-primary')) || (btnNa && btnNa.classList.contains('bg-surface-container-highest'));
+          if (!isAnswered && typeof setMatrixCellAnswer === 'function') {
+            setMatrixCellAnswer(qNum, activeSurveyWorkerIdx, 'NO');
+          }
+        }
+      });
+      renderSurveyQuestionsForActiveCat();
+      if (typeof showToast === 'function') showToast(`Marcadas como NO para Trabajador ${activeSurveyWorkerIdx}`, 'info');
+    });
+
+    renderSurveyQuestionsForActiveCat();
+  }
+
+  function renderSurveyQuestionsForActiveCat() {
+    const list = document.getElementById('survey-mobile-questions-list');
+    if (!list) return;
+
+    const rows = document.querySelectorAll(`#matriz-encuesta-tbody tr.survey-matrix-row.${activeSurveyCat}`);
+    const cntTxt = document.getElementById('survey-mobile-count-txt');
+    if (cntTxt) cntTxt.textContent = `${rows.length} preguntas en este módulo`;
+
+    let html = '';
+    rows.forEach(r => {
+      const qNum = r.id.replace('survey-row-', '');
+      const qTextEl = r.cells[0].querySelector('p');
+      const qText = qTextEl ? qTextEl.innerHTML : `Pregunta ${qNum}`;
+
+      const grp = document.getElementById(`grp-q${qNum}-w${activeSurveyWorkerIdx}`);
+      let currentVal = '';
+      if (grp) {
+        if (grp.querySelector('.btn-opt-si.bg-primary')) currentVal = 'SI';
+        else if (grp.querySelector('.btn-opt-no.bg-secondary-container')) currentVal = 'NO';
+        else if (grp.querySelector('.btn-opt-na.bg-surface-container-highest')) currentVal = 'NA';
+      }
+
+      html += `
+        <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-3 shadow-xs space-y-2">
+          <div class="flex items-start gap-2">
+            <span class="w-6 h-6 rounded bg-primary-container text-on-primary-container text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">${qNum}</span>
+            <div class="font-body-sm text-xs leading-relaxed text-on-surface">${qText}</div>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5 pt-1">
+            <button type="button" class="btn-m-ans h-9 rounded-lg font-bold text-xs flex items-center justify-center transition-all ${currentVal === 'SI' ? 'bg-primary text-on-primary shadow-xs' : 'bg-surface-container border border-outline-variant text-on-surface active:bg-primary-container'}" data-q="${qNum}" data-val="SI">
+              SÍ
+            </button>
+            <button type="button" class="btn-m-ans h-9 rounded-lg font-bold text-xs flex items-center justify-center transition-all ${currentVal === 'NO' ? 'bg-secondary-container text-on-secondary-container font-bold shadow-xs' : 'bg-surface-container border border-outline-variant text-on-surface active:bg-secondary-container'}" data-q="${qNum}" data-val="NO">
+              NO
+            </button>
+            <button type="button" class="btn-m-ans h-9 rounded-lg font-semibold text-xs flex items-center justify-center transition-all ${currentVal === 'NA' ? 'bg-surface-container-highest text-on-surface shadow-xs' : 'bg-surface-container border border-outline-variant text-outline active:bg-surface-container-high'}" data-q="${qNum}" data-val="NA">
+              N/A
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    list.innerHTML = html;
+
+    list.querySelectorAll('.btn-m-ans').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.dataset.q;
+        const val = btn.dataset.val;
+        if (typeof setMatrixCellAnswer === 'function') {
+          setMatrixCellAnswer(q, activeSurveyWorkerIdx, val);
+        }
+        const card = btn.closest('.bg-surface-container-lowest');
+        if (card) {
+          card.querySelectorAll('.btn-m-ans').forEach(b => {
+            const bVal = b.dataset.val;
+            if (bVal === val) {
+              if (val === 'SI') b.className = 'btn-m-ans h-9 rounded-lg font-bold text-xs flex items-center justify-center transition-all bg-primary text-on-primary shadow-xs';
+              else if (val === 'NO') b.className = 'btn-m-ans h-9 rounded-lg font-bold text-xs flex items-center justify-center transition-all bg-secondary-container text-on-secondary-container font-bold shadow-xs';
+              else if (val === 'NA') b.className = 'btn-m-ans h-9 rounded-lg font-semibold text-xs flex items-center justify-center transition-all bg-surface-container-highest text-on-surface shadow-xs';
+            } else {
+              b.className = 'btn-m-ans h-9 rounded-lg font-semibold text-xs flex items-center justify-center transition-all bg-surface-container border border-outline-variant text-on-surface';
+            }
+          });
+        }
+      });
+    });
+  }
+
+  function syncSurveyMobile() {
+    renderSurveyQuestionsForActiveCat();
+  }
+
+  // ==========================================
+  // 2.B APORTES DE TRABAJADORES (EN ENCUESTA)
+  // ==========================================
+  function renderAportesMobileView() {
+    const sec = document.getElementById('seccion-aportes-trabajadores');
+    if (!sec || document.getElementById('aportes-mobile-container')) return;
+
+    const deskGrid = sec.querySelector('.grid.grid-cols-1.md\\:grid-cols-2');
+    if (!deskGrid) return;
+
+    const mob = document.createElement('div');
+    mob.id = 'aportes-mobile-container';
+    mob.className = 'w-full space-y-3';
+    mob.innerHTML = `
+      <!-- Selector de Trabajador para Aportes -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="aportes-mobile-pills">
+        ${[1, 2, 3, 4, 5, 6].map(i => `
+          <button type="button" class="aporte-pill-btn px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all ${i === 1 ? 'bg-secondary text-on-secondary border-secondary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-w="${i}">
+            ✍️ Colab. ${i}
+          </button>
+        `).join('')}
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 shadow-xs space-y-2" id="aporte-active-card">
+      </div>
+    `;
+
+    deskGrid.parentNode.insertBefore(mob, deskGrid.nextSibling);
+
+    mob.querySelectorAll('.aporte-pill-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        activeAporteWorker = parseInt(b.dataset.w);
+        mob.querySelectorAll('.aporte-pill-btn').forEach(btn => {
+          const isAct = parseInt(btn.dataset.w) === activeAporteWorker;
+          btn.className = `aporte-pill-btn px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all ${isAct ? 'bg-secondary text-on-secondary border-secondary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+        });
+        updateAportesMobileCard();
+      });
+    });
+
+    updateAportesMobileCard();
+  }
+
+  function updateAportesMobileCard() {
+    const w = activeAporteWorker;
+    const card = document.getElementById('aporte-active-card');
+    if (!card) return;
+
+    const origTxt = document.getElementById(`aporte-trabajador-${w}`);
+    const origNom = document.getElementById(`aporte-nom-${w}`);
+    const nom = origNom ? origNom.textContent : `Trabajador ${w}`;
+    const val = origTxt ? origTxt.value : '';
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-primary">Aporte de: ${nom}</span>
+        <button type="button" class="btn-dictado-mob px-2 py-1 rounded bg-secondary-container text-secondary text-[11px] font-bold flex items-center gap-1 active:scale-95" data-w="${w}">
+          <span class="material-symbols-outlined text-[13px]">mic</span> Dictar
+        </button>
+      </div>
+      <textarea id="mob-aporte-${w}" class="w-full h-24 p-2 bg-surface border border-outline-variant rounded-lg text-xs font-medium text-on-surface focus:border-secondary" placeholder="Escriba o dicte aportes del trabajador...">${val}</textarea>
+      <div class="flex flex-wrap gap-1 pt-1">
+        <button type="button" class="btn-tag-mob text-[10px] px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-outline hover:text-on-surface" data-tag="Ventilación deficiente">+ Ventilación deficiente</button>
+        <button type="button" class="btn-tag-mob text-[10px] px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-outline hover:text-on-surface" data-tag="Ruido excesivo">+ Ruido excesivo</button>
+        <button type="button" class="btn-tag-mob text-[10px] px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-outline hover:text-on-surface" data-tag="Luz escasa">+ Luz escasa</button>
+      </div>
+    `;
+
+    const mobTxt = card.querySelector(`#mob-aporte-${w}`);
+    mobTxt.addEventListener('input', () => {
+      if (origTxt) {
+        origTxt.value = mobTxt.value;
+        origTxt.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+
+    card.querySelectorAll('.btn-tag-mob').forEach(tb => {
+      tb.addEventListener('click', () => {
+        const tag = tb.dataset.tag;
+        if (mobTxt) {
+          mobTxt.value = mobTxt.value ? (mobTxt.value + ' • ' + tag) : tag;
+          if (origTxt) {
+            origTxt.value = mobTxt.value;
+            origTxt.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }
+      });
+    });
+
+    const btnMic = card.querySelector('.btn-dictado-mob');
+    if (btnMic) {
+      btnMic.addEventListener('click', () => {
+        if (typeof toggleDictado === 'function') toggleDictado(w);
+      });
+    }
+  }
+
+  // ==========================================
+  // 3. MEDICIONES MÓVIL
+  // ==========================================
+  function renderMedicionesMobileView() {
+    const medView = document.getElementById('view-mediciones');
+    if (!medView) return;
+
+    // A. Térmico
+    const termTable = document.getElementById('tabla-ambiente-termico');
+    if (termTable && !document.getElementById('term-mobile-container')) {
+      const wrap = termTable.closest('.border.border-outline-variant') || termTable.closest('.overflow-x-auto');
+
+      const mob = document.createElement('div');
+      mob.id = 'term-mobile-container';
+      mob.className = 'med-mobile-wrap w-full px-0 py-2 space-y-3';
+      mob.innerHTML = `
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="term-mobile-pills">
+          ${[1, 2, 3, 4].map(pt => `
+            <button type="button" class="term-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${pt === 1 ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-pt="${pt}">
+              📍 Punto ${pt}
+            </button>
+          `).join('')}
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 shadow-xs space-y-3" id="term-mobile-fields"></div>
+      `;
+      wrap.parentNode.insertBefore(mob, wrap.nextSibling);
+
+      mob.querySelectorAll('.term-pill-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          activeThermalPt = parseInt(b.dataset.pt);
+          mob.querySelectorAll('.term-pill-btn').forEach(btn => {
+            const isAct = parseInt(btn.dataset.pt) === activeThermalPt;
+            btn.className = `term-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+          });
+          updateThermalMobileFields();
+        });
+      });
+      updateThermalMobileFields();
+    }
+
+    // B. Iluminación
+    const luxTable = document.getElementById('tabla-ambiente-iluminacion');
+    if (luxTable && !document.getElementById('lux-mobile-container')) {
+      const wrap = luxTable.closest('.border.border-outline-variant') || luxTable.closest('.overflow-x-auto');
+
+      const mob = document.createElement('div');
+      mob.id = 'lux-mobile-container';
+      mob.className = 'med-mobile-wrap w-full px-0 py-2 space-y-3';
+      mob.innerHTML = `
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="lux-mobile-pills">
+          ${[1, 2, 3, 4].map(pt => `
+            <button type="button" class="lux-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${pt === 1 ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-pt="${pt}">
+              💡 Punto ${pt} (L${pt})
+            </button>
+          `).join('')}
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 shadow-xs space-y-3" id="lux-mobile-fields"></div>
+      `;
+      wrap.parentNode.insertBefore(mob, wrap.nextSibling);
+
+      mob.querySelectorAll('.lux-pill-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          activeLightingPt = parseInt(b.dataset.pt);
+          mob.querySelectorAll('.lux-pill-btn').forEach(btn => {
+            const isAct = parseInt(btn.dataset.pt) === activeLightingPt;
+            btn.className = `lux-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+          });
+          updateLightingMobileFields();
+        });
+      });
+      updateLightingMobileFields();
+    }
+
+    // C. Ruido (Espectro Sonoro)
+    const noiseTable = document.getElementById('tabla-ambiente-ruido');
+    if (noiseTable && !document.getElementById('noise-mobile-container')) {
+      const wrap = noiseTable.closest('.border.border-outline-variant') || noiseTable.closest('.overflow-x-auto');
+
+      const mob = document.createElement('div');
+      mob.id = 'noise-mobile-container';
+      mob.className = 'med-mobile-wrap w-full px-0 py-2 space-y-3';
+      mob.innerHTML = `
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="noise-mobile-pills">
+          ${[1, 2, 3, 4].map(pt => `
+            <button type="button" class="noise-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${pt === 1 ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-pt="${pt}">
+              🔊 Muestreo ${pt} (M${pt})
+            </button>
+          `).join('')}
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 shadow-xs space-y-3" id="noise-mobile-fields"></div>
+      `;
+      wrap.parentNode.insertBefore(mob, wrap.nextSibling);
+
+      mob.querySelectorAll('.noise-pill-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          activeNoisePt = parseInt(b.dataset.pt);
+          mob.querySelectorAll('.noise-pill-btn').forEach(btn => {
+            const isAct = parseInt(btn.dataset.pt) === activeNoisePt;
+            btn.className = `noise-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+          });
+          updateNoiseMobileFields();
+        });
+      });
+      updateNoiseMobileFields();
+    }
+
+    // D. Dosimetría
+    const dosiTable = document.getElementById('tabla-ambiente-dosimetria');
+    if (dosiTable && !document.getElementById('dosi-mobile-container')) {
+      const wrap = dosiTable.closest('.border.border-outline-variant') || dosiTable.closest('.overflow-x-auto');
+
+      const mob = document.createElement('div');
+      mob.id = 'dosi-mobile-container';
+      mob.className = 'med-mobile-wrap w-full px-0 py-2 space-y-3';
+      mob.innerHTML = `
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar w-full" id="dosi-mobile-pills">
+          ${[1, 2, 3, 4, 5, 6].map(w => `
+            <button type="button" class="dosi-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${w === 1 ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}" data-w="${w}">
+              👤 Colab. ${w}
+            </button>
+          `).join('')}
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-3 shadow-xs space-y-3" id="dosi-mobile-fields"></div>
+      `;
+      wrap.parentNode.insertBefore(mob, wrap.nextSibling);
+
+      mob.querySelectorAll('.dosi-pill-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          activeDosiWorker = parseInt(b.dataset.w);
+          mob.querySelectorAll('.dosi-pill-btn').forEach(btn => {
+            const isAct = parseInt(btn.dataset.w) === activeDosiWorker;
+            btn.className = `dosi-pill-btn px-3 py-1.5 rounded-full text-xs font-bold border ${isAct ? 'bg-primary text-on-primary border-primary shadow-xs' : 'bg-surface-container text-on-surface border-outline-variant'}`;
+          });
+          updateDosiMobileFields();
+        });
+      });
+      updateDosiMobileFields();
+    }
+  }
+
+  function updateThermalMobileFields() {
+    const pt = activeThermalPt;
+    const box = document.getElementById('term-mobile-fields');
+    if (!box) return;
+
+    const fields = [
+      { id: `term-ubic-${pt}`, label: 'Ubicación / Área del Punto', type: 'text' },
+      { id: `term-viento-${pt}`, label: 'Velocidad del Viento (m/seg)', type: 'number' },
+      { id: `term-tbs-${pt}`, label: 'Temp. Bulbo Seco - TBS (°C)', type: 'number' },
+      { id: `term-tg-${pt}`, label: 'Temp. de Globo - TG (°C)', type: 'number' },
+      { id: `term-hr-${pt}`, label: 'Humedad Relativa - HR (%)', type: 'number' },
+      { id: `term-tbh-${pt}`, label: 'Temp. Bulbo Húmedo - TBH (°C) [Calculado]', type: 'number', readonly: true },
+      { id: `term-tgbh-${pt}`, label: 'Índice TGBH Medido (°C) [Calculado]', type: 'number', readonly: true },
+      { id: `term-limite-${pt}`, label: 'Límite Permisible (°C)', type: 'select', options: ['25.0', '26.0', '28.0', '30.0'] }
+    ];
+
+    box.innerHTML = renderDynamicFieldGroup(fields);
+    bindDynamicFields(box, () => {
+      if (typeof recalcThermalPoint === 'function') recalcThermalPoint(pt);
+      setTimeout(updateThermalMobileFields, 50);
+    });
+  }
+
+  function updateLightingMobileFields() {
+    const pt = activeLightingPt;
+    const box = document.getElementById('lux-mobile-fields');
+    if (!box) return;
+
+    const fields = [
+      { id: `lux-ubic-${pt}`, label: 'Ubicación / Área del Punto', type: 'text' },
+      { id: `lux-req-${pt}`, label: 'Requerimientos Visuales / Tarea', type: 'text' },
+      { id: `lux-fuente-${pt}`, label: 'Fuente de Iluminación', type: 'select', options: ['Artificial', 'Natural', 'Mixta'] },
+      { id: `lux-lum-${pt}`, label: 'Tipo y Estado de Luminarias', type: 'text' },
+      { id: `lux-diurno-${pt}`, label: 'Iluminación Diurna Medida (Lux)', type: 'number' },
+      { id: `lux-nocturno-${pt}`, label: 'Iluminación Nocturna Medida (Lux)', type: 'number' },
+      { id: `lux-norma-${pt}`, label: 'Nivel Mínimo COVENIN 2249 (Lux)', type: 'number' },
+      { id: `lux-deslum-${pt}`, label: 'Deslumbramiento y Reflejos', type: 'select', options: ['No apreciable', 'Leve', 'Severo'] }
+    ];
+
+    box.innerHTML = renderDynamicFieldGroup(fields);
+    bindDynamicFields(box, () => {
+      if (typeof evalLightingPoint === 'function') evalLightingPoint(pt);
+    });
+  }
+
+  function updateNoiseMobileFields() {
+    const pt = activeNoisePt;
+    const box = document.getElementById('noise-mobile-fields');
+    if (!box) return;
+
+    const generalFields = [
+      { id: `noise-ubic-${pt}`, label: 'Ubicación / Punto Evaluado', type: 'text' },
+      { id: `noise-inst-${pt}`, label: 'Instrumento / Sonómetro', type: 'text' },
+      { id: `noise-tipo-${pt}`, label: 'Tipo de Ruido', type: 'select', options: ['Continuo', 'Intermitente', 'Impacto'] },
+      { id: `noise-dba-${pt}`, label: 'Nivel Presión Sonora (dBA)', type: 'number' },
+      { id: `noise-leq-${pt}`, label: 'Continuo Equivalente - Leq dB(A)', type: 'number' },
+      { id: `noise-limite-${pt}`, label: 'Límite Permisible (dBA)', type: 'select', options: ['85.0', '82.0', '80.0'] }
+    ];
+
+    const octaveFreqs = [
+      { k: '31', l: '31.5 Hz' }, { k: '63', l: '63 Hz' }, { k: '125', l: '125 Hz' },
+      { k: '250', l: '250 Hz' }, { k: '500', l: '500 Hz' }, { k: '1k', l: '1 kHz' },
+      { k: '2k', l: '2 kHz' }, { k: '4k', l: '4 kHz' }, { k: '8k', l: '8 kHz' }, { k: '16k', l: '16 kHz' }
+    ];
+
+    let html = renderDynamicFieldGroup(generalFields);
+
+    html += `
+      <div class="pt-2 border-t border-outline-variant">
+        <label class="block font-label-sm text-[11px] font-bold uppercase tracking-wider text-secondary mb-2">Espectro en Bandas de Octava (dB)</label>
+        <div class="grid grid-cols-2 gap-2">
+          ${octaveFreqs.map(f => {
+            const orig = document.getElementById(`noise-f${f.k}-${pt}`);
+            const val = orig ? orig.value : '';
+            return `
+              <div>
+                <label class="block text-[10px] font-bold text-on-surface-variant mb-0.5">${f.l}</label>
+                <input type="number" step="0.1" value="${val}" class="w-full h-9 px-2 bg-surface border border-outline-variant rounded text-xs font-mono text-on-surface" data-target="noise-f${f.k}-${pt}">
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+
+    box.innerHTML = html;
+
+    box.querySelectorAll('input, select').forEach(ctrl => {
+      ctrl.addEventListener('input', () => {
+        const targetId = ctrl.dataset.target || ctrl.id.replace('mob-', '');
+        const orig = document.getElementById(targetId);
+        if (orig) {
+          orig.value = ctrl.value;
+          orig.dispatchEvent(new Event('input', { bubbles: true }));
+          orig.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        if (typeof evalNoisePoint === 'function') evalNoisePoint(pt);
+      });
+    });
+  }
+
+  function updateDosiMobileFields() {
+    const w = activeDosiWorker;
+    const box = document.getElementById('dosi-mobile-fields');
+    if (!box) return;
+
+    const fields = [
+      { id: `dosi-nombre-${w}`, label: 'Nombre y Apellido', type: 'text' },
+      { id: `dosi-cedula-${w}`, label: 'Cédula de Identidad', type: 'text' },
+      { id: `dosi-num-${w}`, label: 'N° Dosímetro / Serie', type: 'text' },
+      { id: `dosi-evento-${w}`, label: 'Evento / Operación', type: 'text' },
+      { id: `dosi-tiempo-${w}`, label: 'Tiempo Medición (h)', type: 'number' },
+      { id: `dosi-leq-${w}`, label: 'Continuo Leq dB(A) Medido', type: 'number' },
+      { id: `dosi-dosis-${w}`, label: 'Dosis Acumulada (%)', type: 'number' },
+      { id: `dosi-proy-${w}`, label: 'Dosis Proyectada 8h [Calculada]', type: 'text', readonly: true },
+      { id: `dosi-nrr-${w}`, label: 'Protección / EPP Auditivo (NRR)', type: 'text' }
+    ];
+
+    box.innerHTML = renderDynamicFieldGroup(fields);
+    bindDynamicFields(box, () => {
+      if (typeof evalDosimetriaWorker === 'function') evalDosimetriaWorker(w);
+    });
+  }
+
+  function renderDynamicFieldGroup(fields) {
+    return fields.map(f => {
+      const orig = document.getElementById(f.id);
+      const val = orig ? orig.value : '';
+      if (f.type === 'select') {
+        const opts = f.options || [];
+        return `
+          <div>
+            <label class="block font-label-sm text-[11px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">${f.label}</label>
+            <select id="mob-${f.id}" class="w-full h-10 px-3 bg-surface border border-outline-variant rounded-lg text-xs font-semibold text-on-surface" data-target="${f.id}">
+              ${opts.map(o => `<option value="${o}" ${o === val ? 'selected' : ''}>${o}</option>`).join('')}
+            </select>
+          </div>
+        `;
+      }
+      return `
+        <div>
+          <label class="block font-label-sm text-[11px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">${f.label}</label>
+          <input type="${f.type || 'text'}" id="mob-${f.id}" value="${val}" ${f.readonly ? 'readonly' : ''} class="w-full h-10 px-3 ${f.readonly ? 'bg-surface-container font-mono text-secondary font-bold' : 'bg-surface text-on-surface'} border border-outline-variant rounded-lg text-xs font-medium" data-target="${f.id}">
+        </div>
+      `;
+    }).join('');
+  }
+
+  function bindDynamicFields(box, onUpdateCallback) {
+    box.querySelectorAll('input, select').forEach(ctrl => {
+      ctrl.addEventListener('input', () => {
+        const targetId = ctrl.dataset.target;
+        if (targetId) {
+          const orig = document.getElementById(targetId);
+          if (orig) {
+            orig.value = ctrl.value;
+            orig.dispatchEvent(new Event('input', { bubbles: true }));
+            orig.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        }
+        if (onUpdateCallback) onUpdateCallback();
+      });
+    });
+  }
+
+  function syncMedicionesMobile() {
+    updateThermalMobileFields();
+    updateLightingMobileFields();
+    updateNoiseMobileFields();
+    updateDosiMobileFields();
+  }
+
+  // ==========================================
+  // 4. FIRMAS MÓVIL
+  // ==========================================
+  function renderFirmasMobileView() {
+    const firmasView = document.getElementById('view-firmas');
+    if (!firmasView || document.getElementById('firmas-mobile-container')) return;
+
+    const table = document.getElementById('tabla-acta-participacion');
+    if (!table) return;
+    const tableWrap = table.closest('.border.border-outline-variant') || table.closest('.overflow-x-auto');
+    if (!tableWrap) return;
+
+    const container = document.createElement('div');
+    container.id = 'firmas-mobile-container';
+    container.className = 'w-full max-w-full px-0 py-2 space-y-2.5';
+    container.innerHTML = `
+      <div class="text-xs text-on-surface-variant font-medium pb-1 flex items-center justify-between">
+        <span>Participantes a firmar en campo:</span>
+        <span class="text-primary font-bold">6 registrados</span>
+      </div>
+      <div class="space-y-2" id="firmas-mobile-cards-list"></div>
+    `;
+
+    tableWrap.parentNode.insertBefore(container, tableWrap.nextSibling);
+    updateFirmasMobileCards();
+  }
+
+  function updateFirmasMobileCards() {
+    const list = document.getElementById('firmas-mobile-cards-list');
+    if (!list) return;
+
+    let html = '';
+    for (let r = 1; r <= 6; r++) {
+      const nomInput = document.getElementById(`acta-nombre-${r}`);
+      const cedInput = document.getElementById(`acta-cedula-${r}`);
+      const rolInput = document.getElementById(`acta-rol-${r}`);
+      const statusBadge = document.getElementById(`acta-status-${r}`);
+
+      const nom = nomInput ? nomInput.value : `Participante ${r}`;
+      const ced = cedInput ? cedInput.value : '';
+      const rol = rolInput ? rolInput.value : 'Trabajador';
+      const statusHtml = statusBadge ? statusBadge.outerHTML : '<span class="text-xs text-outline">Pendiente</span>';
+
+      html += `
+        <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-3 shadow-xs space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0 flex-1">
+              <span class="text-xs font-bold text-on-surface block leading-tight truncate">${nom}</span>
+              <span class="text-[11px] font-mono text-outline-variant block truncate">${ced} • ${rol}</span>
+            </div>
+            <div class="shrink-0">${statusHtml}</div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 pt-1 border-t border-outline-variant/50">
+            <button type="button" class="btn-m-sign px-3 py-2 rounded-lg bg-primary text-on-primary text-xs font-bold flex items-center justify-center gap-1 active:scale-95 shadow-xs" data-row="${r}">
+              <span class="material-symbols-outlined text-[15px]">draw</span> Firmar
+            </button>
+            <button type="button" class="btn-m-huella px-3 py-2 rounded-lg bg-surface-container border border-outline-variant text-on-surface text-xs font-bold flex items-center justify-center gap-1 active:scale-95" data-row="${r}">
+              <span class="material-symbols-outlined text-[15px]">fingerprint</span> Huella
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    list.innerHTML = html;
+
+    list.querySelectorAll('.btn-m-sign').forEach(b => {
+      b.addEventListener('click', () => {
+        const r = parseInt(b.dataset.row);
+        if (typeof openSignatureModal === 'function') openSignatureModal(r);
+      });
+    });
+
+    list.querySelectorAll('.btn-m-huella').forEach(b => {
+      b.addEventListener('click', () => {
+        const r = parseInt(b.dataset.row);
+        if (typeof triggerHuellaCamera === 'function') triggerHuellaCamera(r);
+      });
+    });
+  }
+
+  return {
+    init,
+    applyViewMode,
+    updateFirmasMobileCards,
+    syncSurveyMobile,
+    syncColabFromTable
+  };
+})();
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', window.MobileFieldMode.init);
+} else {
+  window.MobileFieldMode.init();
+}
+
 </script>
 </body>
 </html>
