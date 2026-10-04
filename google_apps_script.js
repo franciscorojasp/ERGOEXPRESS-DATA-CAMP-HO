@@ -76,6 +76,37 @@ function handleRequest(e) {
       });
     }
 
+    if (action === "sendEmail" || action === "sendActaEmail") {
+      var to = (payload && payload.to) || (e.parameter && e.parameter.to);
+      if (!to) {
+        return jsonResponse({ status: "error", message: "Debe proporcionar una dirección de correo destinatario (parámetro 'to')" });
+      }
+      var subject = (payload && payload.subject) || "Acta de Participación ERGOEXPRESS LOPCYMAT";
+      var body = (payload && payload.body) || "";
+      var htmlBody = (payload && payload.htmlBody) || body;
+
+      try {
+        MailApp.sendEmail({
+          to: to,
+          subject: subject,
+          body: body,
+          htmlBody: htmlBody
+        });
+        var user = (payload && payload.user) || (e.parameter && e.parameter.user) || "Auditor";
+        var auditId = (payload && payload.auditId) || "DEFAULT_AUDIT";
+        logActivity(ss, auditId, user, "Envío de Acta por Correo a: " + to);
+        return jsonResponse({
+          status: "success",
+          action: "sendEmail",
+          message: "Acta oficial enviada exitosamente por correo a: " + to,
+          recipient: to,
+          serverTime: new Date().toISOString()
+        });
+      } catch (mailErr) {
+        return jsonResponse({ status: "error", message: "Error enviando correo desde Google Apps Script: " + mailErr.toString() });
+      }
+    }
+
     if (action === "ping") {
       return jsonResponse({ status: "success", message: "Conexión activa con ERGOEXPRESS Backend", serverTime: new Date().toISOString() });
     }

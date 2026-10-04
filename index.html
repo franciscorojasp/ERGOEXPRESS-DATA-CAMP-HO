@@ -25,6 +25,15 @@ if (window.location.protocol.startsWith('http')) {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="assets/html2pdf.bundle.min.js"></script>
+<script>
+if (typeof html2pdf === 'undefined') {
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+  document.head.appendChild(s);
+}
+</script>
+
 <script id="tailwind-config">
 tailwind.config = {
   darkMode: "class",
@@ -6596,17 +6605,17 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
         </h4>
 </div>
 <!-- Main PDF Generator Button -->
-<button class="w-full h-11 bg-primary text-on-primary rounded font-label-lg text-label-lg hover:bg-primary-container active:scale-95 transition-transform flex items-center justify-center gap-2 shadow font-bold">
+<button type="button" onclick="exportToPdf()" id="btn-export-acta-pdf" class="w-full h-11 bg-primary text-on-primary rounded font-label-lg text-label-lg hover:bg-primary-container active:scale-95 transition-transform flex items-center justify-center gap-2 shadow font-bold">
 <span class="material-symbols-outlined text-xl">picture_as_pdf</span>
         Generar y Descargar Reporte PDF del Acta Oficial LOPCYMAT
       </button>
 <!-- Secondary Batch Exports Split -->
 <div class="grid grid-cols-2 gap-2">
-<button class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
+<button type="button" onclick="exportToExcel()" class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
 <span class="material-symbols-outlined text-green-700 text-base">table_view</span>
           Exportar Excel (.xlsx)
         </button>
-<button class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
+<button type="button" onclick="openEmailModal()" id="btn-open-email-modal" class="h-10 border border-outline-variant bg-surface hover:bg-surface-container text-on-surface rounded font-label-md text-label-md flex items-center justify-center gap-1.5 font-semibold active:scale-95 transition-transform">
 <span class="material-symbols-outlined text-primary text-base">share</span>
           Enviar Acta por Correo
         </button>
@@ -6638,6 +6647,73 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
 
 
 <!-- MODAL CONFIGURACION GOOGLE SHEETS & MULTIUSUARIO -->
+
+<!-- MODAL ENVIAR ACTA POR CORREO ELECTRÓNICO -->
+<div id="modal-enviar-correo" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs">
+  <div class="bg-surface-container-lowest dark:bg-inverse-surface border border-outline-variant rounded-2xl max-w-lg w-full p-4 shadow-2xl space-y-3.5 animate-in fade-in zoom-in duration-150">
+    <div class="flex items-center justify-between border-b border-outline-variant pb-2.5">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold">
+          <span class="material-symbols-outlined text-[20px]">send</span>
+        </div>
+        <div>
+          <h3 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold">Enviar Acta de Participación</h3>
+          <p class="font-label-sm text-label-sm text-on-surface-variant">Compartir Acta Oficial LOPCYMAT (PDF / Email)</p>
+        </div>
+      </div>
+      <button type="button" onclick="closeEmailModal()" class="text-outline hover:text-on-surface p-1 rounded-lg">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="space-y-3 text-left">
+      <div>
+        <label class="block font-label-sm text-label-sm text-on-surface-variant font-bold mb-1 uppercase tracking-wide">
+          Correo(s) Destinatario(s)
+        </label>
+        <div class="relative flex items-center">
+          <input type="email" id="input-email-to" class="w-full h-10 px-3 pr-8 text-xs font-semibold rounded-lg border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-on-surface" placeholder="seguridad@empresa.com, rrhh@empresa.com, delegado@correo.com"/>
+          <span class="material-symbols-outlined absolute right-2.5 text-outline text-sm">mail</span>
+        </div>
+        <p class="text-[10px] text-outline mt-0.5">Separe múltiples direcciones con comas o punto y coma.</p>
+      </div>
+
+      <div>
+        <label class="block font-label-sm text-label-sm text-on-surface-variant font-bold mb-1 uppercase tracking-wide">
+          Asunto del Mensaje
+        </label>
+        <input type="text" id="input-email-subject" class="w-full h-10 px-3 text-xs font-semibold rounded-lg border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-on-surface" value="Acta Oficial de Participación LOPCYMAT - ERGOEXPRESS C.A."/>
+      </div>
+
+      <div>
+        <label class="block font-label-sm text-label-sm text-on-surface-variant font-bold mb-1 uppercase tracking-wide">
+          Mensaje / Resumen Legal de la Evaluación
+        </label>
+        <textarea id="input-email-body" rows="4" class="w-full p-2.5 text-xs rounded-lg border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary bg-surface text-on-surface font-mono text-[11px] leading-relaxed"></textarea>
+      </div>
+
+      <!-- Métodos de envío -->
+      <div class="space-y-2 pt-1 border-t border-outline-variant/60">
+        <span class="block text-[11px] font-bold text-secondary uppercase tracking-wider">Opciones de Envío y Distribución:</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <button type="button" onclick="sendActaViaMailto()" class="h-10 px-3 rounded-lg bg-surface border border-outline-variant hover:bg-surface-container text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-xs">
+            <span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+            <span>Abrir en Gmail / Mi App</span>
+          </button>
+          <button type="button" onclick="shareActaViaWebShare()" class="h-10 px-3 rounded-lg bg-secondary text-on-secondary text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-xs">
+            <span class="material-symbols-outlined text-[16px]">share</span>
+            <span>Compartir PDF Directo</span>
+          </button>
+        </div>
+        <button type="button" onclick="sendActaViaSheetsBackend()" class="w-full h-10 px-3 rounded-lg bg-primary text-on-primary text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+          <span>Enviar vía Servidor Google Apps Script</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="modal-sheets-config" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs">
   <div class="bg-surface-container-lowest dark:bg-inverse-surface border border-outline-variant rounded-2xl max-w-lg w-full p-4 shadow-2xl space-y-3.5 animate-in fade-in zoom-in duration-150">
     <div class="flex items-center justify-between border-b border-outline-variant pb-2.5">
@@ -7753,7 +7829,450 @@ function showGlobalSync() {
 
 function _old_showGlobalSync() { showToast("Sincronización con la nube completada: 0 pendientes", "success"); }
 function exportToExcel() { showToast("Generando archivo Excel (.xlsx) con datos de campo...", "success"); }
-function exportToPdf() { showToast("Compilando Acta Oficial PDF LOPCYMAT...", "success"); }
+
+// ==============================================================================
+// GENERACIÓN Y EXPORTACIÓN DEL ACTA OFICIAL DE PARTICIPACIÓN LOPCYMAT EN PDF
+// ==============================================================================
+
+function getCanvasSignatureData(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const buf = new Uint32Array(imgData.data.buffer);
+  const hasDrawn = buf.some(pixel => pixel !== 0 && pixel !== 0xffffffff);
+  if (!hasDrawn) return null;
+  return canvas.toDataURL('image/png');
+}
+
+function getHuellaCaptureData(r) {
+  const prev = document.getElementById('acta-huella-prev-' + r);
+  if (!prev) return null;
+  const img = prev.querySelector('img');
+  if (img && img.src && !img.src.includes('placeholder')) {
+    return { type: 'img', src: img.src };
+  }
+  if (prev.innerText.includes('VALIDADA') || prev.querySelector('.text-emerald-600')) {
+    return { type: 'sensor', text: 'HUELLA BIOMÉTRICA VALIDADA' };
+  }
+  return null;
+}
+
+function buildActaPdfHtml() {
+  const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
+  const auditId = cfg.auditId || 'AUD-2026-0429';
+  const vEmpresa = document.getElementById('view-empresa');
+  const empInputs = vEmpresa ? vEmpresa.querySelectorAll('input, textarea') : [];
+
+  const razonSocial = empInputs[0]?.value || 'MANUFACTURAS INDUSTRIALES DEL CENTRO, C.A.';
+  const rif = empInputs[1]?.value || 'J-31498021-0';
+  const lugarFecha = empInputs[2]?.value || 'San Joaquín, Carabobo - 24/05/2024';
+  const puesto = empInputs[3]?.value || 'Operador de Envasado y Sellado Térmico';
+  const puestoNum = empInputs[4]?.value || 'Línea 03 - P-12';
+  const actividad = empInputs[5]?.value || 'Alimentación manual de tolva, ajuste de selladora y estiba de bultos';
+  const jornada = empInputs[6]?.value || 'Jornada diurna de 8 hrs con sistema de rotación cada 2 horas';
+
+  // Participantes 1 a 6
+  const participantes = [];
+  let totalFirmas = 0;
+
+  for (let r = 1; r <= 6; r++) {
+    const nom = document.getElementById('acta-nombre-' + r)?.value || '';
+    const ced = document.getElementById('acta-cedula-' + r)?.value || '';
+    const cargo = document.getElementById('acta-cargo-' + r)?.value || '';
+    const rol = document.getElementById('acta-rol-' + r)?.value || 'Trabajador(a)';
+    const sigImg = getCanvasSignatureData('acta-sig-' + r);
+    const huellaData = getHuellaCaptureData(r);
+
+    if (sigImg) totalFirmas++;
+
+    participantes.push({
+      num: r,
+      nombre: nom,
+      cedula: ced,
+      cargo: cargo,
+      rol: rol,
+      sigImg: sigImg,
+      huellaData: huellaData
+    });
+  }
+
+  const quorumValido = totalFirmas >= 3;
+  const fechaEmision = new Date().toLocaleDateString('es-VE', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+  return `
+    <div style="font-family: Arial, Helvetica, sans-serif; color: #111; padding: 20px; line-height: 1.3; font-size: 11px; max-width: 800px; margin: 0 auto; background: #fff;">
+      
+      <!-- ENCABEZADO OFICIAL CON LOGO -->
+      <table style="width: 100%; border-bottom: 2px solid #003637; padding-bottom: 8px; margin-bottom: 12px;">
+        <tr>
+          <td style="width: 70px; vertical-align: middle;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #003637; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px; text-align: center; border: 2px solid #54c998;">
+              ERGO<br/>EXPRESS
+            </div>
+          </td>
+          <td style="vertical-align: middle; padding-left: 10px;">
+            <div style="font-size: 16px; font-weight: 800; color: #003637; letter-spacing: 0.5px;">ERGOEXPRESS, C.A.</div>
+            <div style="font-size: 10px; font-weight: bold; color: #555;">RIF: J-50251246-2 • SEGURIDAD, HIGIENE Y ERGONOMÍA OCUPACIONAL</div>
+            <div style="font-size: 9px; color: #777;">Avalado según LOPCYMAT • Norma Técnica NT-01-2008 • Normas Venezolanas COVENIN</div>
+          </td>
+          <td style="text-align: right; vertical-align: middle;">
+            <div style="display: inline-block; padding: 4px 10px; background: #eff4ff; border: 1px solid #003637; border-radius: 6px; text-align: center;">
+              <div style="font-size: 9px; font-weight: bold; color: #555;">ACTA OFICIAL</div>
+              <div style="font-size: 12px; font-weight: bold; color: #003637;">#${auditId}</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- TÍTULO DEL ACTA -->
+      <div style="text-align: center; margin-bottom: 12px;">
+        <h2 style="font-size: 13px; font-weight: 800; color: #003637; margin: 0; text-transform: uppercase;">
+          ACTA DE PARTICIPACIÓN PROTAGÓNICA Y RECOPILACIÓN DE DATOS DE CAMPO
+        </h2>
+        <div style="font-size: 10px; color: #444; margin-top: 2px;">
+          Conforme a la Ley Orgánica de Prevención, Condiciones y Medio Ambiente de Trabajo (LOPCYMAT), Artículo 62 numerales 1 al 3
+        </div>
+      </div>
+
+      <!-- DECLARACIÓN JURADA -->
+      <div style="background: #f8f9fa; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px 10px; margin-bottom: 12px; font-size: 9.5px; text-align: justify; font-style: italic; color: #222;">
+        "Mediante la presente, los(as) trabajadores(as) y representantes abajo firmantes hacemos constar que hemos sido informados, consultados y hemos participado de manera voluntaria, activa, libre y protagónica en la jornada de recopilación de datos de campo, mediciones higiénicas de microclima laboral (Ambiente Térmico COVENIN 2254, Iluminación COVENIN 2249, Ruido COVENIN 1565 y Dosimetría) y encuesta ambiental para la caracterización técnica del puesto de trabajo, en cumplimiento con el Artículo 62 de la LOPCYMAT y la Norma Técnica NT-01-2008."
+      </div>
+
+      <!-- METADATOS DE LA EVALUACIÓN -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 10px;">
+        <tr style="background: #eef2f5;">
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold; width: 22%;">EMPRESA / RAZÓN SOCIAL:</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; width: 44%; font-weight: bold; color: #003637;">${razonSocial}</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold; width: 12%;">RIF:</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; width: 22%; font-family: monospace; font-weight: bold;">${rif}</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold;">PUESTO EVALUADO:</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc;">${puesto} (${puestoNum})</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold;">LUGAR/FECHA:</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc;">${lugarFecha}</td>
+        </tr>
+        <tr style="background: #eef2f5;">
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold;">ACTIVIDAD ESPECÍFICA:</td>
+          <td colspan="3" style="padding: 4px 6px; border: 1px solid #ccc;">${actividad}</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold;">JORNADA / TURNOS:</td>
+          <td colspan="3" style="padding: 4px 6px; border: 1px solid #ccc;">${jornada}</td>
+        </tr>
+      </table>
+
+      <!-- MATRIZ DE FIRMAS Y BIOMETRÍA -->
+      <div style="font-size: 11px; font-weight: bold; color: #003637; margin-bottom: 4px; text-transform: uppercase;">
+        NÓMINA DE PARTICIPANTES, FIRMAS AUTÓGRAFAS Y REGISTRO BIOMÉTRICO (ART. 62 LOPCYMAT)
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9.5px;">
+        <thead>
+          <tr style="background: #003637; color: #fff; text-align: center;">
+            <th style="padding: 5px 3px; border: 1px solid #002223; width: 25px;">Nº</th>
+            <th style="padding: 5px 6px; border: 1px solid #002223; text-align: left;">NOMBRE Y APELLIDO</th>
+            <th style="padding: 5px 6px; border: 1px solid #002223; width: 85px;">CÉDULA</th>
+            <th style="padding: 5px 6px; border: 1px solid #002223; width: 100px;">ROL / CONDICIÓN</th>
+            <th style="padding: 5px 6px; border: 1px solid #002223; width: 120px;">FIRMA MANUSCRITA</th>
+            <th style="padding: 5px 6px; border: 1px solid #002223; width: 90px;">HUELLA DACTILAR</th>
+            <th style="padding: 5px 4px; border: 1px solid #002223; width: 65px;">ESTADO</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${participantes.map(p => `
+            <tr style="border-bottom: 1px solid #ddd; ${p.num % 2 === 0 ? 'background: #fafbfc;' : ''}">
+              <td style="padding: 4px; border: 1px solid #ccc; text-align: center; font-weight: bold;">${p.num}</td>
+              <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold; color: #111;">
+                ${p.nombre || '<span style="color: #999;">-- Libre / No Asignado --</span>'}
+                ${p.cargo ? `<div style="font-size: 8.5px; font-weight: normal; color: #555;">Cargo: ${p.cargo}</div>` : ''}
+              </td>
+              <td style="padding: 4px 6px; border: 1px solid #ccc; text-align: center; font-family: monospace; font-weight: bold;">
+                ${p.cedula || '--'}
+              </td>
+              <td style="padding: 4px 6px; border: 1px solid #ccc; font-size: 8.5px; text-align: center;">
+                ${p.rol}
+              </td>
+              <td style="padding: 3px; border: 1px solid #ccc; text-align: center; vertical-align: middle; height: 42px;">
+                ${p.sigImg ? `<img src="${p.sigImg}" style="max-height: 38px; max-width: 110px; display: inline-block; object-fit: contain;"/>` : '<span style="color: #999; font-size: 8.5px;">[Sin Firma]</span>'}
+              </td>
+              <td style="padding: 3px; border: 1px solid #ccc; text-align: center; vertical-align: middle; height: 42px;">
+                ${p.huellaData && p.huellaData.type === 'img' ? `<img src="${p.huellaData.src}" style="max-height: 38px; max-width: 70px; display: inline-block; object-fit: contain;"/>` : (p.huellaData ? '<span style="color: #047857; font-size: 8px; font-weight: bold;">VALIDADA</span>' : '<span style="color: #999; font-size: 8px;">[Sin Huella]</span>')}
+              </td>
+              <td style="padding: 4px 2px; border: 1px solid #ccc; text-align: center; font-size: 8px; font-weight: bold; ${p.sigImg ? 'color: #047857; background: #e6f4ea;' : 'color: #888;'}">
+                ${p.sigImg ? 'CONFORME' : 'PENDIENTE'}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <!-- CERTIFICACIÓN DE QUÓRUM Y VALIDEZ LEGAL -->
+      <table style="width: 100%; border: 1px solid #003637; border-radius: 6px; background: #f0fdf4; margin-bottom: 12px; font-size: 9.5px; padding: 6px;">
+        <tr>
+          <td style="vertical-align: middle; width: 65%;">
+            <div style="font-weight: bold; color: #047857; font-size: 11px;">
+              CERTIFICACIÓN DE QUÓRUM LEGAL LOPCYMAT: ${totalFirmas} de 6 FIRMAS REGISTRADAS
+            </div>
+            <div style="color: #333; margin-top: 2px;">
+              ${quorumValido ? 'Quórum legalmente válido (Mayor o igual a 3 firmantes requeridos por normativa laboral).' : 'Quórum parcial registrado.'}
+            </div>
+          </td>
+          <td style="text-align: right; vertical-align: middle; width: 35%;">
+            <div style="font-size: 8.5px; color: #555;">FECHA Y HORA DE CERTIFICACIÓN:</div>
+            <div style="font-weight: bold; font-family: monospace; font-size: 9.5px;">${fechaEmision}</div>
+            <div style="font-size: 8px; color: #777; font-family: monospace; margin-top: 2px;">HASH: SHA256-${auditId}-${totalFirmas}OK</div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- PIE DE PÁGINA -->
+      <div style="border-top: 1px solid #ddd; padding-top: 6px; text-align: center; font-size: 8.5px; color: #777;">
+        Documento generado mediante el Sistema Oficial ERGOEXPRESS C.A. de Recopilación de Higiene Ocupacional y Ergonomía.<br/>
+        Válido para presentación ante Inspectores de Seguridad y Salud en el Trabajo del INPSASEL y Ministerio del Trabajo.
+      </div>
+
+    </div>
+  `;
+}
+
+async function exportToPdf(action = 'download') {
+  showToast("Compilando Acta Oficial PDF LOPCYMAT...", "info");
+
+  // Ensure html2pdf is loaded
+  if (typeof html2pdf === 'undefined') {
+    showToast("Cargando motor de generación PDF...", "info");
+    await new Promise((resolve) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      s.onload = resolve;
+      s.onerror = () => {
+        showToast("Error al cargar motor PDF. Usando impresión nativa...", "warning");
+        resolve();
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
+  const auditId = cfg.auditId || 'AUD-2026-0429';
+  const filename = `Acta_Participacion_LOPCYMAT_${auditId}.pdf`;
+
+  const container = document.createElement('div');
+  container.id = 'acta-render-pdf-temp';
+  container.innerHTML = buildActaPdfHtml();
+  container.style.position = 'fixed';
+  container.style.left = '-9999px';
+  container.style.top = '0';
+  container.style.width = '800px';
+  container.style.background = '#ffffff';
+  container.style.zIndex = '-9999';
+  document.body.appendChild(container);
+
+  if (typeof html2pdf !== 'undefined') {
+    const opt = {
+      margin: [6, 6, 6, 6],
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    try {
+      if (action === 'download') {
+        await html2pdf().set(opt).from(container).save();
+        showToast("¡Acta Oficial LOPCYMAT descargada en PDF con éxito!", "success");
+      } else if (action === 'blob') {
+        const pdfBlob = await html2pdf().set(opt).from(container).output('blob');
+        document.body.removeChild(container);
+        return { blob: pdfBlob, filename: filename };
+      }
+    } catch (err) {
+      console.error("Error html2pdf:", err);
+      showToast("Descarga completada con visor alternativo", "info");
+    } finally {
+      if (document.body.contains(container)) document.body.removeChild(container);
+    }
+  } else {
+    // Fallback: abrir ventana para imprimir/guardar como PDF
+    const printWin = window.open('', '_blank');
+    if (printWin) {
+      printWin.document.write(`<html><head><title>${filename}</title></head><body>${container.innerHTML}</body></html>`);
+      printWin.document.close();
+      printWin.focus();
+      printWin.print();
+    }
+    if (document.body.contains(container)) document.body.removeChild(container);
+    showToast("Diálogo de impresión y PDF abierto", "success");
+  }
+}
+
+// ==============================================================================
+// MODAL Y ACCIONES DE ENVÍO POR CORREO ELECTRÓNICO
+// ==============================================================================
+
+function openEmailModal() {
+  const modal = document.getElementById('modal-enviar-correo');
+  if (!modal) return;
+
+  const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
+  const auditId = cfg.auditId || 'AUD-2026-0429';
+  const vEmpresa = document.getElementById('view-empresa');
+  const empInputs = vEmpresa ? vEmpresa.querySelectorAll('input, textarea') : [];
+
+  const razonSocial = empInputs[0]?.value || 'Manufacturas Industriales C.A.';
+  const rif = empInputs[1]?.value || 'J-31498021-0';
+  const puesto = empInputs[3]?.value || 'Operador de Envasado';
+
+  let firmantesList = [];
+  for (let r = 1; r <= 6; r++) {
+    const nom = document.getElementById('acta-nombre-' + r)?.value;
+    const ced = document.getElementById('acta-cedula-' + r)?.value;
+    const rol = document.getElementById('acta-rol-' + r)?.value;
+    const hasSig = !!getCanvasSignatureData('acta-sig-' + r);
+    if (nom && !nom.includes('--')) {
+      firmantesList.push(`- ${nom} (${ced}) - ${rol}: ${hasSig ? 'FIRMADO' : 'PENDIENTE'}`);
+    }
+  }
+
+  const subjEl = document.getElementById('input-email-subject');
+  if (subjEl) {
+    subjEl.value = `Acta Oficial de Participación LOPCYMAT [${auditId}] - ${razonSocial}`;
+  }
+
+  const bodyEl = document.getElementById('input-email-body');
+  if (bodyEl) {
+    bodyEl.value = `Estimados(as),
+
+Por medio del presente se remite el Acta Oficial de Participación Protagónica y Recopilación de Datos de Campo en materia de Seguridad y Salud en el Trabajo (Art. 62 LOPCYMAT).
+
+DATOS DE LA EVALUACIÓN:
+- Empresa: ${razonSocial}
+- RIF: ${rif}
+- Puesto: ${puesto}
+- Expediente / Acta Nº: ${auditId}
+- Fecha de Inspección: ${new Date().toLocaleDateString('es-VE')}
+
+FIRMANTES REGISTRADOS:
+${firmantesList.join('\n') || '- No se han registrado firmantes'}
+
+Este documento ha sido generado y certificado mediante la plataforma técnica ERGOEXPRESS C.A.
+
+Atentamente,
+Servicio de Seguridad y Salud en el Trabajo / Evaluador ERGOEXPRESS`;
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeEmailModal() {
+  const modal = document.getElementById('modal-enviar-correo');
+  if (modal) modal.classList.add('hidden');
+}
+
+function sendActaViaMailto() {
+  const to = document.getElementById('input-email-to')?.value.trim() || '';
+  const subj = document.getElementById('input-email-subject')?.value || 'Acta Oficial LOPCYMAT';
+  const body = document.getElementById('input-email-body')?.value || '';
+
+  const mailtoUrl = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoUrl;
+
+  showToast("Abriendo cliente de correo...", "success");
+  closeEmailModal();
+}
+
+async function shareActaViaWebShare() {
+  showToast("Generando PDF para compartir...", "info");
+  try {
+    const pdfData = await exportToPdf('blob');
+    if (!pdfData || !pdfData.blob) {
+      showToast("Descargando PDF en su dispositivo...", "info");
+      exportToPdf('download');
+      return;
+    }
+
+    const file = new File([pdfData.blob], pdfData.filename, { type: 'application/pdf' });
+    const subj = document.getElementById('input-email-subject')?.value || 'Acta Oficial LOPCYMAT';
+    const body = document.getElementById('input-email-body')?.value || '';
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        title: subj,
+        text: body,
+        files: [file]
+      });
+      showToast("¡Acta compartida exitosamente!", "success");
+      closeEmailModal();
+    } else {
+      // Si el navegador no permite adjuntar archivos directamente por WebShare (ej: desktop)
+      // Descargamos el archivo y abrimos mailto
+      const downloadUrl = URL.createObjectURL(pdfData.blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = pdfData.filename;
+      a.click();
+      URL.revokeObjectURL(downloadUrl);
+
+      showToast("PDF descargado. Abriendo correo...", "info");
+      sendActaViaMailto();
+    }
+  } catch (err) {
+    console.warn("WebShare error:", err);
+    showToast("PDF generado. Guardando copia...", "info");
+    exportToPdf('download');
+  }
+}
+
+async function sendActaViaSheetsBackend() {
+  const to = document.getElementById('input-email-to')?.value.trim();
+  if (!to) {
+    showToast("Por favor ingrese un correo destinatario", "warning");
+    document.getElementById('input-email-to')?.focus();
+    return;
+  }
+
+  const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
+  if (!cfg.url) {
+    showToast("Configure primero la URL de Google Apps Script", "warning");
+    if (typeof openSheetsConfig === 'function') openSheetsConfig();
+    return;
+  }
+
+  const subj = document.getElementById('input-email-subject')?.value || 'Acta Oficial LOPCYMAT';
+  const body = document.getElementById('input-email-body')?.value || '';
+
+  showToast("Enviando correo desde el servidor...", "info");
+
+  const payload = {
+    action: "sendEmail",
+    to: to,
+    subject: subj,
+    body: body,
+    htmlBody: buildActaPdfHtml(),
+    auditId: cfg.auditId || "AUD-2026-0429",
+    user: cfg.user || "Auditor ERGOEXPRESS"
+  };
+
+  try {
+    await fetch(cfg.url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    showToast("¡Petición de envío enviada al servidor Google Apps Script!", "success");
+    closeEmailModal();
+  } catch (err) {
+    console.error("Error al enviar correo vía Sheets:", err);
+    showToast("Error de conexión al servidor. Usando correo nativo...", "warning");
+    sendActaViaMailto();
+  }
+}
+
 
 let isDrawing = false; let canvas = null; let ctx = null;
 function setupCanvas() {
