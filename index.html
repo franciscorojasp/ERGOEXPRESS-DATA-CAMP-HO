@@ -319,6 +319,13 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
 }
 
 </style>
+  <!-- PDF.js para extraccion automatica de constancias INPSASEL en campo -->
+  <script src="./assets/pdf.min.js"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = './assets/pdf.worker.min.js';
+    }
+  </script>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen pb-24 selection:bg-secondary-container selection:text-on-secondary-container">
 
@@ -394,22 +401,135 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
 </div>
 <!-- MODULE 1: DATOS DE LA EMPRESA Y ORGANIZACIÓN DEL TRABAJO -->
 <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-4 shadow-sm">
-<div class="flex items-center justify-between border-b border-outline-variant pb-2.5 mb-3.5">
-<div class="flex items-center gap-2">
-<span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm font-bold">1</span>
-<h2 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold tracking-tight">DATOS DE LA EMPRESA Y ORGANIZACIÓN DEL TRABAJO</h2>
+  <div class="flex items-center justify-between border-b border-outline-variant pb-2.5 mb-3.5">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm font-bold">1</span>
+      <h2 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold tracking-tight">DATOS DE LA EMPRESA Y ORGANIZACIÓN DEL TRABAJO</h2>
+    </div>
+    <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Formato Oficial LOPCYMAT</span>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    <!-- Razón Social -->
+    <div class="lg:col-span-2">
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Nombre / Razón Social</label>
+      <div class="relative flex items-center">
+        <input id="empresa-nombre" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: EMPRESA O PLANTA INDUSTRIAL C.A." value="" oninput="sincronizarMetadatosEmpresa()"/>
+        <span class="absolute right-2 text-outline-variant material-symbols-outlined text-sm" data-icon="domain">domain</span>
+      </div>
+    </div>
+    <!-- RIF -->
+    <div>
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">RIF de la Empresa</label>
+      <input id="empresa-rif" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: J-00000000-0" value="" oninput="sincronizarMetadatosEmpresa()"/>
+    </div>
+    <!-- Lugar y Fecha -->
+    <div>
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Lugar y Fecha</label>
+      <input id="empresa-fecha" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: Valencia, Carabobo - DD/MM/AAAA" value="" oninput="sincronizarMetadatosEmpresa()"/>
+    </div>
+    <!-- Puesto de Trabajo -->
+    <div>
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto de Trabajo</label>
+      <input id="empresa-puesto" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: Operador de Envasado / Línea 01" value="" oninput="sincronizarMetadatosEmpresa()"/>
+    </div>
+    <!-- Puesto Nº -->
+    <div>
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto Nº / Código</label>
+      <input id="empresa-puesto-num" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: L-03-P-12" value="" oninput="sincronizarMetadatosEmpresa()"/>
+    </div>
+    <!-- Actividad Principal -->
+    <div class="lg:col-span-2">
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Actividad Específica Evaluada</label>
+      <input id="empresa-actividad" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Descripción de tareas y operaciones del puesto" value=""/>
+    </div>
+    <!-- Jornada / Turnos / Rotación -->
+    <div class="lg:col-span-4">
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Jornada / Turnos / Sistema de rotación y tiempos</label>
+      <textarea id="empresa-jornada" class="w-full p-2 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" rows="2" placeholder="Describa el horario de trabajo, descansos, pausas activas y sistema de rotación"></textarea>
+    </div>
+  </div>
 </div>
-<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Formato Oficial LOPCYMAT</span>
+
+<!-- MODULE 1.2: DATOS DEL AUDITOR / TÉCNICO DE CAMPO — ACREDITACIÓN PROFESIONAL INPSASEL -->
+<div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-4 shadow-sm flex flex-col gap-3.5" id="card-modulo-auditor-inpsasel">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant pb-2.5">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm font-bold">
+        <span class="material-symbols-outlined text-sm">badge</span>
+      </span>
+      <div>
+        <h2 class="font-title-md text-title-md text-primary dark:text-inverse-primary font-bold tracking-tight">
+          DATOS DEL AUDITOR Y REGISTRO PROFESIONAL INPSASEL
+        </h2>
+        <p class="font-label-sm text-xs text-on-surface-variant">
+          Carga de constancia en PDF y acreditación oficial para recolección de datos y firma del Acta (Art. 62 LOPCYMAT)
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Input de archivo oculto para PDF -->
+      <input type="file" id="input-pdf-inpsasel" accept=".pdf,application/pdf" class="hidden" onchange="onInpsaselPdfSelected(event)">
+      <button type="button" onclick="document.getElementById('input-pdf-inpsasel').click()" class="flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-container transition-all active:scale-95 shadow-xs" title="Cargar constancia de registro ante INPSASEL en formato PDF">
+        <span class="material-symbols-outlined text-[18px]">upload_file</span>
+        <span>Cargar Constancia PDF</span>
+      </button>
+      <button type="button" onclick="abrirModalAuditorInpsasel()" class="flex items-center gap-1.5 bg-surface-container border border-outline-variant text-primary px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-surface-container-high transition-all active:scale-95 shadow-xs" title="Editar o revisar los datos extraídos del auditor">
+        <span class="material-symbols-outlined text-[18px]">edit_note</span>
+        <span>Editar / Ver Perfil</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Visualización de Datos del Auditor -->
+  <div id="auditor-profile-card-content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-surface-container-low p-3.5 rounded-xl border border-outline-variant/60">
+    <!-- Auditor Nombre -->
+    <div class="lg:col-span-2">
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">Auditor / Evaluador Responsable</span>
+      <div class="flex items-center gap-1.5 mt-0.5">
+        <span class="material-symbols-outlined text-secondary text-base" id="auditor-badge-icon">verified_user</span>
+        <span id="auditor-display-nombre" class="text-sm font-bold text-primary truncate">No registrado (Cargue constancia PDF o pulse Editar)</span>
+      </div>
+    </div>
+    <!-- Cédula -->
+    <div>
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">Cédula de Identidad</span>
+      <span id="auditor-display-cedula" class="text-sm font-mono font-bold text-on-surface block mt-0.5">--</span>
+    </div>
+    <!-- N° INPSASEL -->
+    <div>
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">N° Registro INPSASEL</span>
+      <span id="auditor-display-inpsasel" class="text-sm font-mono font-bold text-[#15803D] block mt-0.5">--</span>
+    </div>
+    <!-- Profesión -->
+    <div class="lg:col-span-2">
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">Profesión / Especialidad</span>
+      <span id="auditor-display-profesion" class="text-xs text-on-surface-variant block mt-0.5 truncate">--</span>
+    </div>
+    <!-- Colegio / CIV -->
+    <div>
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">Colegio Profesional / Matrícula</span>
+      <span id="auditor-display-colegio" class="text-xs font-medium text-on-surface-variant block mt-0.5">--</span>
+    </div>
+    <!-- Vigencia -->
+    <div>
+      <span class="block font-label-sm text-[11px] text-on-surface-variant uppercase font-bold tracking-wide">Vigencia / Vencimiento</span>
+      <span id="auditor-display-vigencia" class="text-xs font-semibold text-primary block mt-0.5">--</span>
+    </div>
+  </div>
+
+  <!-- Barra de estado y propagación -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-xs text-on-surface-variant">
+    <div class="flex items-center gap-2">
+      <span id="auditor-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-secondary-container text-on-secondary-container flex items-center gap-1 border border-secondary/30">
+        <span class="material-symbols-outlined text-[13px]">info</span>
+        <span>Acreditación INPSASEL pendiente de carga</span>
+      </span>
+      <span id="auditor-pdf-name" class="text-[11px] text-outline font-mono truncate max-w-[220px]"></span>
+    </div>
+    <span class="text-[11px] text-outline italic">Propagación automática activa a: Acta Art. 62, Mediciones, Informes Excel (.xlsx), CSV y PDF.</span>
+  </div>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-<!-- Razón Social -->
-<div class="lg:col-span-2">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Nombre / Razón Social</label>
-<div class="relative flex items-center">
-<input id="empresa-nombre" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: EMPRESA O PLANTA INDUSTRIAL C.A." value="" oninput="sincronizarMetadatosEmpresa()"/>
-<span class="absolute right-2 text-outline-variant material-symbols-outlined text-sm" data-icon="domain">domain</span>
-</div>
-</div>
+
 <!-- MODULE 1.5: GEOLOCALIZACIÓN GPS Y GOOGLE MAPS DEL PUESTO DE TRABAJO -->
 <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-xl border border-outline-variant p-4 shadow-sm flex flex-col gap-3.5">
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant pb-2.5">
@@ -493,40 +613,7 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
   </div>
 </div>
 
-<!-- RIF -->
-<div>
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">RIF de la Empresa</label>
-<input id="empresa-rif" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: J-00000000-0" value="" oninput="sincronizarMetadatosEmpresa()"/>
-</div>
-<!-- Lugar y Fecha -->
-<div>
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Lugar y Fecha</label>
-<input id="empresa-fecha" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: Valencia, Carabobo - DD/MM/AAAA" value="" oninput="sincronizarMetadatosEmpresa()"/>
-</div>
-<!-- Puesto de Trabajo -->
-<div>
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto de Trabajo</label>
-<input id="empresa-puesto" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: Operador de Envasado / Línea 01" value="" oninput="sincronizarMetadatosEmpresa()"/>
-</div>
-<!-- Puesto Nº -->
-<div>
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Puesto Nº / Código</label>
-<input id="empresa-puesto-num" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Ej: L-03-P-12" value="" oninput="sincronizarMetadatosEmpresa()"/>
-</div>
-<!-- Actividad Principal -->
-<div class="lg:col-span-2">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Actividad Específica Evaluada</label>
-<input id="empresa-actividad" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" type="text" placeholder="Descripción de tareas y operaciones del puesto" value=""/>
-</div>
-<!-- Jornada / Turnos / Rotación -->
-<div class="lg:col-span-4">
-<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wide">Jornada / Turnos / Sistema de rotación y tiempos</label>
-<textarea id="empresa-jornada" class="w-full p-2 bg-surface-bright border border-outline-variant rounded font-body-sm text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" rows="2" placeholder="Describa el horario de trabajo, descansos, pausas activas y sistema de rotación"></textarea>
-</div>
-</div>
-</div>
-
-  </main>
+</main>
 </div>
 
 <div id="view-colaboradores" class="view-screen">
@@ -6153,11 +6240,11 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
 <div class="bg-surface-container-low rounded-xl p-3 border border-outline-variant space-y-2">
 <div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
 <span>Auditor Responsable:</span>
-<span class="font-bold text-primary">Ing. M. Villalobos (CI-14.281.002)</span>
+<span id="med-auditor-nombre" class="font-bold text-primary">Ing. M. Villalobos (CI-14.281.002)</span>
 </div>
 <div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
 <span>Registro INPSASEL:</span>
-<span class="font-bold text-primary">MIR-0912440182</span>
+<span id="med-auditor-inpsasel" class="font-bold text-primary font-mono">MIR-0912440182</span>
 </div>
 <div class="pt-2 flex gap-2">
 <button class="flex-1 bg-primary text-on-primary py-2.5 px-3 rounded font-title-md text-title-md font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow" type="button">
@@ -7946,6 +8033,387 @@ function _old_showGlobalSync() { showToast("Sincronización con la nube completa
 // ==============================================================================
 
 // ==============================================================================
+// ==============================================================================
+// MÓDULO DE PERFIL DEL AUDITOR Y ACREDITACIÓN PROFESIONAL INPSASEL
+// Carga, extracción automática de PDF (PDF.js) y propagación en toda la app
+// ==============================================================================
+
+/**
+ * Obtiene el perfil del auditor guardado en localStorage
+ */
+function getPerfilAuditor() {
+  try {
+    const raw = localStorage.getItem('ergoexpress_auditor_profile');
+    if (raw) return JSON.parse(raw);
+  } catch (e) {
+    console.error("Error leyendo ergoexpress_auditor_profile:", e);
+  }
+  return {
+    nombre: "",
+    cedula: "",
+    inpsasel: "",
+    profesion: "",
+    colegio: "",
+    emision: "",
+    vencimiento: "",
+    pdfFileName: ""
+  };
+}
+
+/**
+ * Guarda el perfil del auditor en localStorage y propaga a toda la app
+ */
+function guardarPerfilAuditor(profile) {
+  try {
+    localStorage.setItem('ergoexpress_auditor_profile', JSON.stringify(profile));
+  } catch (e) {
+    console.error("Error guardando ergoexpress_auditor_profile:", e);
+  }
+  aplicarAuditorEnTodaLaApp(profile);
+}
+
+/**
+ * Carga el perfil del auditor guardado al iniciar la aplicación
+ */
+function cargarPerfilAuditorGuardado() {
+  const profile = getPerfilAuditor();
+  if (profile && (profile.nombre || profile.inpsasel)) {
+    aplicarAuditorEnTodaLaApp(profile);
+  }
+}
+
+/**
+ * Propaga los datos del auditor a todos los módulos pertinentes:
+ * - Tarjeta en Módulo 1.2 (view-empresa)
+ * - Pie de cumplimiento en Mediciones (view-mediciones)
+ * - Acta de Participación Art. 62 (view-firmas) fila de Evaluador
+ * - Metadatos de sincronización de usuario
+ */
+function aplicarAuditorEnTodaLaApp(auditor) {
+  if (!auditor) return;
+
+  // 1. Tarjeta en view-empresa
+  const dNom = document.getElementById('auditor-display-nombre');
+  const dCed = document.getElementById('auditor-display-cedula');
+  const dInp = document.getElementById('auditor-display-inpsasel');
+  const dPro = document.getElementById('auditor-display-profesion');
+  const dCol = document.getElementById('auditor-display-colegio');
+  const dVig = document.getElementById('auditor-display-vigencia');
+  const badge = document.getElementById('auditor-status-badge');
+  const pdfName = document.getElementById('auditor-pdf-name');
+
+  if (dNom) dNom.innerText = auditor.nombre || 'No registrado (Cargue constancia PDF o pulse Editar)';
+  if (dCed) dCed.innerText = auditor.cedula || '--';
+  if (dInp) dInp.innerText = auditor.inpsasel || '--';
+  if (dPro) dPro.innerText = auditor.profesion || '--';
+  if (dCol) dCol.innerText = auditor.colegio || '--';
+  if (dVig) dVig.innerText = auditor.vencimiento ? ('Válido hasta: ' + auditor.vencimiento) : (auditor.emision ? ('Emitido: ' + auditor.emision) : '--');
+
+  if (badge) {
+    if (auditor.inpsasel) {
+      badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#DCFCE7] text-[#15803D] border border-[#86EFAC] flex items-center gap-1 shadow-2xs';
+      badge.innerHTML = `<span class="material-symbols-outlined text-[13px]">verified</span><span>Acreditado INPSASEL (${auditor.inpsasel}) ✓</span>`;
+    } else {
+      badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-secondary-container text-on-secondary-container flex items-center gap-1 border border-secondary/30';
+      badge.innerHTML = `<span class="material-symbols-outlined text-[13px]">info</span><span>Acreditación INPSASEL pendiente de carga</span>`;
+    }
+  }
+
+  if (pdfName) {
+    pdfName.innerText = auditor.pdfFileName ? ('📄 ' + auditor.pdfFileName) : '';
+  }
+
+  // 2. Pie de Mediciones (view-mediciones)
+  const medNom = document.getElementById('med-auditor-nombre');
+  const medInp = document.getElementById('med-auditor-inpsasel');
+  if (medNom && auditor.nombre) {
+    medNom.innerText = auditor.nombre + (auditor.cedula ? ` (${auditor.cedula})` : '');
+  }
+  if (medInp && auditor.inpsasel) {
+    medInp.innerText = auditor.inpsasel;
+  }
+
+  // 3. Acta de Participación (view-firmas) - Fila del Evaluador ERGOEXPRESS
+  let evalRowIndex = -1;
+  for (let r = 1; r <= 6; r++) {
+    const sel = document.getElementById('acta-rol-' + r);
+    if (sel && sel.value === 'Evaluador ERGOEXPRESS') {
+      evalRowIndex = r;
+      break;
+    }
+  }
+
+  // Si ninguna fila tiene actualmente el rol de Evaluador, asignar a fila 6 (o fila 3)
+  if (evalRowIndex === -1) {
+    evalRowIndex = 6;
+    const sel = document.getElementById('acta-rol-6');
+    if (sel) sel.value = 'Evaluador ERGOEXPRESS';
+  }
+
+  if (evalRowIndex > 0) {
+    const nomInput = document.getElementById('acta-nombre-' + evalRowIndex);
+    const cedInput = document.getElementById('acta-cedula-' + evalRowIndex);
+    if (nomInput && auditor.nombre) nomInput.value = auditor.nombre;
+    if (cedInput && auditor.cedula) cedInput.value = auditor.cedula;
+
+    if (typeof updateActaRowStatus === 'function') updateActaRowStatus(evalRowIndex);
+    if (typeof updateActaGlobalStatus === 'function') updateActaGlobalStatus();
+  }
+
+  // 4. Nombre de usuario para sincronización multiusuario
+  const uInput = document.getElementById('input-user-name');
+  if (uInput && (!uInput.value || uInput.value === 'Auditor' || uInput.value === 'Auditor Principal')) {
+    if (auditor.nombre) uInput.value = auditor.nombre;
+  }
+}
+
+/**
+ * Abre el modal para editar o revisar los datos del auditor
+ */
+function abrirModalAuditorInpsasel() {
+  const profile = getPerfilAuditor();
+  const mNom = document.getElementById('input-auditor-modal-nombre');
+  const mCed = document.getElementById('input-auditor-modal-cedula');
+  const mInp = document.getElementById('input-auditor-modal-inpsasel');
+  const mPro = document.getElementById('input-auditor-modal-profesion');
+  const mCol = document.getElementById('input-auditor-modal-colegio');
+  const mEmi = document.getElementById('input-auditor-modal-emision');
+  const mVen = document.getElementById('input-auditor-modal-vencimiento');
+
+  if (mNom) mNom.value = profile.nombre || '';
+  if (mCed) mCed.value = profile.cedula || '';
+  if (mInp) mInp.value = profile.inpsasel || '';
+  if (mPro) mPro.value = profile.profesion || '';
+  if (mCol) mCol.value = profile.colegio || '';
+  if (mEmi) mEmi.value = profile.emision || '';
+  if (mVen) mVen.value = profile.vencimiento || '';
+
+  const modal = document.getElementById('modal-auditor-inpsasel');
+  if (modal) modal.classList.remove('hidden');
+}
+
+/**
+ * Cierra el modal de datos del auditor
+ */
+function cerrarModalAuditorInpsasel() {
+  const modal = document.getElementById('modal-auditor-inpsasel');
+  if (modal) modal.classList.add('hidden');
+}
+
+/**
+ * Guarda los datos ingresados en el modal
+ */
+function guardarModalAuditorInpsasel() {
+  const current = getPerfilAuditor();
+  const profile = {
+    nombre: document.getElementById('input-auditor-modal-nombre')?.value.trim() || '',
+    cedula: document.getElementById('input-auditor-modal-cedula')?.value.trim() || '',
+    inpsasel: document.getElementById('input-auditor-modal-inpsasel')?.value.trim() || '',
+    profesion: document.getElementById('input-auditor-modal-profesion')?.value.trim() || '',
+    colegio: document.getElementById('input-auditor-modal-colegio')?.value.trim() || '',
+    emision: document.getElementById('input-auditor-modal-emision')?.value.trim() || '',
+    vencimiento: document.getElementById('input-auditor-modal-vencimiento')?.value.trim() || '',
+    pdfFileName: current.pdfFileName || ''
+  };
+
+  guardarPerfilAuditor(profile);
+  cerrarModalAuditorInpsasel();
+
+  if (typeof showToast === 'function') {
+    showToast("Perfil del auditor guardado y acreditación INPSASEL propagada con éxito.", "success");
+  }
+}
+
+/**
+ * Limpia el perfil del auditor
+ */
+function limpiarPerfilAuditor() {
+  try {
+    localStorage.removeItem('ergoexpress_auditor_profile');
+  } catch (e) {}
+
+  const empty = {
+    nombre: "",
+    cedula: "",
+    inpsasel: "",
+    profesion: "",
+    colegio: "",
+    emision: "",
+    vencimiento: "",
+    pdfFileName: ""
+  };
+  aplicarAuditorEnTodaLaApp(empty);
+  cerrarModalAuditorInpsasel();
+
+  if (typeof showToast === 'function') {
+    showToast("Perfil de auditor restablecido.", "info");
+  }
+}
+
+/**
+ * Maneja la selección o carga del archivo PDF de la constancia INPSASEL
+ */
+async function onInpsaselPdfSelected(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  if (typeof showToast === 'function') {
+    showToast("Analizando constancia de registro INPSASEL en PDF...", "info");
+  }
+
+  try {
+    // Verificar si pdfjsLib está listo
+    if (typeof pdfjsLib === 'undefined') {
+      showToast("Cargando motor de lectura PDF...", "info");
+      await new Promise((resolve) => {
+        const s = document.createElement('script');
+        s.src = './assets/pdf.min.js';
+        s.onload = resolve;
+        s.onerror = () => {
+          const sCdn = document.createElement('script');
+          sCdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+          sCdn.onload = resolve;
+          document.head.appendChild(sCdn);
+        };
+        document.head.appendChild(s);
+      });
+    }
+
+    if (typeof pdfjsLib !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = './assets/pdf.worker.min.js';
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
+
+    let fullText = "";
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p);
+      const textContent = await page.getTextContent();
+      const pageStrings = textContent.items.map(item => item.str);
+      fullText += pageStrings.join("\n") + "\n";
+    }
+
+    const parsed = parseInpsaselCertificateText(fullText);
+    parsed.pdfFileName = file.name;
+
+    // Prellenar modal con los datos extraídos para que el auditor los confirme o ajuste
+    const mNom = document.getElementById('input-auditor-modal-nombre');
+    const mCed = document.getElementById('input-auditor-modal-cedula');
+    const mInp = document.getElementById('input-auditor-modal-inpsasel');
+    const mPro = document.getElementById('input-auditor-modal-profesion');
+    const mCol = document.getElementById('input-auditor-modal-colegio');
+    const mEmi = document.getElementById('input-auditor-modal-emision');
+    const mVen = document.getElementById('input-auditor-modal-vencimiento');
+
+    if (mNom) mNom.value = parsed.nombre || '';
+    if (mCed) mCed.value = parsed.cedula || '';
+    if (mInp) mInp.value = parsed.inpsasel || '';
+    if (mPro) mPro.value = parsed.profesion || '';
+    if (mCol) mCol.value = parsed.colegio || '';
+    if (mEmi) mEmi.value = parsed.emision || '';
+    if (mVen) mVen.value = parsed.vencimiento || '';
+
+    // Guardar y aplicar inmediatamente
+    guardarPerfilAuditor(parsed);
+
+    // Abrir modal de revisión
+    const modal = document.getElementById('modal-auditor-inpsasel');
+    if (modal) modal.classList.remove('hidden');
+
+    if (typeof showToast === 'function') {
+      showToast(`Constancia INPSASEL de ${parsed.nombre || 'auditor'} extraída con éxito.`, "success");
+    }
+  } catch (err) {
+    console.error("Error al procesar PDF de INPSASEL:", err);
+    if (typeof showToast === 'function') {
+      showToast("Error al leer el PDF. Ingrese los datos manualmente en el formulario.", "error");
+    }
+    abrirModalAuditorInpsasel();
+  } finally {
+    // Resetear valor del input de archivo para permitir cargar el mismo archivo si es necesario
+    if (event.target) event.target.value = '';
+  }
+}
+
+/**
+ * Parser con expresiones regulares adaptado a las constancias oficiales del INPSASEL
+ */
+function parseInpsaselCertificateText(text) {
+  const result = {
+    nombre: "",
+    cedula: "",
+    inpsasel: "",
+    profesion: "",
+    colegio: "",
+    emision: "",
+    vencimiento: ""
+  };
+  if (!text) return result;
+
+  const cleanText = text.replace(/\r/g, "");
+
+  // 1. Cédula de Identidad (V-XX.XXX.XXX o E-XX.XXX.XXX)
+  const ciMatch = cleanText.match(/(?:C\.?I\.?|C[ée]dula(?:\s+de\s+identidad)?|Identificaci[oó]n|Doc)\s*(?:N[°º]?)?\s*:?\s*([VE]-?\s*[\d\.\s]{6,12})/i) ||
+                  cleanText.match(/\b([VE]-?\d{1,2}\.?\d{3}\.?\d{3})\b/i);
+  if (ciMatch) {
+    let ci = ciMatch[1].replace(/\s+/g, "").toUpperCase();
+    if (!ci.includes("-") && (ci.startsWith("V") || ci.startsWith("E"))) {
+      ci = ci[0] + "-" + ci.slice(1);
+    }
+    result.cedula = ci;
+  }
+
+  // 2. Número de Registro INPSASEL (ej. CAR-081498021, MIR-0912440182, etc.)
+  const regMatch = cleanText.match(/(?:N[úu]mero\s+de\s+Registro|N[°º]\s*de\s*Registro|N[°º]\s*Registro|Registro\s+N[°º]?|C[óo]digo\s+INPSASEL|Acreditaci[óo]n\s+N[°º]?)\s*(?:INPSASEL)?\s*:?\s*([A-Z]{2,4}-?\d{5,12})/i) ||
+                   cleanText.match(/\b([A-Z]{2,4}-\d{6,12})\b/);
+  if (regMatch) {
+    result.inpsasel = regMatch[1].toUpperCase();
+  }
+
+  // 3. Nombre Completo (priorizar etiqueta explícita Nombre:)
+  const nameMatch = cleanText.match(/\b(?:Nombre(?:\s+y\s+Apellidos?)?|Nombres?)\s*:?\s*([^\n\r]+)/i) ||
+                    cleanText.match(/\b(?:Ciudadano(?:\s*\(a\))?|Titular|Evaluador|Auditor)\s*:?\s*([^\n\r]+)/i);
+  if (nameMatch) {
+    let n = nameMatch[1].trim();
+    n = n.replace(/^(?:que\s+el\s+profesional|el\s+profesional)\s*:?/i, "").trim();
+    n = n.replace(/(?:C[ée]dula|C\.I\.|Registro|Profesi[oó]n|V-).*$/i, "").trim();
+    if (n.length > 3 && !n.toUpperCase().includes("CONSTANCIA") && !n.toUpperCase().includes("LOPCYMAT")) {
+      result.nombre = n;
+    }
+  }
+
+  // 4. Profesión / Especialidad (evitar coincidir con 'PROFESIONAL')
+  const profMatch = cleanText.match(/\b(?:Profesi[oó]n(?!\w)|Especialidad|T[íi]tulo(?:\s+Universitario)?|Grado|Carrera)\s*:?\s*([^\n\r]+)/i);
+  if (profMatch) {
+    let p = profMatch[1].trim();
+    p = p.replace(/(?:Colegio|C\.I\.V\.|C\.I\.|Vencimiento|Registro).*$/i, "").trim();
+    if (p.length > 2 && !p.toUpperCase().includes("CONSTANCIA") && !p.toUpperCase().includes("REGISTRO")) {
+      result.profesion = p;
+    }
+  }
+
+  // 5. Colegio de Ingenieros / Matrícula Profesional
+  const civMatch = cleanText.match(/(?:Colegio(?:\s+de\s+Ingenieros)?|C\.?I\.?V\.?|CIV|Gremio|Matr[íi]cula)\s*(?:N[°º]?)?\s*:?\s*([^\n\r]+)/i) ||
+                   cleanText.match(/\b(C\.?I\.?V\.?\s*(?:N[°º]?)?\s*[\d\.]+)\b/i);
+  if (civMatch) {
+    let c = civMatch[1].trim();
+    c = c.replace(/(?:Fecha|Emisi[oó]n|Vencimiento).*$/i, "").trim();
+    result.colegio = c;
+  }
+
+  // 6. Fechas (Emisión y Vencimiento / Vigencia)
+  const emisMatch = cleanText.match(/(?:Fecha\s+de\s+Emisi[oó]n|Emisi[oó]n|Expedici[oó]n|Otorgado)\s*:?\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i);
+  if (emisMatch) result.emision = emisMatch[1];
+
+  const vencMatch = cleanText.match(/(?:Fecha\s+de\s+Vencimiento|Vencimiento|V[áa]lido\s+hasta|Vigencia(?:\s+hasta)?)\s*:?\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i);
+  if (vencMatch) result.vencimiento = vencMatch[1];
+
+  return result;
+}
+
+
 // MOTOR UNIFICADO DE EXPORTACIÓN (EXCEL .XLSX / CSV / PDF) - ERGOEXPRESS
 // Soporte Dinámico de Colaboradores Activos (filtra columnas inactivas)
 // Soporte Offline y Descarga 100% Nativa en Smartphones Android
@@ -7955,7 +8423,7 @@ function getAuditMeta() {
   const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
   const auditId = cfg.auditId || 'AUD-2026-0429';
   const vEmpresa = document.getElementById('view-empresa');
-  const empInputs = vEmpresa ? vEmpresa.querySelectorAll('input:not([id^="empresa-gps"]), textarea') : [];
+  const empInputs = vEmpresa ? vEmpresa.querySelectorAll('input:not([id^="empresa-gps"]):not([id^="input-pdf-inpsasel"]):not([id^="input-auditor-modal"]), textarea') : [];
 
   const razonSocial = document.getElementById('empresa-nombre')?.value.trim() || empInputs[0]?.value.trim() || 'Empresa no especificada';
   const rif = document.getElementById('empresa-rif')?.value.trim() || empInputs[1]?.value.trim() || 'S/R';
@@ -7971,6 +8439,14 @@ function getAuditMeta() {
   const gpsInfo = (lat && lng) ? `${lat}, ${lng} (${acc || 'GPS Satelital'})` : 'Sin georreferenciar';
   const gmapsUrl = (lat && lng) ? `https://www.google.com/maps?q=${encodeURIComponent(lat + ',' + lng)}` : '';
 
+  const auditor = typeof getPerfilAuditor === 'function' ? getPerfilAuditor() : {};
+  const displayNom = document.getElementById('auditor-display-nombre')?.innerText.replace('No registrado (Cargue constancia PDF o pulse Editar)', '').trim();
+  const displayCed = document.getElementById('auditor-display-cedula')?.innerText.replace('--', '').trim();
+  const displayInp = document.getElementById('auditor-display-inpsasel')?.innerText.replace('--', '').trim();
+  const displayPro = document.getElementById('auditor-display-profesion')?.innerText.replace('--', '').trim();
+  const displayCol = document.getElementById('auditor-display-colegio')?.innerText.replace('--', '').trim();
+  const displayVig = document.getElementById('auditor-display-vigencia')?.innerText.replace('--', '').trim();
+
   return {
     auditId,
     razonSocial,
@@ -7985,6 +8461,12 @@ function getAuditMeta() {
     acc,
     gpsInfo,
     gmapsUrl,
+    auditorNombre: auditor.nombre || displayNom || 'Ing. M. Villalobos',
+    auditorCedula: auditor.cedula || displayCed || 'V-15.678.912',
+    auditorInpsasel: auditor.inpsasel || displayInp || 'MIR-0912440182',
+    auditorProfesion: auditor.profesion || displayPro || 'Ingeniero Industrial / Esp. SST',
+    auditorColegio: auditor.colegio || displayCol || 'C.I.V. 182.409',
+    auditorVigencia: auditor.vencimiento ? `Válido hasta ${auditor.vencimiento}` : (displayVig || 'Acreditado INPSASEL'),
     dateStr: new Date().toISOString().slice(0, 10)
   };
 }
@@ -8372,7 +8854,7 @@ function exportToExcel() {
   const activeWorkers = getActiveEvaluatedWorkers();
   const wb = XLSX.utils.book_new();
 
-  // HOJA 1: DATOS DE LA EMPRESA Y PUESTO
+    // HOJA 1: DATOS DE LA EMPRESA Y PUESTO
   const empRows = [
     ["ERGOEXPRESS, C.A. - AUDITORÍA HIGIÉNICA Y ERGONÓMICA LOPCYMAT"],
     ["Expediente Oficial:", meta.auditId],
@@ -8386,7 +8868,15 @@ function exportToExcel() {
     ["Actividad Específica Evaluada:", meta.actividad],
     ["Jornada / Horarios y Rotación:", meta.jornada],
     ["Geolocalización GPS (Lat, Lng):", meta.gpsInfo],
-    ["Enlace Google Maps:", meta.gmapsUrl]
+    ["Enlace Google Maps:", meta.gmapsUrl],
+    [],
+    ["DATOS DEL AUDITOR / EVALUADOR RESPONSABLE (ACREDITADO INPSASEL)", ""],
+    ["Auditor Responsable:", meta.auditorNombre],
+    ["Cédula de Identidad:", meta.auditorCedula],
+    ["N° Registro INPSASEL:", meta.auditorInpsasel],
+    ["Profesión / Especialidad:", meta.auditorProfesion],
+    ["Colegio / Matrícula Profesional:", meta.auditorColegio],
+    ["Vigencia de Acreditación:", meta.auditorVigencia]
   ];
   const wsEmp = XLSX.utils.aoa_to_sheet(empRows);
   wsEmp['!cols'] = [{ wch: 35 }, { wch: 60 }];
@@ -8437,6 +8927,7 @@ function exportToExcel() {
     ["ERGOEXPRESS C.A. - ACTA OFICIAL DE PARTICIPACIÓN Y RECOPILACIÓN DE DATOS (ART. 62 LOPCYMAT)"],
     ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
     ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Auditor Responsable:", meta.auditorNombre, "Cédula:", meta.auditorCedula, "N° INPSASEL:", meta.auditorInpsasel],
     ["Geolocalización GPS:", meta.gpsInfo, "Google Maps:", meta.gmapsUrl],
     [],
     ["Nº", "Nombre y Apellido", "Cédula", "Rol en la Evaluación", "Firma Digital", "Huella Biométrica", "Estado LOPCYMAT"]
@@ -8612,6 +9103,7 @@ function getHuellaCaptureData(r) {
 }
 
 function buildActaPdfHtml() {
+  const meta = typeof getAuditMeta === "function" ? getAuditMeta() : {};
   const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
   const auditId = cfg.auditId || 'AUD-2026-0429';
   const vEmpresa = document.getElementById('view-empresa');
@@ -8693,8 +9185,8 @@ function buildActaPdfHtml() {
         "Mediante la presente, los(as) trabajadores(as) y representantes abajo firmantes hacemos constar que hemos sido informados, consultados y hemos participado de manera voluntaria, activa, libre y protagónica en la jornada de recopilación de datos de campo, mediciones higiénicas de microclima laboral (Ambiente Térmico COVENIN 2254, Iluminación COVENIN 2249, Ruido COVENIN 1565 y Dosimetría) y encuesta ambiental para la caracterización técnica del puesto de trabajo, en cumplimiento con el Artículo 62 de la LOPCYMAT y la Norma Técnica NT-01-2008."
       </div>
 
-      <!-- METADATOS DE LA EVALUACIÓN -->
-      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 10px;">
+            <!-- METADATOS DE LA EVALUACIÓN -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 10px;">
         <tr style="background: #eef2f5;">
           <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold; width: 22%;">EMPRESA / RAZÓN SOCIAL:</td>
           <td style="padding: 4px 6px; border: 1px solid #ccc; width: 44%; font-weight: bold; color: #003637;">${razonSocial}</td>
@@ -8714,6 +9206,24 @@ function buildActaPdfHtml() {
         <tr>
           <td style="padding: 4px 6px; border: 1px solid #ccc; font-weight: bold;">JORNADA / TURNOS:</td>
           <td colspan="3" style="padding: 4px 6px; border: 1px solid #ccc;">${jornada}</td>
+        </tr>
+      </table>
+
+      <!-- ACREDITACIÓN PROFESIONAL INPSASEL DEL AUDITOR / PERITO EVALUADOR -->
+      <table style="width: 100%; border: 1px solid #003637; border-radius: 6px; background: #f8fafc; margin-bottom: 12px; font-size: 9.5px; padding: 6px;">
+        <tr>
+          <td style="width: 50%; vertical-align: top;">
+            <div style="font-weight: bold; color: #003637; font-size: 10px; margin-bottom: 2px;">AUDITOR / EVALUADOR RESPONSABLE</div>
+            <div><b>Nombre:</b> ${meta.auditorNombre}</div>
+            <div><b>Cédula de Identidad:</b> ${meta.auditorCedula}</div>
+            <div><b>Profesión / Grado:</b> ${meta.auditorProfesion}</div>
+          </td>
+          <td style="width: 50%; vertical-align: top; border-left: 1px solid #cbd5e1; padding-left: 10px;">
+            <div style="font-weight: bold; color: #003637; font-size: 10px; margin-bottom: 2px;">ACREDITACIÓN Y REGISTRO OFICIAL INPSASEL</div>
+            <div><b>N° Registro INPSASEL:</b> <span style="font-family: monospace; font-weight: bold; color: #047857; font-size: 10.5px;">${meta.auditorInpsasel}</span></div>
+            <div><b>Colegio Profesional / Matrícula:</b> ${meta.auditorColegio}</div>
+            <div><b>Vigencia de Acreditación:</b> ${meta.auditorVigencia}</div>
+          </td>
         </tr>
       </table>
 
@@ -8852,39 +9362,7 @@ async function exportToPdf(action = 'download') {
     // Fallback: abrir ventana para imprimir/guardar como PDF
     const printWin = window.open('', '_blank');
     if (printWin) {
-      printWin.document.write(`<html><head><title>${filename}</title></head><body>${container.innerHTML}
-<!-- MODAL DE CONFIRMACIÓN: REINICIAR EVALUACIÓN -->
-<div id="modal-confirm-reset" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-fadeIn">
-  <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-2xl border border-outline-variant p-5 max-w-md w-full shadow-2xl space-y-4">
-    <div class="flex items-start gap-3">
-      <div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0">
-        <span class="material-symbols-outlined text-2xl text-error">warning</span>
-      </div>
-      <div class="space-y-1">
-        <h3 class="font-title-md text-title-md font-bold text-on-surface leading-tight">
-          ¿Reiniciar Formulario de Evaluación?
-        </h3>
-        <p class="font-body-sm text-xs text-on-surface-variant leading-relaxed">
-          Esta acción <strong>borrará todos los datos cargados en campo</strong> (empresa, puesto de trabajo, coordenadas GPS, colaboradores, mediciones de microclima, las 43 preguntas de la encuesta y firmas del acta) para comenzar una <strong>evaluación nueva y limpia desde cero</strong>.
-        </p>
-      </div>
-    </div>
-    <div class="p-2.5 rounded-lg bg-surface-container text-[11px] text-outline font-medium">
-      💡 Puede usar el botón <strong>Demo</strong> si más adelante desea volver a cargar datos de prueba para demostración.
-    </div>
-    <div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant">
-      <button type="button" onclick="cerrarModalReset()" class="px-3.5 py-2 rounded-lg text-xs font-bold text-on-surface hover:bg-surface-container transition-all">
-        Cancelar
-      </button>
-      <button type="button" onclick="ejecutarReinicioEvaluacion(); cerrarModalReset();" class="px-4 py-2 rounded-lg text-xs font-bold bg-error text-white hover:bg-error/90 active:scale-95 transition-all shadow-sm flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
-        <span>Sí, Borrar y Reiniciar</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-</body></html>`);
+      printWin.document.write('<!DOCTYPE html><html><head><title>' + encodeURIComponent(filename) + '</title></head><body>' + container.innerHTML + '</body></html>');
       printWin.document.close();
       printWin.focus();
       printWin.print();
@@ -10090,7 +10568,12 @@ function initResponsiveTables() {
     window.addEventListener('resize', updateAppHeaderHeight);
     window.addEventListener('orientationchange', () => setTimeout(updateAppHeaderHeight, 250));
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { run(); if (typeof cargarPerfilAuditorGuardado === 'function') cargarPerfilAuditorGuardado(); });
+  } else {
+    run();
+    if (typeof cargarPerfilAuditorGuardado === 'function') cargarPerfilAuditorGuardado();
+  }
 })();
 
 // ==============================================================================
@@ -11410,6 +11893,16 @@ function ejecutarReinicioEvaluacion(showToastMsg = true) {
   updateActaGlobalStatus();
   sincronizarMetadatosEmpresa();
 
+  // Re-aplicar credenciales del auditor oficial desde el perfil guardado
+  try {
+    const auditor = getPerfilAuditor();
+    if (auditor && (auditor.nombre || auditor.inpsasel)) {
+      aplicarAuditorEnTodaLaApp(auditor);
+    }
+  } catch(e) {
+    console.error("Error re-aplicando auditor tras reinicio:", e);
+  }
+
   // 8. Borrar borrador local
   try {
     localStorage.removeItem("ergoexpress_last_audit_data");
@@ -12543,6 +13036,84 @@ if (document.readyState === 'loading') {
         <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
         <span>Sí, Borrar y Reiniciar</span>
       </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL DE EDICIÓN Y REVISIÓN: DATOS DEL AUDITOR / INPSASEL -->
+<div id="modal-auditor-inpsasel" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-4 animate-fadeIn">
+  <div class="bg-surface-container-lowest dark:bg-inverse-surface rounded-2xl border border-outline-variant p-5 max-w-lg w-full shadow-2xl space-y-4 max-h-[90dvh] overflow-y-auto">
+    <div class="flex items-start justify-between gap-3 border-b border-outline-variant pb-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl text-primary">badge</span>
+        </div>
+        <div>
+          <h3 class="font-title-md text-title-md font-bold text-on-surface leading-tight">
+            Perfil del Auditor y Registro INPSASEL
+          </h3>
+          <p class="font-body-sm text-xs text-on-surface-variant">
+            Datos acreditados para la auditoría técnica y firma del Acta
+          </p>
+        </div>
+      </div>
+      <button type="button" onclick="cerrarModalAuditorInpsasel()" class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+
+    <!-- Formulario de campos del auditor -->
+    <div class="space-y-3 text-xs">
+      <div>
+        <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Nombre Completo y Apellidos</label>
+        <input type="text" id="input-auditor-modal-nombre" placeholder="Ej: ING. FRANCISCO JAVIER ROJAS PEREZ" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface focus:border-secondary outline-none"/>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Cédula de Identidad</label>
+          <input type="text" id="input-auditor-modal-cedula" placeholder="Ej: V-15.678.912" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-mono font-bold text-on-surface focus:border-secondary outline-none"/>
+        </div>
+        <div>
+          <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">N° Registro INPSASEL</label>
+          <input type="text" id="input-auditor-modal-inpsasel" placeholder="Ej: CAR-081498021" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded font-mono font-bold text-[#15803D] focus:border-secondary outline-none"/>
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Profesión / Especialidad</label>
+        <input type="text" id="input-auditor-modal-profesion" placeholder="Ej: INGENIERO INDUSTRIAL / ESPECIALISTA EN HIGIENE Y SST" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary outline-none"/>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Colegio Profesional / CIV</label>
+          <input type="text" id="input-auditor-modal-colegio" placeholder="Ej: C.I.V. 182.409" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary outline-none"/>
+        </div>
+        <div>
+          <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Vigencia / Vencimiento</label>
+          <input type="text" id="input-auditor-modal-vencimiento" placeholder="Ej: 15/01/2027" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary outline-none"/>
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-on-surface-variant mb-1 uppercase tracking-wide">Fecha de Emisión del Certificado</label>
+        <input type="text" id="input-auditor-modal-emision" placeholder="Ej: 15/01/2024" class="w-full h-9 px-2.5 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary outline-none"/>
+      </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="flex items-center justify-between gap-2 pt-3 border-t border-outline-variant">
+      <button type="button" onclick="limpiarPerfilAuditor()" class="px-3 py-2 rounded-lg text-xs font-semibold text-error hover:bg-error-container/20 transition-all flex items-center gap-1" title="Restablecer o limpiar datos del auditor">
+        <span class="material-symbols-outlined text-[16px]">delete_outline</span>
+        <span>Limpiar</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="cerrarModalAuditorInpsasel()" class="px-3.5 py-2 rounded-lg text-xs font-bold text-on-surface hover:bg-surface-container transition-all">
+          Cancelar
+        </button>
+        <button type="button" onclick="guardarModalAuditorInpsasel()" class="px-4 py-2 rounded-lg text-xs font-bold bg-primary text-on-primary hover:bg-primary-container active:scale-95 transition-all shadow-xs flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Guardar y Aplicar</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
