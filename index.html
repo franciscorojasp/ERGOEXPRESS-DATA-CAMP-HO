@@ -34,6 +34,15 @@ if (typeof html2pdf === 'undefined') {
 }
 </script>
 
+<script src="assets/xlsx.full.min.js"></script>
+<script>
+if (typeof XLSX === 'undefined') {
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+  document.head.appendChild(s);
+}
+</script>
+
 <script id="tailwind-config">
 tailwind.config = {
   darkMode: "class",
@@ -1130,9 +1139,13 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
         <span>MODULO 3 · ENCUESTA DE MICROCLIMA Y ENTORNO LABORAL</span>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="exportEncuestaCSV()" class="whitespace-nowrap px-2.5 py-1 text-xs font-semibold rounded bg-surface border border-outline-variant text-on-surface flex items-center gap-1 hover:bg-surface-container active:scale-95 transition-all shadow-xs">
-          <span class="material-symbols-outlined text-sm">download</span>
-          <span>Exportar Matriz</span>
+        <button type="button" onclick="exportEncuestaToExcel()" id="btn-export-encuesta-excel" class="whitespace-nowrap px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white flex items-center gap-1.5 active:scale-95 transition-all shadow-xs" title="Exportar Encuesta de Microclima y Aportes a Excel (.xlsx)">
+          <span class="material-symbols-outlined text-sm">table_view</span>
+          <span>Exportar Encuesta Excel (.xlsx)</span>
+        </button>
+        <button type="button" onclick="exportEncuestaCSV()" class="whitespace-nowrap px-2 py-1.5 text-xs font-medium rounded-lg bg-surface border border-outline-variant text-on-surface hover:bg-surface-container active:scale-95 transition-all" title="Descargar copia CSV rápido">
+          <span class="material-symbols-outlined text-xs">download</span>
+          <span>CSV</span>
         </button>
       </div>
     </div>
@@ -3925,9 +3938,15 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
 <span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded">MÓDULO 4</span>
 <span class="font-title-md text-title-md text-primary font-semibold">Mediciones Higiénicas</span>
 </div>
-<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded border border-outline-variant">
-<span class="material-symbols-outlined text-outline text-[14px]" data-icon="pin_drop">pin_drop</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant truncate max-w-[130px]">Línea Envasado 02</span>
+<div class="flex items-center gap-2">
+  <button type="button" onclick="exportMedicionesToExcel()" id="btn-export-med-excel" class="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-xs active:scale-95" title="Exportar todas las mediciones higiénicas a Excel (.xlsx)">
+    <span class="material-symbols-outlined text-sm">table_view</span>
+    <span class="hidden sm:inline">Exportar Mediciones</span> Excel (.xlsx)
+  </button>
+  <div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-1 rounded-lg border border-outline-variant">
+    <span class="material-symbols-outlined text-outline text-[14px]" data-icon="pin_drop">pin_drop</span>
+    <span class="font-label-sm text-label-sm text-on-surface-variant truncate max-w-[130px]">Línea Envasado 02</span>
+  </div>
 </div>
 </div>
 <!-- ========================================================================= -->
@@ -7828,7 +7847,643 @@ function showGlobalSync() {
 }
 
 function _old_showGlobalSync() { showToast("Sincronización con la nube completada: 0 pendientes", "success"); }
-function exportToExcel() { showToast("Generando archivo Excel (.xlsx) con datos de campo...", "success"); }
+
+// ==============================================================================
+// MOTOR OFICIAL DE EXPORTACIÓN A EXCEL (.XLSX) - ERGOEXPRESS C.A.
+// ==============================================================================
+
+function getAuditMeta() {
+  const cfg = typeof getSyncConfig === 'function' ? getSyncConfig() : {};
+  const auditId = cfg.auditId || 'AUD-2026-0429';
+  const vEmpresa = document.getElementById('view-empresa');
+  const empInputs = vEmpresa ? vEmpresa.querySelectorAll('input, textarea') : [];
+
+  return {
+    auditId: auditId,
+    razonSocial: empInputs[0]?.value || 'MANUFACTURAS INDUSTRIALES DEL CENTRO, C.A.',
+    rif: empInputs[1]?.value || 'J-31498021-0',
+    lugarFecha: empInputs[2]?.value || 'San Joaquín, Carabobo - 24/05/2024',
+    puesto: empInputs[3]?.value || 'Operador de Envasado y Sellado Térmico',
+    puestoNum: empInputs[4]?.value || 'Línea 03 - P-12',
+    actividad: empInputs[5]?.value || 'Alimentación manual de tolva, ajuste de selladora y estiba de bultos',
+    jornada: empInputs[6]?.value || 'Jornada diurna de 8 hrs con sistema de rotación cada 2 horas',
+    dateStr: new Date().toISOString().slice(0, 10)
+  };
+}
+
+// ------------------------------------------------------------------------------
+// 1. EXPORTACIÓN DE MEDICIONES HIGIÉNICAS A EXCEL (.XLSX)
+// ------------------------------------------------------------------------------
+function exportMedicionesToExcel() {
+  showToast("Compilando Mediciones Higiénicas para Excel...", "info");
+
+  if (typeof XLSX === 'undefined') {
+    showToast("Motor Excel no disponible. Cargando biblioteca...", "warning");
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = () => exportMedicionesToExcel();
+    document.head.appendChild(s);
+    return;
+  }
+
+  const meta = getAuditMeta();
+  const wb = XLSX.utils.book_new();
+
+  // HOJA 1: AMBIENTE TÉRMICO (COVENIN 2254 / ISO 7243)
+  const termRows = [
+    ["ERGOEXPRESS C.A. - REGISTRO TÉCNICO DE AMBIENTE TÉRMICO Y VENTILACIÓN"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Norma Aplicable: COVENIN 2254:1995 (Calor y Frío) / COVENIN 2250:2000 (Ventilación)"],
+    [],
+    [
+      "Punto Muestreo",
+      "Ubicación / Área Evaluada",
+      "Régimen de Trabajo",
+      "Ciclo Trabajo / Descanso",
+      "Velocidad Viento (m/s)",
+      "Temp. Seco TBS (°C)",
+      "Temp. Globo TG (°C)",
+      "Humedad Relativa HR (%)",
+      "TBH Psicrométrica Calculada (°C)",
+      "Índice TGBH Normativo (°C)",
+      "Límite Permisible COVENIN (°C)",
+      "Diagnóstico / Condición Legal",
+      "Observaciones Técnicas"
+    ]
+  ];
+
+  for (let pt = 1; pt <= 4; pt++) {
+    const ubic = document.getElementById("term-ubic-" + pt)?.value || ("Punto " + pt);
+    const reg = document.getElementById("term-regimen-" + pt)?.value || "Moderada";
+    const ciclo = document.getElementById("term-ciclo-" + pt)?.value || "75% Trab - 25% Desc";
+    const viento = document.getElementById("term-viento-" + pt)?.value || "0.4";
+    const tbs = parseFloat(document.getElementById("term-tbs-" + pt)?.value) || 0;
+    const tg = parseFloat(document.getElementById("term-tg-" + pt)?.value) || 0;
+    const hr = parseFloat(document.getElementById("term-hr-" + pt)?.value) || 0;
+    const tbh = document.getElementById("term-tbh-" + pt)?.innerText.trim() || "--";
+    const tgbh = parseFloat(document.getElementById("term-tgbh-" + pt)?.value) || 0;
+    const lim = parseFloat(document.getElementById("term-limite-" + pt)?.value) || 28.0;
+    const diag = document.getElementById("term-diag-" + pt)?.innerText.trim() || "--";
+    const obs = document.getElementById("term-obs-" + pt)?.value || "";
+
+    termRows.push([
+      "PM-0" + pt,
+      ubic,
+      reg,
+      ciclo,
+      viento,
+      tbs,
+      tg,
+      hr,
+      tbh,
+      tgbh,
+      lim,
+      diag,
+      obs
+    ]);
+  }
+
+  const wsTerm = XLSX.utils.aoa_to_sheet(termRows);
+  wsTerm['!cols'] = [{ wch: 14 }, { wch: 28 }, { wch: 18 }, { wch: 22 }, { wch: 18 }, { wch: 16 }, { wch: 16 }, { wch: 18 }, { wch: 22 }, { wch: 20 }, { wch: 20 }, { wch: 24 }, { wch: 35 }];
+  XLSX.utils.book_append_sheet(wb, wsTerm, "Ambiente_Termico");
+
+  // HOJA 2: ILUMINACIÓN OCUPACIONAL (COVENIN 2249:1993)
+  const luxRows = [
+    ["ERGOEXPRESS C.A. - REGISTRO TÉCNICO DE ILUMINACIÓN OCUPACIONAL"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Norma Aplicable: COVENIN 2249:1993 (Iluminancias en Centros de Trabajo)"],
+    [],
+    [
+      "Punto Muestreo",
+      "Ubicación / Área Medición",
+      "Requerimiento Visual / Tarea",
+      "Fuente de Iluminación",
+      "Tipo / Estado Luminarias",
+      "Iluminancia Diurna Medida (Lux)",
+      "Iluminancia Nocturna Medida (Lux)",
+      "Nivel Mínimo COVENIN 2249 (Lux)",
+      "Deslumbramiento y Reflejos",
+      "Diagnóstico Iluminación",
+      "Observaciones Técnicas"
+    ]
+  ];
+
+  for (let pt = 1; pt <= 4; pt++) {
+    const ubic = document.getElementById("lux-ubic-" + pt)?.value || ("Punto " + pt);
+    const req = document.getElementById("lux-req-" + pt)?.value || "Control de calidad";
+    const fuente = document.getElementById("lux-fuente-" + pt)?.value || "Mixta";
+    const lum = document.getElementById("lux-lum-" + pt)?.value || "Campanas LED 150W";
+    const diurno = parseFloat(document.getElementById("lux-diurno-" + pt)?.value) || 0;
+    const noct = parseFloat(document.getElementById("lux-nocturno-" + pt)?.value) || 0;
+    const norma = parseFloat(document.getElementById("lux-norma-" + pt)?.value) || 300;
+    const deslum = document.getElementById("lux-deslum-" + pt)?.value || "No apreciable";
+    const diag = document.getElementById("lux-diag-" + pt)?.innerText.trim() || "--";
+    const obs = document.getElementById("lux-obs-" + pt)?.value || "";
+
+    luxRows.push([
+      "PM-0" + pt,
+      ubic,
+      req,
+      fuente,
+      lum,
+      diurno,
+      noct,
+      norma,
+      deslum,
+      diag,
+      obs
+    ]);
+  }
+
+  const wsLux = XLSX.utils.aoa_to_sheet(luxRows);
+  wsLux['!cols'] = [{ wch: 14 }, { wch: 28 }, { wch: 24 }, { wch: 18 }, { wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 35 }];
+  XLSX.utils.book_append_sheet(wb, wsLux, "Iluminacion");
+
+  // HOJA 3: RUIDO OCUPACIONAL Y ESPECTRO DE OCTAVAS (COVENIN 1565:1995)
+  const noiseRows = [
+    ["ERGOEXPRESS C.A. - REGISTRO TÉCNICO DE RUIDO Y ESPECTRO EN BANDAS DE OCTAVA"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Norma Aplicable: COVENIN 1565:1995 (Ruido Ocupacional)"],
+    [],
+    [
+      "Punto",
+      "Ubicación / Puesto",
+      "Instrumento / Sonómetro",
+      "Tipo de Ruido",
+      "Nivel dBA",
+      "Leq Continuo dB(A)",
+      "Límite COVENIN (dBA)",
+      "31.5 Hz (dB)",
+      "63 Hz (dB)",
+      "125 Hz (dB)",
+      "250 Hz (dB)",
+      "500 Hz (dB)",
+      "1.0 kHz (dB)",
+      "2.0 kHz (dB)",
+      "4.0 kHz (dB)",
+      "8.0 kHz (dB)",
+      "16.0 kHz (dB)",
+      "Pico Crítico",
+      "Diagnóstico Legal",
+      "Observaciones"
+    ]
+  ];
+
+  for (let pt = 1; pt <= 4; pt++) {
+    const ubic = document.getElementById("noise-ubic-" + pt)?.value || ("Punto " + pt);
+    const inst = document.getElementById("noise-inst-" + pt)?.value || "Sonómetro Integrador Tipo 2";
+    const tipo = document.getElementById("noise-tipo-" + pt)?.value || "Continuo";
+    const dba = parseFloat(document.getElementById("noise-dba-" + pt)?.value) || 0;
+    const leq = parseFloat(document.getElementById("noise-leq-" + pt)?.value) || 0;
+    const lim = parseFloat(document.getElementById("noise-limite-" + pt)?.value) || 85.0;
+
+    const f31 = parseFloat(document.getElementById("noise-f31-" + pt)?.value) || 0;
+    const f63 = parseFloat(document.getElementById("noise-f63-" + pt)?.value) || 0;
+    const f125 = parseFloat(document.getElementById("noise-f125-" + pt)?.value) || 0;
+    const f250 = parseFloat(document.getElementById("noise-f250-" + pt)?.value) || 0;
+    const f500 = parseFloat(document.getElementById("noise-f500-" + pt)?.value) || 0;
+    const f1k = parseFloat(document.getElementById("noise-f1k-" + pt)?.value) || 0;
+    const f2k = parseFloat(document.getElementById("noise-f2k-" + pt)?.value) || 0;
+    const f4k = parseFloat(document.getElementById("noise-f4k-" + pt)?.value) || 0;
+    const f8k = parseFloat(document.getElementById("noise-f8k-" + pt)?.value) || 0;
+    const f16k = parseFloat(document.getElementById("noise-f16k-" + pt)?.value) || 0;
+
+    const pico = document.getElementById("noise-pico-" + pt)?.innerText.trim() || "--";
+    const diag = document.getElementById("noise-diag-" + pt)?.innerText.trim() || "--";
+    const obs = document.getElementById("noise-obs-" + pt)?.value || "";
+
+    noiseRows.push([
+      "PM-0" + pt,
+      ubic,
+      inst,
+      tipo,
+      dba,
+      leq,
+      lim,
+      f31, f63, f125, f250, f500, f1k, f2k, f4k, f8k, f16k,
+      pico,
+      diag,
+      obs
+    ]);
+  }
+
+  const wsNoise = XLSX.utils.aoa_to_sheet(noiseRows);
+  wsNoise['!cols'] = [{ wch: 12 }, { wch: 25 }, { wch: 22 }, { wch: 15 }, { wch: 12 }, { wch: 16 }, { wch: 16 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 16 }, { wch: 22 }, { wch: 30 }];
+  XLSX.utils.book_append_sheet(wb, wsNoise, "Ruido_y_Espectro");
+
+  // HOJA 4: DOSIMETRÍA PERSONAL (COVENIN 1565:1995)
+  const dosiRows = [
+    ["ERGOEXPRESS C.A. - REGISTRO TÉCNICO DE DOSIMETRÍA PERSONAL DE RUIDO"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Criterio COVENIN 1565: Dosis Límite 100% (85 dBA 8h) / Nivel Acción 50% (82 dBA)"],
+    [],
+    [
+      "Colaborador Nº",
+      "Nombre y Apellido",
+      "Cédula de Identidad",
+      "Nº Dosímetro / Serie",
+      "Evento / Operación Evaluada",
+      "Tiempo Medición (Horas)",
+      "Continuo Leq dB(A) Medido",
+      "Dosis Acumulada Registrada (%)",
+      "Dosis Proyectada a 8 Horas (%)",
+      "Protección Auditiva (NRR)",
+      "Diagnóstico Legal COVENIN 1565",
+      "Observaciones Técnicas"
+    ]
+  ];
+
+  for (let w = 1; w <= 6; w++) {
+    const nom = document.getElementById("dosi-nombre-" + w)?.value || ("Trabajador " + w);
+    const ced = document.getElementById("dosi-cedula-" + w)?.value || "--";
+    const num = document.getElementById("dosi-num-" + w)?.value || ("DOS-00" + w);
+    const evento = document.getElementById("dosi-evento-" + w)?.value || "Operación regular";
+    const tiempo = parseFloat(document.getElementById("dosi-tiempo-" + w)?.value) || 8.0;
+    const leq = parseFloat(document.getElementById("dosi-leq-" + w)?.value) || 0;
+    const dosis = parseFloat(document.getElementById("dosi-dosis-" + w)?.value) || 0;
+    const proy = document.getElementById("dosi-proy-" + w)?.innerText.trim() || "--";
+    const nrr = document.getElementById("dosi-nrr-" + w)?.value || "Tapón NRR 27 dB";
+    const diag = document.getElementById("dosi-diag-" + w)?.innerText.trim() || "--";
+    const obs = document.getElementById("dosi-obs-" + w)?.value || "";
+
+    dosiRows.push([
+      "T-" + w,
+      nom,
+      ced,
+      num,
+      evento,
+      tiempo,
+      leq,
+      dosis,
+      proy,
+      nrr,
+      diag,
+      obs
+    ]);
+  }
+
+  const wsDosi = XLSX.utils.aoa_to_sheet(dosiRows);
+  wsDosi['!cols'] = [{ wch: 14 }, { wch: 26 }, { wch: 18 }, { wch: 18 }, { wch: 22 }, { wch: 18 }, { wch: 20 }, { wch: 22 }, { wch: 22 }, { wch: 20 }, { wch: 24 }, { wch: 35 }];
+  XLSX.utils.book_append_sheet(wb, wsDosi, "Dosimetria_Personal");
+
+  // Descargar archivo
+  const filename = `ERGOEXPRESS_Mediciones_Higienicas_${meta.auditId}_${meta.dateStr}.xlsx`;
+  XLSX.writeFile(wb, filename);
+  showToast(`¡Mediciones exportadas exitosamente en ${filename}!`, "success");
+}
+
+// ------------------------------------------------------------------------------
+// 2. EXPORTACIÓN DE ENCUESTA DE MICROCLIMA Y APORTES A EXCEL (.XLSX)
+// ------------------------------------------------------------------------------
+function exportEncuestaToExcel() {
+  showToast("Compilando Encuesta de Microclima y Aportes a Excel...", "info");
+
+  if (typeof XLSX === 'undefined') {
+    showToast("Cargando motor Excel...", "warning");
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = () => exportEncuestaToExcel();
+    document.head.appendChild(s);
+    return;
+  }
+
+  const meta = getAuditMeta();
+  const wb = XLSX.utils.book_new();
+
+  // Nombres de los trabajadores
+  const workerNames = [];
+  for (let w = 1; w <= 6; w++) {
+    const inp = document.getElementById("colab-nombre-" + w);
+    workerNames.push(inp && inp.value.trim() ? inp.value.trim() : `Trabajador ${w}`);
+  }
+
+  // HOJA 1: MATRIZ DE 43 PREGUNTAS
+  const surveyRows = [
+    ["ERGOEXPRESS C.A. - ENCUESTA DE SÍNTOMAS Y PERCEPCIÓN DE MICROCLIMA LABORAL (43 PREGUNTAS)"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    ["Conforme a Art. 62 y Art. 56 LOPCYMAT • Validación Ergonómica de Percepción Térmica, Visual y Sonora"],
+    [],
+    [
+      "Nº",
+      "Categoría",
+      "Pregunta / Ítem Evaluado",
+      `T1: ${workerNames[0]}`,
+      `T2: ${workerNames[1]}`,
+      `T3: ${workerNames[2]}`,
+      `T4: ${workerNames[3]}`,
+      `T5: ${workerNames[4]}`,
+      `T6: ${workerNames[5]}`,
+      "Total SÍ",
+      "Total NO",
+      "Total N/A",
+      "Prevalencia SÍ (%)"
+    ]
+  ];
+
+  const rows = document.querySelectorAll('#matriz-encuesta-tbody tr.survey-matrix-row');
+  rows.forEach((r, idx) => {
+    const qNum = idx + 1;
+    const pEl = r.querySelector('td:first-child p');
+    const qText = pEl ? pEl.innerText.trim() : ("Pregunta " + qNum);
+    const cat = qNum <= 17 ? "Ambiente Térmico" : (qNum <= 28 ? "Iluminación Ocupacional" : "Ruido y Vibraciones");
+
+    let cSi = 0, cNo = 0, cNa = 0;
+    const workerVals = [];
+
+    for (let w = 1; w <= 6; w++) {
+      const grp = document.getElementById(`grp-q${qNum}-w${w}`);
+      let ans = "N/D";
+      if (grp) {
+        if (grp.querySelector('.btn-opt-si.bg-primary')) { ans = "SI"; cSi++; }
+        else if (grp.querySelector('.btn-opt-no.bg-secondary-container')) { ans = "NO"; cNo++; }
+        else if (grp.querySelector('.btn-opt-na.bg-surface-container-highest')) { ans = "NA"; cNa++; }
+      }
+      workerVals.push(ans);
+    }
+
+    const totalResp = cSi + cNo;
+    const prevPct = totalResp > 0 ? ((cSi / totalResp) * 100).toFixed(1) + "%" : "0.0%";
+
+    surveyRows.push([
+      qNum,
+      cat,
+      qText,
+      ...workerVals,
+      cSi,
+      cNo,
+      cNa,
+      prevPct
+    ]);
+  });
+
+  const wsSurvey = XLSX.utils.aoa_to_sheet(surveyRows);
+  wsSurvey['!cols'] = [{ wch: 6 }, { wch: 22 }, { wch: 55 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 16 }];
+  XLSX.utils.book_append_sheet(wb, wsSurvey, "Respuestas_Encuesta_43");
+
+  // HOJA 2: APORTES INDIVIDUALES Y SUGERENCIAS DE LOS TRABAJADORES (PÁG 5 Y 6)
+  const aportesRows = [
+    ["ERGOEXPRESS C.A. - APORTES, SUGERENCIAS Y TESTIMONIOS INDIVIDUALES (ART. 56 LOPCYMAT)"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    [],
+    [
+      "Colaborador Nº",
+      "Nombre y Apellido",
+      "Cédula / Cargo",
+      "Planteamiento, Propuesta y Observaciones del Trabajador"
+    ]
+  ];
+
+  for (let w = 1; w <= 6; w++) {
+    const nomBadge = document.getElementById("aporte-nombre-" + w)?.innerText.trim() || workerNames[w - 1];
+    const metaBadge = document.getElementById("aporte-meta-" + w)?.innerText.trim() || "--";
+    const txt = document.getElementById("aporte-trabajador-" + w)?.value.trim() || "-- Sin aportes registrados --";
+
+    aportesRows.push([
+      "Trabajador " + w,
+      nomBadge,
+      metaBadge,
+      txt
+    ]);
+  }
+
+  // Resumen general consolidado
+  const consObs = document.getElementById("obs-planteamientos-trabajadores")?.value.trim() || "";
+  aportesRows.push([]);
+  aportesRows.push(["RESUMEN GENERAL CONSOLIDADO DE APORTES"]);
+  aportesRows.push([consObs || "-- Sin consolidación registrada --"]);
+
+  const wsAportes = XLSX.utils.aoa_to_sheet(aportesRows);
+  wsAportes['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 24 }, { wch: 65 }];
+  XLSX.utils.book_append_sheet(wb, wsAportes, "Aportes_Trabajadores");
+
+  // Descargar archivo
+  const filename = `ERGOEXPRESS_Encuesta_Microclima_${meta.auditId}_${meta.dateStr}.xlsx`;
+  XLSX.writeFile(wb, filename);
+  showToast(`¡Encuesta exportada exitosamente en ${filename}!`, "success");
+}
+
+// ------------------------------------------------------------------------------
+// 3. EXPORTACIÓN COMPLETA MAESTRA DEL EXPEDIENTE A EXCEL (.XLSX)
+// ------------------------------------------------------------------------------
+function exportToExcel() {
+  showToast("Generando Libro Maestro Completo de Auditoría (.xlsx)...", "info");
+
+  if (typeof XLSX === 'undefined') {
+    showToast("Cargando motor Excel...", "warning");
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = () => exportToExcel();
+    document.head.appendChild(s);
+    return;
+  }
+
+  const meta = getAuditMeta();
+  const wb = XLSX.utils.book_new();
+
+  // 1. Hoja Empresa
+  const empRows = [
+    ["ERGOEXPRESS, C.A. - AUDITORÍA HIGIÉNICA Y ERGONÓMICA LOPCYMAT"],
+    ["Expediente Oficial:", meta.auditId],
+    [],
+    ["PARÁMETRO", "VALOR REGISTRADO EN CAMPO"],
+    ["Nombre / Razón Social:", meta.razonSocial],
+    ["RIF de la Empresa:", meta.rif],
+    ["Lugar y Fecha:", meta.lugarFecha],
+    ["Puesto de Trabajo:", meta.puesto],
+    ["Puesto Nº:", meta.puestoNum],
+    ["Actividad Específica:", meta.actividad],
+    ["Jornada / Horarios / Turnos:", meta.jornada],
+    ["Fecha de Exportación:", new Date().toLocaleString('es-VE')]
+  ];
+  const wsEmp = XLSX.utils.aoa_to_sheet(empRows);
+  wsEmp['!cols'] = [{ wch: 28 }, { wch: 55 }];
+  XLSX.utils.book_append_sheet(wb, wsEmp, "1_Empresa");
+
+  // 2. Hoja Colaboradores
+  const colabRows = [
+    ["ERGOEXPRESS C.A. - NÓMINA BIOMÉTRICA Y DEMOGRÁFICA DEL PUESTO (1 A 6)"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial],
+    [],
+    [
+      "Nº",
+      "Nombre y Apellidos",
+      "Cédula",
+      "Género",
+      "Fecha Nacimiento",
+      "Fecha Ingreso",
+      "Cargo / Puesto",
+      "Mano Dominante",
+      "Peso (Kg)",
+      "Talla (m)",
+      "FC Reposo (bpm)",
+      "FC Actividad (bpm)",
+      "Patología / Enfermedad",
+      "Diversidad Funcional",
+      "Estado Civil",
+      "Grado de Instrucción"
+    ]
+  ];
+
+  for (let w = 1; w <= 6; w++) {
+    colabRows.push([
+      w,
+      document.getElementById("colab-nombre-" + w)?.value || "",
+      document.getElementById("colab-cedula-" + w)?.value || "",
+      document.getElementById("colab-genero-" + w)?.value || "",
+      document.getElementById("colab-fnac-" + w)?.value || "",
+      document.getElementById("colab-fing-" + w)?.value || "",
+      document.getElementById("colab-cargo-" + w)?.value || "",
+      document.getElementById("colab-mano-" + w)?.value || "",
+      document.getElementById("colab-peso-" + w)?.value || "",
+      document.getElementById("colab-talla-" + w)?.value || "",
+      document.getElementById("colab-fcreposo-" + w)?.value || "",
+      document.getElementById("colab-fcact-" + w)?.value || "",
+      document.getElementById("colab-patologia-" + w)?.value || "",
+      document.getElementById("colab-diversidad-" + w)?.value || "",
+      document.getElementById("colab-civil-" + w)?.value || "",
+      document.getElementById("colab-instruccion-" + w)?.value || ""
+    ]);
+  }
+  const wsColab = XLSX.utils.aoa_to_sheet(colabRows);
+  wsColab['!cols'] = [{ wch: 5 }, { wch: 26 }, { wch: 16 }, { wch: 15 }, { wch: 16 }, { wch: 16 }, { wch: 22 }, { wch: 16 }, { wch: 12 }, { wch: 12 }, { wch: 15 }, { wch: 16 }, { wch: 25 }, { wch: 22 }, { wch: 18 }, { wch: 20 }];
+  XLSX.utils.book_append_sheet(wb, wsColab, "2_Colaboradores");
+
+  // 3. Hoja Térmico
+  exportMedicionesSheetsToWb(wb, meta);
+
+  // 4. Hoja Encuesta y Aportes
+  exportEncuestaSheetsToWb(wb, meta);
+
+  // 5. Hoja Acta y Firmas
+  const actaRows = [
+    ["ERGOEXPRESS C.A. - ACTA OFICIAL DE PARTICIPACIÓN Y RECOPILACIÓN DE DATOS (ART. 62 LOPCYMAT)"],
+    ["Expediente:", meta.auditId, "Empresa:", meta.razonSocial, "RIF:", meta.rif],
+    ["Puesto Evaluado:", meta.puesto, "Lugar y Fecha:", meta.lugarFecha],
+    [],
+    [
+      "Nº",
+      "Nombre y Apellido",
+      "Cédula",
+      "Cargo",
+      "Rol / Condición",
+      "Estado de Firma",
+      "Estado de Huella",
+      "Validación Legal"
+    ]
+  ];
+
+  for (let r = 1; r <= 6; r++) {
+    const nom = document.getElementById("acta-nombre-" + r)?.value || "";
+    const ced = document.getElementById("acta-cedula-" + r)?.value || "";
+    const cargo = document.getElementById("acta-cargo-" + r)?.value || "";
+    const rol = document.getElementById("acta-rol-" + r)?.value || "Trabajador(a)";
+    const hasSig = !!getCanvasSignatureData("acta-sig-" + r);
+    const huella = getHuellaCaptureData(r);
+
+    actaRows.push([
+      r,
+      nom,
+      ced,
+      cargo,
+      rol,
+      hasSig ? "FIRMADO MANUSCRITO" : "PENDIENTE",
+      huella ? (huella.type === 'sensor' ? "BIOMÉTRICO VALIDADO" : "FOTO MACRO CAPTURADA") : "SIN HUELLA",
+      hasSig ? "CONFORME (ART. 62)" : "PENDIENTE"
+    ]);
+  }
+  const wsActa = XLSX.utils.aoa_to_sheet(actaRows);
+  wsActa['!cols'] = [{ wch: 5 }, { wch: 26 }, { wch: 16 }, { wch: 20 }, { wch: 20 }, { wch: 22 }, { wch: 24 }, { wch: 20 }];
+  XLSX.utils.book_append_sheet(wb, wsActa, "6_Acta_Firmas");
+
+  const filename = `ERGOEXPRESS_Auditoria_Completa_${meta.auditId}_${meta.dateStr}.xlsx`;
+  XLSX.writeFile(wb, filename);
+  showToast(`¡Libro Maestro descargado en ${filename}!`, "success");
+}
+
+function exportMedicionesSheetsToWb(wb, meta) {
+  // Add simplified sheets to master workbook
+  // Térmico
+  const tRows = [["Punto", "Ubicación", "TBS (°C)", "TG (°C)", "HR (%)", "TBH (°C)", "TGBH (°C)", "Límite", "Diagnóstico"]];
+  for (let pt = 1; pt <= 4; pt++) {
+    tRows.push([
+      "PM-0" + pt,
+      document.getElementById("term-ubic-" + pt)?.value || "",
+      parseFloat(document.getElementById("term-tbs-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("term-tg-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("term-hr-" + pt)?.value) || 0,
+      document.getElementById("term-tbh-" + pt)?.innerText.trim() || "",
+      parseFloat(document.getElementById("term-tgbh-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("term-limite-" + pt)?.value) || 28.0,
+      document.getElementById("term-diag-" + pt)?.innerText.trim() || ""
+    ]);
+  }
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(tRows), "3_Termico");
+
+  // Iluminación
+  const lRows = [["Punto", "Ubicación", "Tarea", "Fuente", "Diurno (Lux)", "Nocturno (Lux)", "Norma (Lux)", "Diagnóstico"]];
+  for (let pt = 1; pt <= 4; pt++) {
+    lRows.push([
+      "PM-0" + pt,
+      document.getElementById("lux-ubic-" + pt)?.value || "",
+      document.getElementById("lux-req-" + pt)?.value || "",
+      document.getElementById("lux-fuente-" + pt)?.value || "",
+      parseFloat(document.getElementById("lux-diurno-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("lux-nocturno-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("lux-norma-" + pt)?.value) || 300,
+      document.getElementById("lux-diag-" + pt)?.innerText.trim() || ""
+    ]);
+  }
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(lRows), "4_Iluminacion");
+
+  // Ruido y Dosimetría
+  const nRows = [["Punto", "Ubicación", "Tipo", "dBA", "Leq dB(A)", "Límite", "Pico Crítico", "Diagnóstico"]];
+  for (let pt = 1; pt <= 4; pt++) {
+    nRows.push([
+      "PM-0" + pt,
+      document.getElementById("noise-ubic-" + pt)?.value || "",
+      document.getElementById("noise-tipo-" + pt)?.value || "",
+      parseFloat(document.getElementById("noise-dba-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("noise-leq-" + pt)?.value) || 0,
+      parseFloat(document.getElementById("noise-limite-" + pt)?.value) || 85.0,
+      document.getElementById("noise-pico-" + pt)?.innerText.trim() || "",
+      document.getElementById("noise-diag-" + pt)?.innerText.trim() || ""
+    ]);
+  }
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(nRows), "5_Ruido");
+}
+
+function exportEncuestaSheetsToWb(wb, meta) {
+  // Add simplified survey summary sheet
+  const sRows = [["Nº", "Categoría", "Pregunta", "T1", "T2", "T3", "T4", "T5", "T6", "SÍ", "NO", "N/A"]];
+  const rows = document.querySelectorAll('#matriz-encuesta-tbody tr.survey-matrix-row');
+  rows.forEach((r, idx) => {
+    const qNum = idx + 1;
+    const pEl = r.querySelector('td:first-child p');
+    const qText = pEl ? pEl.innerText.trim() : ("Pregunta " + qNum);
+    const cat = qNum <= 17 ? "Térmico" : (qNum <= 28 ? "Iluminación" : "Ruido");
+    let cSi = 0, cNo = 0, cNa = 0;
+    const wVals = [];
+    for (let w = 1; w <= 6; w++) {
+      const grp = document.getElementById(`grp-q${qNum}-w${w}`);
+      let ans = "N/D";
+      if (grp) {
+        if (grp.querySelector('.btn-opt-si.bg-primary')) { ans = "SI"; cSi++; }
+        else if (grp.querySelector('.btn-opt-no.bg-secondary-container')) { ans = "NO"; cNo++; }
+        else if (grp.querySelector('.btn-opt-na.bg-surface-container-highest')) { ans = "NA"; cNa++; }
+      }
+      wVals.push(ans);
+    }
+    sRows.push([qNum, cat, qText, ...wVals, cSi, cNo, cNa]);
+  });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sRows), "5_Encuesta_43");
+}
+
 
 // ==============================================================================
 // GENERACIÓN Y EXPORTACIÓN DEL ACTA OFICIAL DE PARTICIPACIÓN LOPCYMAT EN PDF
