@@ -268,6 +268,38 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
   }
 }
 
+
+/* ==========================================================================
+   OPTIMIZACIONES TÁCTILES Y RESPONSIVIDAD ANDROID PARA TÉCNICOS EN CAMPO
+   ========================================================================== */
+@media (max-width: 768px) {
+  table input, table select {
+    min-height: 40px !important;
+    font-size: 14px !important;
+  }
+  table input[type="date"] {
+    min-height: 40px !important;
+    font-size: 13px !important;
+    padding: 0 6px !important;
+  }
+  td:has(input), td:has(select) {
+    cursor: pointer;
+  }
+  /* Resaltado táctil accesible */
+  input:focus, select:focus, textarea:focus {
+    border-color: #006874 !important;
+    box-shadow: 0 0 0 2px rgba(0, 104, 116, 0.25) !important;
+  }
+  /* Estilo visual inequívoco para campos calculados de solo lectura */
+  input[readonly], textarea[readonly] {
+    background-color: var(--color-surface-container, #e6ecec) !important;
+    color: #4b6365 !important;
+    cursor: not-allowed !important;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen pb-24 selection:bg-secondary-container selection:text-on-secondary-container">
@@ -459,340 +491,587 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
 <thead>
 <tr class="bg-primary-container text-on-primary font-label-md text-label-md">
 <th class="p-2.5 sticky left-0 z-20 bg-primary-container w-44 uppercase border-r border-outline">Parámetro Biométrico</th>
-<th class="p-2.5 w-48 text-secondary-container bg-primary-container/95 border-r border-outline">
-<div class="flex items-center justify-between">
-<span>Trabajador 1</span>
-<span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
-</div>
+<th class="p-2.5 w-44 border-r border-outline bg-primary-container/95 text-secondary-container">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 1</span>
+    <span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
+  </div>
 </th>
-<th class="p-2.5 w-48 border-r border-outline">Trabajador 2</th>
-<th class="p-2.5 w-48 border-r border-outline">Trabajador 3</th>
-<th class="p-2.5 w-44 border-r border-outline text-outline-variant">Trabajador 4</th>
-<th class="p-2.5 w-44 border-r border-outline text-outline-variant">Trabajador 5</th>
-<th class="p-2.5 w-44 text-outline-variant">Trabajador 6</th>
+<th class="p-2.5 w-44 border-r border-outline">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 2</span>
+    <span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
+  </div>
+</th>
+<th class="p-2.5 w-44 border-r border-outline">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 3</span>
+    <span class="material-symbols-outlined text-xs" data-icon="edit">edit</span>
+  </div>
+</th>
+<th class="p-2.5 w-44 border-r border-outline">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 4</span>
+  </div>
+</th>
+<th class="p-2.5 w-44 border-r border-outline">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 5</span>
+  </div>
+</th>
+<th class="p-2.5 w-44 border-r border-outline">
+  <div class="flex items-center justify-between">
+    <span>Trabajador 6</span>
+  </div>
+</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant font-body-sm text-body-sm">
+<tbody>
 <!-- 1. Nombre y Apellidos -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Nombre y Apellidos</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-medium focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="Juan José Pérez Mora"/>
+  <input id="colab-nombre-1" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" value="Juan José Pérez Mora" autocomplete="name"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary" type="text" value="María Elena Rodríguez"/>
+  <input id="colab-nombre-2" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" value="María Elena Rodríguez" autocomplete="name"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary" type="text" value="Carlos Luis Valera"/>
+  <input id="colab-nombre-3" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" value="Carlos Luis Valera" autocomplete="name"/>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-outline" placeholder="-- Libre --" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-nombre-4" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" autocomplete="name"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-nombre-5" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" autocomplete="name"/>
+</td>
+<td class="p-1.5">
+  <input id="colab-nombre-6" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Nombre y Apellidos" autocomplete="name"/>
+</td>
 </tr>
 <!-- 2. Cédula de Identidad -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Cédula de Identidad</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface focus:border-secondary font-mono" type="text" value="V-18.432.901"/>
+  <input id="colab-cedula-1" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" value="V-18.432.901" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-mono" type="text" value="V-20.119.453"/>
+  <input id="colab-cedula-2" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" value="V-20.119.453" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface font-mono" type="text" value="V-16.782.304"/>
+  <input id="colab-cedula-3" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" value="V-16.782.304" />
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded font-mono" placeholder="V-" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-cedula-4" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" />
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-cedula-5" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" />
+</td>
+<td class="p-1.5">
+  <input id="colab-cedula-6" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="V-00.000.000" />
+</td>
 </tr>
 <!-- 3. Género -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Género</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
-<option selected="">Masculino (M)</option>
-<option>Femenino (F)</option>
+  <select id="colab-genero-1" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Masculino (M)" selected="">Masculino (M)</option>
+  <option value="Femenino (F)">Femenino (F)</option>
+  <option value="Otro">Otro</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
-<option>Masculino (M)</option>
-<option selected="">Femenino (F)</option>
+  <select id="colab-genero-2" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Masculino (M)">Masculino (M)</option>
+  <option value="Femenino (F)" selected="">Femenino (F)</option>
+  <option value="Otro">Otro</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-body-sm text-on-surface">
-<option selected="">Masculino (M)</option>
-<option>Femenino (F)</option>
+  <select id="colab-genero-3" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Masculino (M)" selected="">Masculino (M)</option>
+  <option value="Femenino (F)">Femenino (F)</option>
+  <option value="Otro">Otro</option>
 </select>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
-<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-genero-4" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Masculino (M)">Masculino (M)</option>
+  <option value="Femenino (F)">Femenino (F)</option>
+  <option value="Otro">Otro</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-genero-5" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Masculino (M)">Masculino (M)</option>
+  <option value="Femenino (F)">Femenino (F)</option>
+  <option value="Otro">Otro</option>
+</select>
+</td>
+<td class="p-1.5">
+  <select id="colab-genero-6" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Masculino (M)">Masculino (M)</option>
+  <option value="Femenino (F)">Femenino (F)</option>
+  <option value="Otro">Otro</option>
+</select>
+</td>
 </tr>
 <!-- 4. Fecha de Nacimiento -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Fecha de Nacimiento</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1988-04-12"/>
+  <input id="colab-fnac-1" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="1988-04-12"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1992-09-21"/>
+  <input id="colab-fnac-2" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="1992-09-21"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="1984-11-03"/>
+  <input id="colab-fnac-3" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="1984-11-03"/>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-fnac-4" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-fnac-5" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
+<td class="p-1.5">
+  <input id="colab-fnac-6" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
 </tr>
 <!-- 5. Fecha de Ingreso -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Fecha de Ingreso</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2018-02-15"/>
+  <input id="colab-fing-1" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="2018-02-15"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2020-06-01"/>
+  <input id="colab-fing-2" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="2020-06-01"/>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs" type="date" value="2015-08-10"/>
+  <input id="colab-fing-3" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" value="2015-08-10"/>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-outline text-xs" type="date"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-fing-4" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-fing-5" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
+<td class="p-1.5">
+  <input id="colab-fing-6" type="date" class="w-full h-9 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"/>
+</td>
 </tr>
 <!-- 6. Cargo -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Cargo</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Técnico I"/>
+  <input id="colab-cargo-1" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" value="Operador Técnico I" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Técnico II"/>
+  <input id="colab-cargo-2" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" value="Operador Técnico II" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Operador Líder Tolva"/>
+  <input id="colab-cargo-3" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" value="Operador Líder Tolva" />
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-cargo-4" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" />
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-cargo-5" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" />
+</td>
+<td class="p-1.5">
+  <input id="colab-cargo-6" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Cargo / Puesto" />
+</td>
 </tr>
 <!-- 7. Mano Dominante -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Mano Dominante</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
-<option selected="">Diestro (D)</option>
-<option>Zurdo (Z)</option>
-<option>Ambidiestro (A)</option>
+  <select id="colab-mano-1" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Diestro (D)" selected="">Diestro (D)</option>
+  <option value="Zurdo (Z)">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
-<option>Diestro (D)</option>
-<option selected="">Zurdo (Z)</option>
-<option>Ambidiestro (A)</option>
+  <select id="colab-mano-2" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Diestro (D)">Diestro (D)</option>
+  <option value="Zurdo (Z)" selected="">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface font-semibold text-xs">
-<option selected="">Diestro (D)</option>
-<option>Zurdo (Z)</option>
-<option>Ambidiestro (A)</option>
+  <select id="colab-mano-3" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Diestro (D)" selected="">Diestro (D)</option>
+  <option value="Zurdo (Z)">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
 </select>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-mano-4" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Diestro (D)">Diestro (D)</option>
+  <option value="Zurdo (Z)">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-mano-5" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Diestro (D)">Diestro (D)</option>
+  <option value="Zurdo (Z)">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
+</select>
+</td>
+<td class="p-1.5">
+  <select id="colab-mano-6" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Diestro (D)">Diestro (D)</option>
+  <option value="Zurdo (Z)">Zurdo (Z)</option>
+  <option value="Ambidiestro (A)">Ambidiestro (A)</option>
+</select>
+</td>
 </tr>
 <!-- 8. Peso (Kg) -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Peso (Kg)</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="78.5"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-peso-1" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="78.5"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="62.0"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-peso-2" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="62.0"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.5" type="number" value="84.2"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">Kg</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-peso-3" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="84.2"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-peso-4" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-peso-5" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
+</td>
+<td class="p-1.5">
+  <div class="flex items-center">
+    <input id="colab-peso-6" type="number" step="0.5" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">Kg</span>
+  </div>
+</td>
 </tr>
 <!-- 9. Talla / Estatura (mts) -->
-<tr class="hover:bg-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
 <td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Talla / Estatura (mts)</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.74"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-talla-1" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="1.74"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.62"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-talla-2" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="1.62"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" step="0.01" type="number" value="1.81"/>
-<span class="h-8 px-1.5 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">m</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-talla-3" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="1.81"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-talla-4" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-talla-5" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
+</td>
+<td class="p-1.5">
+  <div class="flex items-center">
+    <input id="colab-talla-6" type="number" step="0.01" inputmode="decimal" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">m</span>
+  </div>
+</td>
 </tr>
-<!-- 10. Frecuencia Cardíaca Reposo -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">FC Reposo (bpm)</td>
+<!-- 10. FC Reposo (bpm) -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> FC Reposo (bpm)</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="68"/>
-<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcreposo-1" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="68"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="72"/>
-<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcreposo-2" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="72"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="74"/>
-<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcreposo-3" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="74"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-fcreposo-4" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-fcreposo-5" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
+<td class="p-1.5">
+  <div class="flex items-center">
+    <input id="colab-fcreposo-6" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
 </tr>
-<!-- 11. Frecuencia Cardíaca Actividad -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">FC Actividad (bpm)</td>
+<!-- 11. FC Actividad (bpm) -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> FC Actividad (bpm)</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-secondary rounded-l text-primary font-bold font-mono" type="number" value="112"/>
-<span class="h-8 px-1 bg-secondary-container border-y border-r border-secondary rounded-r text-label-sm flex items-center text-on-secondary-container font-bold">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcact-1" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-secondary text-primary font-bold rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="112"/>
+    <span class="h-9 px-1.5 bg-secondary-container text-on-secondary-container font-bold border-secondary border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded-l text-on-surface font-mono" type="number" value="105"/>
-<span class="h-8 px-1 bg-surface-container border-y border-r border-outline-variant rounded-r text-label-sm flex items-center text-outline">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcact-2" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-secondary text-primary font-bold rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="105"/>
+    <span class="h-9 px-1.5 bg-secondary-container text-on-secondary-container font-bold border-secondary border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<div class="flex items-center">
-<input class="w-full h-8 px-2 bg-surface-bright border border-error rounded-l text-error font-bold font-mono" type="number" value="128"/>
-<span class="h-8 px-1 bg-error-container border-y border-r border-error rounded-r text-label-sm flex items-center text-on-error-container font-bold">bpm</span>
-</div>
+  <div class="flex items-center">
+    <input id="colab-fcact-3" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-error text-error font-bold rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--" value="128"/>
+    <span class="h-9 px-1.5 bg-error-container text-on-error-container font-bold border-error border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded text-center" placeholder="--" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-fcact-4" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <div class="flex items-center">
+    <input id="colab-fcact-5" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
+<td class="p-1.5">
+  <div class="flex items-center">
+    <input id="colab-fcact-6" type="number" step="1" inputmode="numeric" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant text-on-surface rounded-l font-mono text-xs focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="--"/>
+    <span class="h-9 px-1.5 bg-surface-container text-outline border-outline-variant border-y border-r rounded-r text-label-sm flex items-center">bpm</span>
+  </div>
+</td>
 </tr>
 <!-- 12. Patología / Enfermedad -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Patología / Enfermedad</td>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> Patología / Enfermedad</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Lumbalgia mecánica leve (2022)"/>
+  <input id="colab-patologia-1" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" value="Lumbalgia mecánica leve (2022)" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna reportada"/>
+  <input id="colab-patologia-2" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" value="Ninguna reportada" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Hipertensión arterial controlada"/>
+  <input id="colab-patologia-3" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" value="Hipertensión arterial controlada" />
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-patologia-4" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" />
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-patologia-5" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" />
+</td>
+<td class="p-1.5">
+  <input id="colab-patologia-6" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna reportada" />
+</td>
 </tr>
 <!-- 13. Diversidad Funcional -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Diversidad Funcional</td>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> Diversidad Funcional</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna"/>
+  <input id="colab-diversidad-1" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" value="Ninguna" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Ninguna"/>
+  <input id="colab-diversidad-2" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" value="Ninguna" />
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<input class="w-full h-8 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface" type="text" value="Visual (Uso de lentes correctivos)"/>
+  <input id="colab-diversidad-3" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" value="Visual (Uso de lentes correctivos)" />
 </td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5 border-r border-outline-variant"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
-<td class="p-1.5"><input class="w-full h-8 px-2 bg-surface-container border border-outline-variant/60 rounded" type="text"/></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-diversidad-4" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" />
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <input id="colab-diversidad-5" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" />
+</td>
+<td class="p-1.5">
+  <input id="colab-diversidad-6" type="text" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-medium focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Ninguna" />
+</td>
 </tr>
 <!-- 14. Estado Civil -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Estado Civil</td>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> Estado Civil</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option selected="">Casado(a)</option>
-<option>Soltero(a)</option>
-<option>Concubinato</option>
+  <select id="colab-civil-1" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Soltero(a)">Soltero(a)</option>
+  <option value="Casado(a)" selected="">Casado(a)</option>
+  <option value="Concubinato / Unión Libre">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option>Casado(a)</option>
-<option selected="">Soltero(a)</option>
-<option>Concubinato</option>
+  <select id="colab-civil-2" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Soltero(a)" selected="">Soltero(a)</option>
+  <option value="Casado(a)">Casado(a)</option>
+  <option value="Concubinato / Unión Libre">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option>Casado(a)</option>
-<option>Soltero(a)</option>
-<option selected="">Concubinato</option>
+  <select id="colab-civil-3" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Soltero(a)">Soltero(a)</option>
+  <option value="Casado(a)">Casado(a)</option>
+  <option value="Concubinato / Unión Libre" selected="">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
 </select>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-civil-4" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Soltero(a)">Soltero(a)</option>
+  <option value="Casado(a)">Casado(a)</option>
+  <option value="Concubinato / Unión Libre">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-civil-5" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Soltero(a)">Soltero(a)</option>
+  <option value="Casado(a)">Casado(a)</option>
+  <option value="Concubinato / Unión Libre">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
+</select>
+</td>
+<td class="p-1.5">
+  <select id="colab-civil-6" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Soltero(a)">Soltero(a)</option>
+  <option value="Casado(a)">Casado(a)</option>
+  <option value="Concubinato / Unión Libre">Concubinato / Unión Libre</option>
+  <option value="Divorciado(a)">Divorciado(a)</option>
+  <option value="Viudo(a)">Viudo(a)</option>
+</select>
+</td>
 </tr>
 <!-- 15. Grado de Instrucción -->
-<tr class="hover:bg-surface-container-low">
-<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase">Grado de Instrucción</td>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2 font-label-sm text-label-sm font-bold bg-surface-container-low sticky left-0 z-10 border-r border-outline-variant text-primary uppercase"> Grado de Instrucción</td>
 <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option>Bachiller</option>
-<option selected="">TSU Mecánica</option>
-<option>Universitario</option>
+  <select id="colab-instruccion-1" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller">Bachiller</option>
+  <option value="TSU" selected="">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option selected="">Bachiller</option>
-<option>TSU Industrial</option>
-<option>Universitario</option>
+  <select id="colab-instruccion-2" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller" selected="">Bachiller</option>
+  <option value="TSU">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
 </select>
 </td>
 <td class="p-1.5 border-r border-outline-variant">
-<select class="w-full h-8 px-1.5 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs">
-<option>Bachiller</option>
-<option selected="">TSU Mantenimiento</option>
-<option>Universitario</option>
+  <select id="colab-instruccion-3" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller">Bachiller</option>
+  <option value="TSU" selected="">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
 </select>
 </td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5 border-r border-outline-variant"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
-<td class="p-1.5"><select class="w-full h-8 px-1 bg-surface-container border border-outline-variant/60 rounded text-xs"><option>-</option></select></td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-instruccion-4" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller">Bachiller</option>
+  <option value="TSU">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
+</select>
+</td>
+<td class="p-1.5 border-r border-outline-variant">
+  <select id="colab-instruccion-5" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller">Bachiller</option>
+  <option value="TSU">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
+</select>
+</td>
+<td class="p-1.5">
+  <select id="colab-instruccion-6" class="w-full h-9 px-2 bg-surface-bright border border-outline-variant rounded text-on-surface text-xs font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+  <option value="" selected="">-- Seleccionar --</option>
+  <option value="Primaria">Primaria</option>
+  <option value="Bachiller">Bachiller</option>
+  <option value="TSU">TSU</option>
+  <option value="Universitario">Universitario</option>
+  <option value="Especialización / Postgrado">Especialización / Postgrado</option>
+</select>
+</td>
 </tr>
 </tbody>
 </table>
@@ -3957,25 +4236,25 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
             </td>
             <td class="p-1.5 bg-secondary-container/20 border-r border-outline-variant">
               <div class="relative flex items-center">
-                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-bright border border-outline-variant rounded text-primary focus:border-secondary focus:ring-1 focus:ring-secondary" id="term-tgbh-1" oninput="evalThermalPoint(1)" step="0.1" type="number" value="26.1"/>
+                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-container border border-outline-variant rounded font-mono text-secondary cursor-not-allowed" id="term-tgbh-1" readonly tabindex="-1" step="0.1" type="number" value="26.1" title="Cálculo normativo TGBH: 0.7*TBH + 0.3*TG"/>
                 <span class="absolute right-2 text-[10px] text-outline font-semibold">°C</span>
               </div>
             </td>
             <td class="p-1.5 border-r border-outline-variant">
               <div class="relative flex items-center">
-                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-bright border border-outline-variant rounded text-primary focus:border-secondary focus:ring-1 focus:ring-secondary" id="term-tgbh-2" oninput="evalThermalPoint(2)" step="0.1" type="number" value="25.0"/>
+                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-container border border-outline-variant rounded font-mono text-secondary cursor-not-allowed" id="term-tgbh-2" readonly tabindex="-1" step="0.1" type="number" value="26.1" title="Cálculo normativo TGBH: 0.7*TBH + 0.3*TG"/>
                 <span class="absolute right-2 text-[10px] text-outline font-semibold">°C</span>
               </div>
             </td>
             <td class="p-1.5 border-r border-outline-variant">
               <div class="relative flex items-center">
-                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-bright border border-outline-variant rounded text-error focus:border-secondary focus:ring-1 focus:ring-secondary" id="term-tgbh-3" oninput="evalThermalPoint(3)" step="0.1" type="number" value="28.3"/>
+                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-container border border-outline-variant rounded font-mono text-secondary cursor-not-allowed" id="term-tgbh-3" readonly tabindex="-1" step="0.1" type="number" value="26.1" title="Cálculo normativo TGBH: 0.7*TBH + 0.3*TG"/>
                 <span class="absolute right-2 text-[10px] text-outline font-semibold">°C</span>
               </div>
             </td>
             <td class="p-1.5 border-r border-outline-variant hidden thermal-col-4" id="td-tgbh-4">
               <div class="relative flex items-center">
-                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-bright border border-outline-variant rounded text-primary focus:border-secondary focus:ring-1 focus:ring-secondary" id="term-tgbh-4" oninput="evalThermalPoint(4)" step="0.1" type="number" value="25.1"/>
+                <input class="w-full h-8 pl-2 pr-8 text-xs font-bold bg-surface-container border border-outline-variant rounded font-mono text-secondary cursor-not-allowed" id="term-tgbh-4" readonly tabindex="-1" step="0.1" type="number" value="26.1" title="Cálculo normativo TGBH: 0.7*TBH + 0.3*TG"/>
                 <span class="absolute right-2 text-[10px] text-outline font-semibold">°C</span>
               </div>
             </td>
@@ -4350,39 +4629,43 @@ T3 (Carlos Luis Valera - V-16.782.304): Refiere esfuerzo físico elevado al esti
               Nivel Mínimo COVENIN 2249 (Lux)
             </td>
             <td class="p-1.5 bg-secondary-container/10 border-r border-outline-variant">
-              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface" id="lux-norma-1" onchange="evalLightingPoint(1)">
+              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface focus:border-secondary" id="lux-norma-1" onchange="evalLightingPoint(1)">
                 <option value="100">100 Lux (Tránsito / Pasillos)</option>
-                <option value="200">200 Lux (Áreas generales)</option>
+                <option value="150">150 Lux (Almacén / Paletizado)</option>
+                <option value="200">200 Lux (Áreas generales / Patios)</option>
                 <option value="300" selected>300 Lux (Trabajos medios / Envasado)</option>
-                <option value="500">500 Lux (Inspección / Trabajo fino)</option>
-                <option value="1000">1000 Lux (Inspección muy detallada)</option>
+                <option value="500">500 Lux (Inspección / Trabajo fino / Control)</option>
+                <option value="1000">1000 Lux (Inspección muy detallada / Precisión)</option>
               </select>
             </td>
             <td class="p-1.5 border-r border-outline-variant">
-              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface" id="lux-norma-2" onchange="evalLightingPoint(2)">
+              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface focus:border-secondary" id="lux-norma-2" onchange="evalLightingPoint(2)">
                 <option value="100">100 Lux (Tránsito / Pasillos)</option>
-                <option value="200" selected>200 Lux (Áreas generales / Pasillos)</option>
+                <option value="150">150 Lux (Almacén / Paletizado)</option>
+                <option value="200" selected>200 Lux (Áreas generales / Patios)</option>
                 <option value="300">300 Lux (Trabajos medios / Envasado)</option>
-                <option value="500">500 Lux (Inspección / Trabajo fino)</option>
-                <option value="1000">1000 Lux (Inspección muy detallada)</option>
+                <option value="500">500 Lux (Inspección / Trabajo fino / Control)</option>
+                <option value="1000">1000 Lux (Inspección muy detallada / Precisión)</option>
               </select>
             </td>
             <td class="p-1.5 border-r border-outline-variant">
-              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface" id="lux-norma-3" onchange="evalLightingPoint(3)">
+              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface focus:border-secondary" id="lux-norma-3" onchange="evalLightingPoint(3)">
                 <option value="100">100 Lux (Tránsito / Pasillos)</option>
-                <option value="200">200 Lux (Áreas generales)</option>
+                <option value="150">150 Lux (Almacén / Paletizado)</option>
+                <option value="200">200 Lux (Áreas generales / Patios)</option>
                 <option value="300">300 Lux (Trabajos medios / Envasado)</option>
-                <option value="500" selected>500 Lux (Inspección / Control de calidad)</option>
-                <option value="1000">1000 Lux (Inspección muy detallada)</option>
+                <option value="500" selected>500 Lux (Inspección / Trabajo fino / Control)</option>
+                <option value="1000">1000 Lux (Inspección muy detallada / Precisión)</option>
               </select>
             </td>
             <td class="p-1.5 border-r border-outline-variant hidden lighting-col-4" id="td-lux-norma-4">
-              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface" id="lux-norma-4" onchange="evalLightingPoint(4)">
+              <select class="w-full h-8 px-1.5 text-xs bg-surface-bright border border-outline-variant rounded font-semibold text-on-surface focus:border-secondary" id="lux-norma-4" onchange="evalLightingPoint(4)">
                 <option value="100">100 Lux (Tránsito / Pasillos)</option>
                 <option value="150" selected>150 Lux (Almacén / Paletizado)</option>
-                <option value="200">200 Lux (Áreas generales)</option>
-                <option value="300">300 Lux (Trabajos medios)</option>
-                <option value="500">500 Lux (Inspección fina)</option>
+                <option value="200">200 Lux (Áreas generales / Patios)</option>
+                <option value="300">300 Lux (Trabajos medios / Envasado)</option>
+                <option value="500">500 Lux (Inspección / Trabajo fino / Control)</option>
+                <option value="1000">1000 Lux (Inspección muy detallada / Precisión)</option>
               </select>
             </td>
             <td class="p-1.5">
@@ -6539,6 +6822,18 @@ function getSyncConfig() {
   if (saved) {
     try { return JSON.parse(saved); } catch(e) {}
   }
+  
+  // Delegación de foco táctil para celdas de tabla en pantallas táctiles Android
+  document.addEventListener('pointerdown', (e) => {
+    const td = e.target.closest('td');
+    if (td && (e.target === td || e.target.tagName === 'DIV')) {
+      const ctrl = td.querySelector('input:not([readonly]):not([disabled]), select:not([disabled]), textarea:not([readonly]):not([disabled])');
+      if (ctrl && document.activeElement !== ctrl) {
+        setTimeout(() => { ctrl.focus(); }, 10);
+      }
+    }
+  }, { passive: true });
+
   return {
     url: "https://script.google.com/macros/s/AKfycbzPpsB79yYdivRpOD3eYFeqBEx2nnBnJWCbnfOWce9YG5JTzp8l1GejQPYOdpUeYRk/exec",
     user: "Auditor Principal",
@@ -8308,29 +8603,27 @@ function evalThermalPoint(pt) {
 function recalcThermalPoint(pt) {
   const tbsInput = document.getElementById("term-tbs-" + pt);
   const hrInput = document.getElementById("term-hr-" + pt);
+  const tgInput = document.getElementById("term-tg-" + pt);
 
+  let tbh = 22.0;
   // 1. Calcular TBH psicrométrica referencial (Stull)
   if (tbsInput && hrInput) {
     const tbs = parseFloat(tbsInput.value) || 28.0;
     const hr = parseFloat(hrInput.value) || 60.0;
-    const tbh = calcWetBulbStull(tbs, hr);
+    tbh = calcWetBulbStull(tbs, hr);
     const tbhEl = document.getElementById("term-tbh-" + pt);
     if (tbhEl) tbhEl.textContent = tbh.toFixed(1) + " °C";
   }
 
-  // 2. Si el TGBH está vacío, sugerir cálculo por defecto
+  // 2. Calcular índice TGBH normativo (0.7 * TBH + 0.3 * TG)
   const tgbhInput = document.getElementById("term-tgbh-" + pt);
-  if (tgbhInput && (!tgbhInput.value || tgbhInput.value.trim() === "")) {
-    const tgInput = document.getElementById("term-tg-" + pt);
+  if (tgbhInput) {
     const tg = tgInput ? (parseFloat(tgInput.value) || 32.0) : 32.0;
-    const tbs = tbsInput ? (parseFloat(tbsInput.value) || 28.0) : 28.0;
-    const hr = hrInput ? (parseFloat(hrInput.value) || 60.0) : 60.0;
-    const tbh = calcWetBulbStull(tbs, hr);
     const tgbhCalc = (0.7 * tbh) + (0.3 * tg);
     tgbhInput.value = tgbhCalc.toFixed(1);
   }
 
-  // 3. Evaluar diagnóstico según el valor de TGBH escrito
+  // 3. Evaluar diagnóstico según límite permisible
   evalThermalPoint(pt);
 }
 
@@ -9684,17 +9977,19 @@ window.MobileFieldMode = (function() {
     card.innerHTML = html;
 
     card.querySelectorAll('input, select').forEach(ctrl => {
-      ctrl.addEventListener('input', () => {
-        const rowIdx = parseInt(ctrl.dataset.row);
-        const cell = table.rows[rowIdx].cells[activeColabIdx];
-        if (cell) {
-          const orig = cell.querySelector('input, select');
-          if (orig) {
-            orig.value = ctrl.value;
-            orig.dispatchEvent(new Event('input', { bubbles: true }));
-            orig.dispatchEvent(new Event('change', { bubbles: true }));
+      ['input', 'change'].forEach(evtType => {
+        ctrl.addEventListener(evtType, () => {
+          const rowIdx = parseInt(ctrl.dataset.row);
+          const cell = table.rows[rowIdx].cells[activeColabIdx];
+          if (cell) {
+            const orig = cell.querySelector('input, select');
+            if (orig) {
+              orig.value = ctrl.value;
+              orig.dispatchEvent(new Event('input', { bubbles: true }));
+              orig.dispatchEvent(new Event('change', { bubbles: true }));
+            }
           }
-        }
+        });
       });
     });
   }
@@ -10279,18 +10574,20 @@ window.MobileFieldMode = (function() {
   }
 
   function bindDynamicFields(box, onUpdateCallback) {
-    box.querySelectorAll('input, select').forEach(ctrl => {
-      ctrl.addEventListener('input', () => {
-        const targetId = ctrl.dataset.target;
-        if (targetId) {
-          const orig = document.getElementById(targetId);
-          if (orig) {
-            orig.value = ctrl.value;
-            orig.dispatchEvent(new Event('input', { bubbles: true }));
-            orig.dispatchEvent(new Event('change', { bubbles: true }));
+    box.querySelectorAll('input, select, textarea').forEach(ctrl => {
+      ['input', 'change'].forEach(evtType => {
+        ctrl.addEventListener(evtType, () => {
+          const targetId = ctrl.dataset.target;
+          if (targetId) {
+            const orig = document.getElementById(targetId);
+            if (orig) {
+              orig.value = ctrl.value;
+              orig.dispatchEvent(new Event('input', { bubbles: true }));
+              orig.dispatchEvent(new Event('change', { bubbles: true }));
+            }
           }
-        }
-        if (onUpdateCallback) onUpdateCallback();
+          if (onUpdateCallback) onUpdateCallback();
+        });
       });
     });
   }
