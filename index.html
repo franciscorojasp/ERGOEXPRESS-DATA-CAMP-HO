@@ -8262,9 +8262,8 @@ async function onInpsaselPdfSelected(event) {
   }
 
   try {
-    // Verificar si pdfjsLib está listo
+    // 1. Verificar si pdfjsLib está listo o cargarlo
     if (typeof pdfjsLib === 'undefined') {
-      showToast("Cargando motor de lectura PDF...", "info");
       await new Promise((resolve) => {
         const s = document.createElement('script');
         s.src = './assets/pdf.min.js';
@@ -8283,6 +8282,7 @@ async function onInpsaselPdfSelected(event) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = './assets/pdf.worker.min.js';
     }
 
+    // 2. Extraer el texto completo del documento PDF (todas las páginas)
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
     const pdf = await loadingTask.promise;
@@ -8295,50 +8295,79 @@ async function onInpsaselPdfSelected(event) {
       fullText += pageStrings.join("\n") + "\n";
     }
 
+    // 3. Autocompletar datos del auditor mediante el analizador inteligente
     const parsed = parseInpsaselCertificateText(fullText);
     parsed.pdfFileName = file.name;
 
-    // Prellenar modal con los datos extraídos para que el auditor los confirme o ajuste
-    const mNom = document.getElementById('input-auditor-modal-nombre');
-    const mCed = document.getElementById('input-auditor-modal-cedula');
-    const mInp = document.getElementById('input-auditor-modal-inpsasel');
-    const mPro = document.getElementById('input-auditor-modal-profesion');
-    const mCol = document.getElementById('input-auditor-modal-colegio');
-    const mEmi = document.getElementById('input-auditor-modal-emision');
-    const mVen = document.getElementById('input-auditor-modal-vencimiento');
+    // Verificar si se extrajo al menos información esencial (nombre, cédula o registro)
+    const hasData = !!(parsed.nombre || parsed.cedula || parsed.inpsasel);
 
-    if (mNom) mNom.value = parsed.nombre || '';
-    if (mCed) mCed.value = parsed.cedula || '';
-    if (mInp) mInp.value = parsed.inpsasel || '';
-    if (mPro) mPro.value = parsed.profesion || '';
-    if (mCol) mCol.value = parsed.colegio || '';
-    if (mEmi) mEmi.value = parsed.emision || '';
-    if (mVen) mVen.value = parsed.vencimiento || '';
+    if (hasData) {
+      // AUTOCOMPLETADO DIRECTO Y AUTOMÁTICO:
+      // Guardar y aplicar de inmediato a toda la aplicación sin requerir intervención manual
+      guardarPerfilAuditor(parsed);
 
-    // Guardar y aplicar inmediatamente
-    guardarPerfilAuditor(parsed);
+      // Efecto visual de confirmación en la tarjeta del auditor
+      const card = document.getElementById('card-modulo-auditor-inpsasel');
+      if (card) {
+        card.classList.add('ring-2', 'ring-secondary');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-secondary'), 2500);
+      }
 
-    // Abrir modal de revisión
-    const modal = document.getElementById('modal-auditor-inpsasel');
-    if (modal) modal.classList.remove('hidden');
-
-    if (typeof showToast === 'function') {
-      showToast(`Constancia INPSASEL de ${parsed.nombre || 'auditor'} extraída con éxito.`, "success");
+      if (typeof showToast === 'function') {
+        const nombreDisplay = parsed.nombre || "Auditor";
+        const regDisplay = parsed.inpsasel ? ` | Reg: ${parsed.inpsasel}` : "";
+        showToast(`✓ Perfil autocompletado desde PDF: ${nombreDisplay}${regDisplay}`, "success");
+      }
+    } else {
+      // Si el PDF no tiene capa de texto digital (ej. escaneado como imagen pura)
+      if (typeof showToast === 'function') {
+        showToast("PDF escaneado sin texto digital directo. Por favor verifique los datos en 'Editar / Ver Perfil'.", "warning");
+      }
+      abrirModalAuditorInpsasel();
     }
   } catch (err) {
     console.error("Error al procesar PDF de INPSASEL:", err);
     if (typeof showToast === 'function') {
-      showToast("Error al leer el PDF. Ingrese los datos manualmente en el formulario.", "error");
+      showToast("No se pudo leer el archivo PDF. Intente de nuevo o use 'Editar / Ver Perfil'.", "error");
     }
-    abrirModalAuditorInpsasel();
   } finally {
-    // Resetear valor del input de archivo para permitir cargar el mismo archivo si es necesario
+    // Permitir volver a cargar el mismo archivo si es necesario
     if (event.target) event.target.value = '';
   }
 }
 
 /**
- * Parser con expresiones regulares adaptado a las constancias oficiales del INPSASEL
+ * Diccionario de meses en español para normalización de fechas textuales
+ */
+const INPSASEL_MONTHS_MAP = {
+  'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',
+  'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08',
+  'septiembre': '09', 'setiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'
+};
+
+function parseSpanishDateString(str) {
+  if (!str) return '';
+  const clean = str.trim();
+  // Formato numérico DD/MM/AAAA o DD-MM-AAAA
+  const numMatch = clean.match(/\b(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})\b/);
+  if (numMatch) {
+    return `${numMatch[1].padStart(2, '0')}/${numMatch[2].padStart(2, '0')}/${numMatch[3]}`;
+  }
+  // Formato textual "15 de enero de 2024" o "15 de enero del 2024"
+  const wordMatch = clean.match(/\b(\d{1,2})\s+de\s+([a-zA-ZáéíóúÁÉÍÓÚ]+)(?:\s+del?|\s+de)?\s+(\d{4})\b/i);
+  if (wordMatch) {
+    const d = wordMatch[1].padStart(2, '0');
+    const mStr = wordMatch[2].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const m = INPSASEL_MONTHS_MAP[mStr] || '01';
+    return `${d}/${m}/${wordMatch[3]}`;
+  }
+  return clean;
+}
+
+/**
+ * Parser con expresiones regulares exhaustivo para todos los formatos
+ * de constancias y certificados de profesionales del INPSASEL (Web, DIRESAT, GERESAT, etc.)
  */
 function parseInpsaselCertificateText(text) {
   const result = {
@@ -8354,69 +8383,131 @@ function parseInpsaselCertificateText(text) {
 
   const cleanText = text.replace(/\r/g, "");
 
-  // 1. Cédula de Identidad (V-XX.XXX.XXX o E-XX.XXX.XXX)
-  const ciMatch = cleanText.match(/(?:C\.?I\.?|C[ée]dula(?:\s+de\s+identidad)?|Identificaci[oó]n|Doc)\s*(?:N[°º]?)?\s*:?\s*([VE]-?\s*[\d\.\s]{6,12})/i) ||
-                  cleanText.match(/\b([VE]-?\d{1,2}\.?\d{3}\.?\d{3})\b/i);
+  // -------------------------------------------------------------
+  // 1. Cédula de Identidad (V-XX.XXX.XXX / E-XX.XXX.XXX)
+  // -------------------------------------------------------------
+  const ciMatch = cleanText.match(/(?:c[ée]dula(?:\s+de\s+identidad)?|c\.?i\.?|identificaci[oó]n|documento)\s*(?:n[°º]?)?\s*:?\s*([VE]-?\s*[\d\.\s]{6,12})/i) ||
+                  cleanText.match(/(?:titular\s+de\s+la\s+c[ée]dula(?:\s+de\s+identidad)?(?:\s+n[úu]mero)?)\s*:?\s*([VE]-?\s*[\d\.\s]{6,12})/i) ||
+                  cleanText.match(/\b([VE]-?\d{1,2}\.?\d{3}\.?\d{3})\b/i) ||
+                  cleanText.match(/(?:titular\s+de\s+la\s+c[ée]dula(?:\s+de\s+identidad)?(?:\s+n[úu]mero)?)\s*:?\s*([\d\.\s]{6,12})/i);
   if (ciMatch) {
-    let ci = ciMatch[1].replace(/\s+/g, "").toUpperCase();
-    if (!ci.includes("-") && (ci.startsWith("V") || ci.startsWith("E"))) {
-      ci = ci[0] + "-" + ci.slice(1);
+    let rawCi = ciMatch[1].replace(/\s+/g, "").toUpperCase();
+    if (!rawCi.startsWith("V") && !rawCi.startsWith("E")) {
+      rawCi = "V-" + rawCi;
+    } else if (!rawCi.includes("-")) {
+      rawCi = rawCi[0] + "-" + rawCi.slice(1);
     }
-    result.cedula = ci;
+    result.cedula = rawCi;
   }
 
-  // 2. Número de Registro INPSASEL (ej. CAR-081498021, MIR-0912440182, etc.)
-  const regMatch = cleanText.match(/(?:N[úu]mero\s+de\s+Registro|N[°º]\s*de\s*Registro|N[°º]\s*Registro|Registro\s+N[°º]?|C[óo]digo\s+INPSASEL|Acreditaci[óo]n\s+N[°º]?)\s*(?:INPSASEL)?\s*:?\s*([A-Z]{2,4}-?\d{5,12})/i) ||
-                   cleanText.match(/\b([A-Z]{2,4}-\d{6,12})\b/);
+  // -------------------------------------------------------------
+  // 2. Número de Registro INPSASEL
+  // Códigos estadales oficiales: CAR, MIR, DC, ARA, ZUL, BOL, LAR, ANZ, etc.
+  // -------------------------------------------------------------
+  const regMatch = cleanText.match(/\b((?:CAR|MIR|DC|ARA|ZUL|BOL|LAR|ANZ|TAC|TRU|MER|FAL|GUA|POR|YAR|COJ|SUC|MON|NES|BAR|APU|AMA|DEL|VAR)-?\d{5,12})\b/i) ||
+                   cleanText.match(/\b([A-Z]{2,4}-\d{5,12})\b/) ||
+                   cleanText.match(/(?:n[úu]mero\s+de\s+registro|n[°º]\s*de\s*registro|n[°º]\s*registro|registro\s+n[°º]?|c[óo]digo\s+inpsasel|acreditaci[óo]n\s+n[°º]?)\s*(?:inpsasel)?\s*:?\s*([A-Z0-9\-]{5,15})/i) ||
+                   cleanText.match(/(?:registrado\s+bajo\s+el\s+(?:n[úu]mero|n[°º]))\s*:?\s*([A-Z0-9\-]{5,15})/i);
   if (regMatch) {
     result.inpsasel = regMatch[1].toUpperCase();
   }
 
-  // 3. Nombre Completo (priorizar etiqueta explícita Nombre:)
-  const nameMatch = cleanText.match(/\b(?:Nombre(?:\s+y\s+Apellidos?)?|Nombres?)\s*:?\s*([^\n\r]+)/i) ||
-                    cleanText.match(/\b(?:Ciudadano(?:\s*\(a\))?|Titular|Evaluador|Auditor)\s*:?\s*([^\n\r]+)/i);
-  if (nameMatch) {
-    let n = nameMatch[1].trim();
-    n = n.replace(/^(?:que\s+el\s+profesional|el\s+profesional)\s*:?/i, "").trim();
-    n = n.replace(/(?:C[ée]dula|C\.I\.|Registro|Profesi[oó]n|V-).*$/i, "").trim();
-    if (n.length > 3 && !n.toUpperCase().includes("CONSTANCIA") && !n.toUpperCase().includes("LOPCYMAT")) {
-      result.nombre = n;
+  // -------------------------------------------------------------
+  // 3. Nombre Completo del Profesional
+  // -------------------------------------------------------------
+  // Variante A: "hace constar que el (la) ciudadano(a): [NOMBRE], titular de la cédula"
+  const constarMatch = cleanText.match(/hace\s+constar\s+que\s+(?:el|la|\(la\)|el\s*\(la\))?\s*ciudadan[oa](?:\s*\(a\))?\s*:?\s*([^\,\n\r]+?)(?:,|\s+titular|\s+con\s+c[ée]dula|\s+c[ée]dula)/i);
+  if (constarMatch && constarMatch[1].trim().length > 3) {
+    result.nombre = constarMatch[1].trim();
+  }
+
+  // Variante B: "Nombre:", "Nombres y Apellidos:", "Apellidos y Nombres:"
+  if (!result.nombre) {
+    const nameLabelMatch = cleanText.match(/\b(?:apellidos?\s+y\s+nombres?|nombres?\s+y\s+apellidos?|nombres?)\s*:?\s*([^\n\r]+)/i);
+    if (nameLabelMatch) {
+      let n = nameLabelMatch[1].trim();
+      n = n.replace(/^(?:que\s+el\s+profesional|el\s+profesional)\s*:?/i, "").trim();
+      n = n.replace(/(?:c[ée]dula|c\.i\.|registro|profesi[oó]n|v-).*$/i, "").trim();
+      if (n.length > 3 && !n.toUpperCase().includes("CONSTANCIA") && !n.toUpperCase().includes("LOPCYMAT")) {
+        result.nombre = n;
+      }
     }
   }
 
-  // 4. Profesión / Especialidad (evitar coincidir con 'PROFESIONAL')
-  const profMatch = cleanText.match(/\b(?:Profesi[oó]n(?!\w)|Especialidad|T[íi]tulo(?:\s+Universitario)?|Grado|Carrera)\s*:?\s*([^\n\r]+)/i);
+  // Variante C: "Se certifica que el profesional: [NOMBRE]"
+  if (!result.nombre) {
+    const certMatch = cleanText.match(/se\s+certifica\s+que\s+el\s+profesional\s*:?\s*([^\n\r]+)/i);
+    if (certMatch && certMatch[1].trim().length > 3) {
+      let n = certMatch[1].trim().replace(/(?:c[ée]dula|c\.i\.|registro).*$/i, "").trim();
+      if (n.length > 3 && !n.toUpperCase().includes("CONSTANCIA")) {
+        result.nombre = n;
+      }
+    }
+  }
+
+  // Limpiar signos de puntuación residuales
+  if (result.nombre) {
+    result.nombre = result.nombre.replace(/[\,\.\:\;]+$/, "").trim();
+  }
+
+  // -------------------------------------------------------------
+  // 4. Profesión / Especialidad
+  // -------------------------------------------------------------
+  const profMatch = cleanText.match(/\b(?:profesi[oó]n\b(?:\s*\/[^\:\n\r]+)?|grado\s+acad[ée]mico|t[íi]tulo(?:\s+universitario)?|carrera)\s*:?\s*([^\n\r]+)/i) ||
+                    cleanText.match(/(?:de\s+profesi[oó]n|con\s+el\s+t[íi]tulo\s+de)\s*:?\s*([^\,\n\r]+)/i) ||
+                    cleanText.match(/\b(ingeniero\s+[a-z\s\/]+|licenciad[oa]\s+[a-z\s\/]+|m[ée]dico\s+[a-z\s\/]+|t\.?s\.?u\.?\s+[a-z\s\/]+|especialista\s+en\s+[a-z\s\/]+)/i);
   if (profMatch) {
     let p = profMatch[1].trim();
-    p = p.replace(/(?:Colegio|C\.I\.V\.|C\.I\.|Vencimiento|Registro).*$/i, "").trim();
-    if (p.length > 2 && !p.toUpperCase().includes("CONSTANCIA") && !p.toUpperCase().includes("REGISTRO")) {
-      result.profesion = p;
+    p = p.replace(/(?:colegio|c\.i\.v\.|c\.i\.|vencimiento|registro|inscrito).*$/i, "").trim();
+    p = p.replace(/^[\/\-\:]+\s*/, "").trim();
+    if (p.length > 2 && !p.toUpperCase().includes("CONSTANCIA") && !p.toUpperCase().includes("REGISTRO DE")) {
+      result.profesion = p.toUpperCase().replace(/[\,\.\:\;]+$/, "").trim();
     }
   }
 
-  // 5. Colegio de Ingenieros / Matrícula Profesional
-  const civMatch = cleanText.match(/(?:Colegio(?:\s+de\s+Ingenieros)?|C\.?I\.?V\.?|CIV|Gremio|Matr[íi]cula)\s*(?:N[°º]?)?\s*:?\s*([^\n\r]+)/i) ||
-                   cleanText.match(/\b(C\.?I\.?V\.?\s*(?:N[°º]?)?\s*[\d\.]+)\b/i);
-  if (civMatch) {
-    let c = civMatch[1].trim();
-    c = c.replace(/(?:Fecha|Emisi[oó]n|Vencimiento).*$/i, "").trim();
-    result.colegio = c;
+  // Especialidad adicional (ej. "Especialidad: SALUD OCUPACIONAL")
+  const espMatch = cleanText.match(/\bespecialidad\s*:?\s*([^\n\r]+)/i);
+  if (espMatch) {
+    const esp = espMatch[1].trim().replace(/(?:colegio|c\.i\.v\.|fecha|registro).*$/i, "").trim().toUpperCase().replace(/[\,\.\:\;]+$/, "");
+    if (esp.length > 2 && result.profesion && !result.profesion.includes(esp)) {
+      result.profesion += " / " + esp;
+    } else if (!result.profesion && esp.length > 2) {
+      result.profesion = esp;
+    }
   }
 
-  // 6. Fechas (Emisión y Vencimiento / Vigencia)
-  const emisMatch = cleanText.match(/(?:Fecha\s+de\s+Emisi[oó]n|Emisi[oó]n|Expedici[oó]n|Otorgado)\s*:?\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i);
-  if (emisMatch) result.emision = emisMatch[1];
+  // -------------------------------------------------------------
+  // 5. Colegio de Ingenieros / Matrícula Profesional (CIV, etc.)
+  // -------------------------------------------------------------
+  const civMatch = cleanText.match(/\b(c\.?i\.?v\.?\s*(?:n[°º]?)?\s*[\d\.]+)\b/i) ||
+                   cleanText.match(/(?:colegio(?:\s+de\s+[a-z]+)?|civ|gremio|matr[íi]cula)\s*(?:n[°º]?)?\s*:?\s*([^\n\r\,]+)/i);
+  if (civMatch) {
+    let c = civMatch[1].trim();
+    c = c.replace(/(?:fecha|emisi[oó]n|vencimiento).*$/i, "").trim();
+    result.colegio = c.toUpperCase().replace(/[\,\.\:\;]+$/, "").trim();
+    if (!result.colegio.startsWith("C.I.V.") && !result.colegio.startsWith("COL.") && !result.colegio.startsWith("MAT.")) {
+      if (/^\d/.test(result.colegio)) {
+        result.colegio = "C.I.V. " + result.colegio;
+      }
+    }
+  }
 
-  const vencMatch = cleanText.match(/(?:Fecha\s+de\s+Vencimiento|Vencimiento|V[áa]lido\s+hasta|Vigencia(?:\s+hasta)?)\s*:?\s*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i);
-  if (vencMatch) result.vencimiento = vencMatch[1];
+  // -------------------------------------------------------------
+  // 6. Fechas (Emisión y Vencimiento / Vigencia)
+  // -------------------------------------------------------------
+  const emisMatch = cleanText.match(/(?:fecha\s+de\s+emisi[oó]n|emisi[oó]n|expedici[oó]n|otorgado|emitida\s+el\s+d[ií]a)\s*:?\s*([^\n\r\,\;]+)/i);
+  if (emisMatch) {
+    result.emision = parseSpanishDateString(emisMatch[1]);
+  }
+
+  const vencMatch = cleanText.match(/(?:fecha\s+de\s+vencimiento|vencimiento|v[áa]lido\s+hasta|vigencia(?:\s+hasta)?)\s*:?\s*([^\n\r\,\;]+)/i);
+  if (vencMatch) {
+    result.vencimiento = parseSpanishDateString(vencMatch[1]);
+  }
 
   return result;
 }
 
-
-// MOTOR UNIFICADO DE EXPORTACIÓN (EXCEL .XLSX / CSV / PDF) - ERGOEXPRESS
-// Soporte Dinámico de Colaboradores Activos (filtra columnas inactivas)
-// Soporte Offline y Descarga 100% Nativa en Smartphones Android
 // ==============================================================================
 
 function getAuditMeta() {
