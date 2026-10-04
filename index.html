@@ -334,7 +334,7 @@ nav.fixed.bottom-0 a.nav-item span:last-child { max-width: 100%; overflow: hidde
     <img alt="ERGOEXPRESS C.A. Logo Oficial" class="shrink-0 h-9 w-9 sm:h-10 sm:w-10 object-contain rounded-full shadow-sm border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUhf6tk2PngVKA0Vypu0AyHC2-bNtZ_ClvCjCufMa9ykqy9gRYrGPlra8yUquZhyksBLsrIa3XCA4IwD4ueFsvZ4ApiE6ViFUrHoCAGGPd2KqZG1AH1EH5JRK1Bq7S2WRWhUe63qm51ETfjuwrKR1MKlcBHuwMtaC34NHZDuPncQywECqe8aq1iXU24NiPieEUlq5Txi7BkGEoNbhY7GeiITxSmf1ChNhkXRqobrTYHkFVrfc5D0UBNfA0uJlr2Xd71w" onerror="this.src='img/recopilaci_n_de_datos_higiene_ocupacional_page_1.png'"/>
     <div class="flex flex-col min-w-0">
       <span class="min-[400px]:truncate text-[14px] min-[400px]:text-[15px] sm:text-headline-sm font-headline-sm font-bold tracking-tight text-primary dark:text-inverse-primary leading-tight">ERGOEXPRESS, C.A.</span>
-      <span class="hidden min-[400px]:block truncate font-label-sm text-label-sm text-on-surface-variant dark:text-outline-variant font-medium">RIF: J-50251246-2 • LOPCYMAT</span>
+      <span class="hidden min-[400px]:block truncate font-label-sm text-label-sm text-on-surface-variant dark:text-outline-variant font-medium">RIF: J-50251246-2 • LOPCYMAT • v4.2 INPSASEL</span>
     </div>
   </div>
   <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
@@ -11546,6 +11546,20 @@ if ("serviceWorker" in navigator && window.location.protocol.startsWith('http'))
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js").then(reg => {
       console.log("Service Worker ERGOEXPRESS registrado:", reg.scope);
+      reg.update();
+      reg.addEventListener("updatefound", () => {
+        const newWorker = reg.installing;
+        if (newWorker) {
+          newWorker.addEventListener("statechange", () => {
+            if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+              if (typeof showToast === 'function') {
+                showToast("Nueva versión v4.2 disponible. Actualizando aplicación...", "info");
+              }
+              setTimeout(() => window.location.reload(), 1000);
+            }
+          });
+        }
+      });
     }).catch(err => {
       console.warn("Error registrando Service Worker:", err);
     });
